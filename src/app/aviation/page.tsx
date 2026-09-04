@@ -242,14 +242,16 @@ export default function AviationPage() {
             <LineReveal lines={[<span key="1">Three shapes of engagement.</span>]} />
           </h2>
 
-          <RevealGroup className="mt-16 grid gap-px border border-ink/12 bg-ink/12 lg:mt-24 lg:grid-cols-3">
+          <RevealGroup className="mt-16 grid gap-x-12 gap-y-12 lg:mt-24 lg:grid-cols-3">
             {aviationEngagements.map((shape, i) => (
-              <RevealItem key={shape.name} className="bg-dune">
-                <div className="flex h-full flex-col p-8 lg:p-10">
-                  <span className="label-mono text-ink/35">{ordinal(i)}</span>
-                  <h3 className="mt-6 font-display text-heading">{shape.name}</h3>
+              <RevealItem key={shape.name}>
+                <div className="flex h-full flex-col border-t border-ink/25 pt-7">
+                  <span className="label-mono text-ink/45">{ordinal(i)}</span>
+                  <h3 className="mt-6 font-display text-heading leading-tight">
+                    {shape.name}
+                  </h3>
                   <p className="mt-3 label-mono text-brass">{shape.duration}</p>
-                  <p className="mt-6 text-[0.9375rem] leading-relaxed text-tone-muted">
+                  <p className="mt-6 max-w-sm text-[0.9375rem] leading-relaxed text-tone-muted">
                     {shape.body}
                   </p>
                 </div>

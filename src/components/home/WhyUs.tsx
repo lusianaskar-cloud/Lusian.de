@@ -3,15 +3,21 @@
 import { differentiators } from "@/lib/content/site";
 import { Section, Container } from "@/components/primitives/Section";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
-import { LineReveal, Reveal, RevealGroup, RevealItem } from "@/components/primitives/Reveal";
+import { LineReveal, Reveal } from "@/components/primitives/Reveal";
 import { ordinal } from "@/lib/utils";
 
+/**
+ * The argument, set as an editorial ledger rather than a card grid: an
+ * oversized numeral, the claim, and the substantiation, separated by
+ * hairlines. Nothing here is boxed — on this site a border means something is
+ * outstanding.
+ */
 export function WhyUs() {
   return (
     <Section tone="light" className="bg-paper" aria-labelledby="why-heading">
       <Container className="py-28 lg:py-40">
         <div className="grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-6">
             <Reveal>
               <Eyebrow>Why clients engage us</Eyebrow>
             </Reveal>
@@ -35,26 +41,27 @@ export function WhyUs() {
           </Reveal>
         </div>
 
-        <RevealGroup className="mt-20 grid gap-px border border-ink/10 bg-ink/10 sm:grid-cols-2 lg:mt-28">
+        <div className="mt-20 lg:mt-28">
           {differentiators.map((item, i) => (
-            <RevealItem key={item.title} className="relative bg-paper">
-              <div className="relative h-full overflow-hidden p-8 lg:p-12">
+            <Reveal key={item.title} wide>
+              <div className="grid items-baseline gap-x-10 gap-y-4 border-t border-ink/12 py-10 lg:grid-cols-12 lg:py-14">
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute -right-2 -top-6 font-display text-[7rem] leading-none text-ink/[0.05]"
+                  className="font-display text-[clamp(2.25rem,4.4vw,4rem)] leading-none tracking-tight text-ink/15 lg:col-span-1"
                 >
                   {ordinal(i)}
                 </span>
-                <h3 className="relative font-display text-heading leading-tight">
+                <h3 className="font-display text-[clamp(1.6rem,2.8vw,2.5rem)] leading-tight tracking-tight lg:col-span-5 lg:col-start-3">
                   {item.title}
                 </h3>
-                <p className="relative mt-5 max-w-md text-[0.9375rem] leading-relaxed text-tone-muted">
+                <p className="max-w-xl text-[0.9375rem] leading-relaxed text-tone-muted lg:col-span-4 lg:col-start-9 lg:text-base">
                   {item.body}
                 </p>
               </div>
-            </RevealItem>
+            </Reveal>
           ))}
-        </RevealGroup>
+          <span className="block border-t border-ink/12" />
+        </div>
       </Container>
     </Section>
   );

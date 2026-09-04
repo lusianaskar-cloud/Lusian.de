@@ -134,6 +134,12 @@ inverts against the section beneath it.
   (`clamp(1.25rem, 4.5vw, 5rem)`); `container-narrow` at 68rem for reading.
 - A 12-column grid on desktop, 4 on mobile. `HairlineGrid` draws it in the hero.
 - Hairlines are `currentColor` at 12–15% — never a fixed grey.
+- **A border means something is outstanding.** Boxed blocks are reserved for
+  content the firm has yet to supply (`PlaceholderBlock`, the legal and
+  Insights notices) and for framed instruments (the route-network plate, the
+  constellation, photography plates). Ordinary content is separated by
+  hairlines and whitespace, never enclosed — which is also what keeps the
+  page from reading as a grid of cards.
 - Large flat fields carry a `grain` layer so they do not read as flat CSS.
 
 ## Accessibility
