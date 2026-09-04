@@ -26,8 +26,10 @@
   --color-hangar:   #14313D;
   --color-ice:      #A0B8C2;
 
-  /* Accent — muted brass, never shiny gold */
-  --color-brass:     #9C7F52;
+  /* Accent — muted bronze, never shiny gold.
+     Brass is tuned so 11px mono labels clear 4.5:1 on ivory, paper and dune;
+     champagne is its counterpart on the dark grounds. */
+  --color-brass:     #7A6039;
   --color-champagne: #C6AD82;
 
   /* Typography */

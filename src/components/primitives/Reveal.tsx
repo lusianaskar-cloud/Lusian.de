@@ -13,6 +13,14 @@ type RevealProps = {
   distance?: number;
   as?: ElementType;
   wide?: boolean;
+  /**
+   * For content that is above the fold on load.
+   *
+   * Plays on mount rather than on scroll, and rises **without** fading —
+   * an element that starts at `opacity: 0` is not counted as painted, so a
+   * fade here would push Largest Contentful Paint out by the whole delay.
+   */
+  eager?: boolean;
 };
 
 /** Opacity + short rise. The workhorse reveal for body copy and blocks. */
@@ -23,9 +31,23 @@ export function Reveal({
   distance = 24,
   as = "div",
   wide = false,
+  eager = false,
 }: RevealProps) {
   const reduced = useReducedMotion();
   const MotionTag = motion[as as "div"];
+
+  if (eager) {
+    return (
+      <MotionTag
+        className={className}
+        initial={reduced ? { y: 0 } : { y: distance }}
+        animate={{ y: 0 }}
+        transition={{ duration: 1.05, ease: EASE.expo, delay }}
+      >
+        {children}
+      </MotionTag>
+    );
+  }
 
   return (
     <MotionTag

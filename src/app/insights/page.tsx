@@ -32,7 +32,7 @@ export default function InsightsPage() {
       <Section tone="light" className="bg-ivory">
         <Container className="pb-24 lg:pb-36">
           {/* Honest framing — nothing below is published research. */}
-          <Reveal wide>
+          <Reveal eager>
             <div className="mb-14 flex flex-col gap-4 border border-brass/35 bg-brass/[0.06] p-6 sm:flex-row sm:items-center sm:gap-8 lg:mb-20 lg:p-8">
               <span className="label-mono shrink-0 text-brass">Section in preparation</span>
               <p className="text-[0.875rem] leading-relaxed text-tone-muted">

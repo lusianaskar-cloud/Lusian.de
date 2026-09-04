@@ -94,23 +94,30 @@ export function Preloader() {
   const parting = state === "parting";
 
   const plate = (
-    <div className="pointer-events-none absolute inset-x-0 h-[100lvh] w-full">
-      <div className="flex h-full flex-col items-center justify-center gap-7">
+    <div className="pointer-events-none absolute inset-0">
+      {/* The mark is placed so its own horizon lands exactly on the split,
+          which is the line the plate later parts along. 0.60625 is the chord's
+          position within the glyph; the mark is 2.75rem tall. */}
+      <div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2"
+        style={{ marginTop: "-1.667rem" }}
+      >
         <Mark className="h-11 w-11 text-champagne" animated />
-        <span className="flex overflow-hidden">
-          {site.wordmark.split("").map((letter, i) => (
-            <motion.span
-              key={`${letter}-${i}`}
-              className="block text-[0.95rem] font-medium tracking-[0.5em] text-ivory"
-              initial={{ y: "120%" }}
-              animate={{ y: "0%" }}
-              transition={{ duration: 1, ease: EASE.expo, delay: 0.45 + i * 0.05 }}
-            >
-              {letter}
-            </motion.span>
-          ))}
-        </span>
       </div>
+
+      <span className="absolute left-1/2 top-1/2 mt-9 flex -translate-x-1/2 overflow-hidden pl-[0.5em]">
+        {site.wordmark.split("").map((letter, i) => (
+          <motion.span
+            key={`${letter}-${i}`}
+            className="block text-[0.95rem] font-medium tracking-[0.5em] text-ivory"
+            initial={{ y: "120%" }}
+            animate={{ y: "0%" }}
+            transition={{ duration: 1, ease: EASE.expo, delay: 0.55 + i * 0.05 }}
+          >
+            {letter}
+          </motion.span>
+        ))}
+      </span>
 
       <div className="absolute inset-x-0 bottom-10 flex items-end justify-between px-(--spacing-gutter)">
         <span className="label-mono text-ivory/40">{site.descriptorShort}</span>
@@ -136,7 +143,7 @@ export function Preloader() {
             transition={{ duration: 1.1, ease: EASE.drape }}
           >
             <span aria-hidden className="grain-layer" />
-            <div className="absolute inset-x-0 top-0">{plate}</div>
+            <div className="absolute inset-x-0 top-0 h-[200%]">{plate}</div>
           </motion.div>
 
           <motion.div
@@ -146,11 +153,11 @@ export function Preloader() {
             transition={{ duration: 1.1, ease: EASE.drape }}
           >
             <span aria-hidden className="grain-layer" />
-            <div className="absolute inset-x-0 bottom-0">{plate}</div>
+            <div className="absolute inset-x-0 bottom-0 h-[200%]">{plate}</div>
           </motion.div>
 
           <motion.span
-            className="absolute inset-x-0 top-1/2 h-px bg-champagne/50"
+            className="absolute inset-x-0 top-1/2 z-10 h-px origin-left bg-champagne/60"
             initial={{ scaleX: 0, opacity: 1 }}
             animate={{ scaleX: 1, opacity: parting ? 0 : 1 }}
             transition={{

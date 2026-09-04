@@ -38,7 +38,7 @@ export function DivisionSplit() {
             </Reveal>
             <h2
               id="divisions-heading"
-              className="mt-8 font-display text-heading lg:text-title"
+              className="mt-8 font-display text-title"
             >
               <LineReveal
                 lines={[

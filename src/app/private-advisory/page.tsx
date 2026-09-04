@@ -76,7 +76,7 @@ export default function PrivateAdvisoryPage() {
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
             <h2
               id="gulf-position"
-              className="font-display text-heading leading-snug lg:col-span-7 lg:text-title"
+              className="font-display text-title leading-[1.06] lg:col-span-7"
             >
               <LineReveal
                 lines={[

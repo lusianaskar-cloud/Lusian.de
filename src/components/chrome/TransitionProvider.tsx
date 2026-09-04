@@ -14,7 +14,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { EASE } from "@/lib/motion";
 import { scrollToTopImmediate } from "./SmoothScroll";
 
-type Phase = "idle" | "cover" | "hold" | "uncover";
+type Phase = "idle" | "cover" | "uncover";
 
 type TransitionContextValue = {
   navigate: (href: string, label?: string) => void;
@@ -30,13 +30,18 @@ export function useTransitionNavigate() {
   return useContext(TransitionContext);
 }
 
+const COVER_MS = 720;
+/** If a route somehow never arrives, lift the curtain anyway. */
+const SAFETY_MS = 2600;
+
 /**
- * A curtain that sweeps upward across the viewport, holds the destination's
- * name, then continues off the top. Two panels travel with a small offset so
- * the sweep reads as layered rather than flat.
+ * SIGNATURE MOMENT — the curtain.
  *
- * The route push is issued as the curtain closes, so data loads behind it and
- * the transition length is felt as intent rather than latency.
+ * Two plates sweep upward across the viewport, a beat apart, carrying the
+ * destination's name. The route is only pushed once the screen is fully
+ * covered, so the incoming page is never glimpsed climbing in behind the
+ * plate; because every route is prerendered and prefetched, the swap happens
+ * inside the hold and the length reads as intent rather than latency.
  */
 export function TransitionProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -46,21 +51,20 @@ export function TransitionProvider({ children }: { children: React.ReactNode }) 
   const [phase, setPhase] = useState<Phase>("idle");
   const [label, setLabel] = useState("");
   const pendingHref = useRef<string | null>(null);
-  const coverDone = useRef(false);
-  const arrived = useRef(false);
+  const safety = useRef<number | null>(null);
 
-  const finishIfReady = useCallback(() => {
-    if (coverDone.current && arrived.current) {
-      coverDone.current = false;
-      arrived.current = false;
-      pendingHref.current = null;
-      setPhase("uncover");
+  const lift = useCallback(() => {
+    if (safety.current) {
+      window.clearTimeout(safety.current);
+      safety.current = null;
     }
+    pendingHref.current = null;
+    setPhase("uncover");
   }, []);
 
   const navigate = useCallback(
     (href: string, nextLabel = "") => {
-      if (href === pathname) return;
+      if (href === pathname || pendingHref.current) return;
 
       if (reduced) {
         router.push(href);
@@ -69,77 +73,89 @@ export function TransitionProvider({ children }: { children: React.ReactNode }) 
 
       setLabel(nextLabel);
       pendingHref.current = href;
-      coverDone.current = false;
-      arrived.current = false;
       setPhase("cover");
-      // Start the fetch immediately; the curtain covers the wait.
-      router.push(href);
     },
     [pathname, reduced, router],
   );
 
+  // Push only once the screen is covered.
+  const onCovered = useCallback(() => {
+    const href = pendingHref.current;
+    if (!href) return;
+    scrollToTopImmediate();
+    router.push(href);
+    safety.current = window.setTimeout(lift, SAFETY_MS);
+  }, [lift, router]);
+
   useEffect(() => {
     if (pendingHref.current && pathname === pendingHref.current) {
       scrollToTopImmediate();
-      arrived.current = true;
-      finishIfReady();
+      lift();
     }
-  }, [pathname, finishIfReady]);
+  }, [pathname, lift]);
+
+  useEffect(() => () => {
+    if (safety.current) window.clearTimeout(safety.current);
+  }, []);
 
   const value = useMemo(
     () => ({ navigate, isTransitioning: phase !== "idle" }),
     [navigate, phase],
   );
 
-  const active = phase === "cover" || phase === "uncover";
+  const covering = phase === "cover";
 
   return (
     <TransitionContext.Provider value={value}>
       {children}
 
       <AnimatePresence>
-        {active ? (
+        {phase !== "idle" ? (
           <motion.div
             key="curtain"
             aria-hidden
             className="pointer-events-none fixed inset-0 z-[120]"
           >
-            {/* Trailing panel — a beat behind, for depth. */}
+            {/* Trailing plate — a beat behind, so the sweep reads as layered. */}
             <motion.div
-              className="absolute inset-0 bg-brass/25"
+              className="absolute inset-0 bg-brass/30"
               initial={{ y: "100%" }}
-              animate={{ y: phase === "cover" ? "0%" : "-100%" }}
-              transition={{ duration: 0.78, ease: EASE.drape, delay: 0.06 }}
+              animate={{ y: covering ? "0%" : "-100%" }}
+              transition={{ duration: COVER_MS / 1000, ease: EASE.drape, delay: 0.07 }}
             />
+
             <motion.div
               className="grain absolute inset-0 bg-ink"
               initial={{ y: "100%" }}
-              animate={{ y: phase === "cover" ? "0%" : "-100%" }}
-              transition={{ duration: 0.78, ease: EASE.drape }}
+              animate={{ y: covering ? "0%" : "-100%" }}
+              transition={{ duration: COVER_MS / 1000, ease: EASE.drape }}
               onAnimationComplete={() => {
-                if (phase === "cover") {
-                  coverDone.current = true;
-                  finishIfReady();
-                } else {
-                  setPhase("idle");
-                }
+                if (covering) onCovered();
+                else setPhase("idle");
               }}
             >
               <span className="grain-layer" />
-              <div className="relative flex h-full items-center justify-center">
-                <motion.span
-                  className="label-mono text-ivory/70"
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{
-                    opacity: phase === "cover" ? 1 : 0,
-                    y: phase === "cover" ? 0 : -12,
-                  }}
-                  transition={{ duration: 0.5, ease: EASE.soft, delay: phase === "cover" ? 0.34 : 0 }}
-                >
-                  {label || "Lusian"}
-                </motion.span>
-              </div>
             </motion.div>
+
+            {/* Held at the centre of the viewport rather than carried by the
+                plate, so the name is actually readable while it holds. */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <motion.span
+                className="label-mono text-ivory/70"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{
+                  opacity: covering ? 1 : 0,
+                  y: covering ? 0 : -10,
+                }}
+                transition={{
+                  duration: 0.45,
+                  ease: EASE.soft,
+                  delay: covering ? 0.42 : 0,
+                }}
+              >
+                {label || "Lusian"}
+              </motion.span>
+            </div>
           </motion.div>
         ) : null}
       </AnimatePresence>

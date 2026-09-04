@@ -51,7 +51,7 @@ export default async function InsightPage({ params }: Params) {
             <LineReveal immediate delay={0.15} lines={[<span key="t">{insight.title}</span>]} />
           </h1>
 
-          <Reveal delay={0.25}>
+          <Reveal eager delay={0.25}>
             <p className="mt-8 max-w-2xl text-lead text-tone-muted">{insight.standfirst}</p>
           </Reveal>
         </Container>

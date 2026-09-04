@@ -14,10 +14,19 @@ Tokens are declared in `@theme` in `src/app/globals.css`.
 **Neutrals** — `ash #8B857A` · `graphite #4A4A46` · `ink #14181A` · `obsidian #0A0D0E`
 **Aviation, cool** — `petrol #0B1A21` · `hangar #14313D` · `ice #A0B8C2`
 **Private, warm** — `umber #1F1713`
-**Accent** — `brass #9C7F52` (on light) · `champagne #C6AD82` (on dark)
+**Accent** — `brass #7A6039` (on light) · `champagne #C6AD82` (on dark)
 
-No pure black and no pure white anywhere. The accent is a muted brass, never a
-shiny gold, and never used as a fill behind body text.
+The accent is a muted bronze rather than a gold. `brass` is tuned so that
+11px mono labels clear 4.5:1 against ivory, paper *and* dune — the accent is
+used at label size often enough that it has to hold there, not only in
+display type. If you lighten it, re-run the contrast check.
+
+No pure black and no pure white anywhere, and the accent is never used as a
+fill behind body text.
+
+Every text colour on every page was measured against its composited background
+at desktop and phone widths; all of it meets WCAG AA (4.5:1 for body and label
+sizes, 3:1 for display).
 
 ### Tonality
 

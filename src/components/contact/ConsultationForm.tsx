@@ -116,7 +116,7 @@ export function ConsultationForm() {
                 onClick={() => setDivision(option.id)}
                 aria-pressed={selected}
                 className={cn(
-                  "group relative overflow-hidden border p-5 text-left transition-colors duration-500",
+                  "group relative flex flex-col items-start overflow-hidden border p-5 text-left transition-colors duration-500",
                   selected
                     ? "border-current/60"
                     : "border-current/15 hover:border-current/40",
@@ -138,7 +138,7 @@ export function ConsultationForm() {
                 >
                   {option.label}
                 </span>
-                <span className="mt-2 block text-[0.75rem] leading-relaxed text-tone-muted">
+                <span className="mt-2 block min-h-[2.6em] text-[0.75rem] leading-relaxed text-tone-muted">
                   {option.note}
                 </span>
               </button>

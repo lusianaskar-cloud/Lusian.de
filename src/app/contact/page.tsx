@@ -56,14 +56,14 @@ export default function ContactPage() {
               />
             </h1>
 
-            <Reveal delay={0.4}>
+            <Reveal eager delay={0.34}>
               <p className="mt-9 max-w-md text-lead text-tone-muted">
                 Tell us what you are trying to achieve and roughly when. If we are not
                 the right party, we will say so — and, where we can, tell you who is.
               </p>
             </Reveal>
 
-            <Reveal delay={0.5}>
+            <Reveal eager delay={0.42}>
               <ul className="mt-14 border-t border-ivory/12">
                 {assurances.map((item) => (
                   <li key={item.title} className="border-b border-ivory/12 py-5">
@@ -76,7 +76,7 @@ export default function ContactPage() {
               </ul>
             </Reveal>
 
-            <Reveal delay={0.58}>
+            <Reveal eager delay={0.5}>
               <div className="mt-12 space-y-2">
                 <a
                   href={`mailto:${contactChannels.email}`}
@@ -91,7 +91,7 @@ export default function ContactPage() {
           </div>
 
           <div className="lg:col-span-6 lg:col-start-7">
-            <Reveal delay={0.2} wide>
+            <Reveal eager delay={0.2}>
               <ConsultationForm />
             </Reveal>
           </div>

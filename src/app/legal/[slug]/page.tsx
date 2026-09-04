@@ -41,12 +41,12 @@ export default async function LegalPage({ params }: Params) {
           <LineReveal immediate delay={0.15} lines={[<span key="t">{page.title}</span>]} />
         </h1>
 
-        <Reveal delay={0.24}>
+        <Reveal eager delay={0.24}>
           <p className="mt-8 max-w-2xl text-lead text-tone-muted">{page.standfirst}</p>
         </Reveal>
 
         {/* Unmissable: this document is not finished and is not legal advice. */}
-        <Reveal delay={0.3}>
+        <Reveal eager delay={0.3}>
           <div className="mt-12 border border-brass/40 bg-brass/[0.07] p-6 lg:p-8">
             <span className="label-mono text-brass">Document outstanding</span>
             <p className="mt-4 text-[0.9375rem] leading-relaxed text-tone-muted">

@@ -66,8 +66,8 @@ export function PageHero({
         {standfirst ? (
           <motion.p
             className="mt-9 max-w-xl text-lead text-tone-muted lg:mt-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={ready ? { opacity: 1, y: 0 } : undefined}
+            initial={{ y: 20 }}
+            animate={ready ? { y: 0 } : undefined}
             transition={{ duration: 1.1, ease: EASE.expo, delay: 0.6 }}
           >
             {standfirst}
