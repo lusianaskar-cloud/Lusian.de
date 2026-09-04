@@ -1,0 +1,36 @@
+import { cn } from "@/lib/utils";
+
+/**
+ * A reserved slot for factual content the firm must supply.
+ *
+ * Deliberately visible: it is honest about what is not yet known, and it is
+ * trivial to find and delete. Every instance is also listed in
+ * docs/CONTENT-TODO.md.
+ */
+export function PlaceholderBlock({
+  title,
+  description,
+  className,
+}: {
+  title: string;
+  description: string;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        "relative flex h-full flex-col border border-current/15 p-7 lg:p-9",
+        className,
+      )}
+    >
+      <span className="label-mono inline-flex items-center gap-2.5 text-accent">
+        <span aria-hidden className="block size-1.5 bg-current" />
+        To be supplied
+      </span>
+      <h3 className="mt-6 font-display text-[1.375rem] leading-tight tracking-tight">
+        {title}
+      </h3>
+      <p className="mt-3 text-[0.875rem] leading-relaxed text-tone-muted">{description}</p>
+    </div>
+  );
+}

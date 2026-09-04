@@ -1,0 +1,273 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   LUSIAN — design tokens
+   One identity, two atmospheres:
+   · Aviation  → cool, technical, structural
+   · Gulf      → warm, architectural, serene
+   ------------------------------------------------------------------ */
+
+@theme {
+  /* Warm light ground */
+  --color-paper:    #FBF9F5;
+  --color-ivory:    #F4F0E8;
+  --color-dune:     #E9E2D5;
+  --color-pumice:   #D3CABA;
+
+  /* Neutrals */
+  --color-ash:      #8B857A;
+  --color-graphite: #4A4A46;
+  --color-ink:      #14181A;
+  --color-obsidian: #0A0D0E;
+
+  /* Aviation cool */
+  --color-petrol:   #0B1A21;
+  --color-umber:    #1F1713;
+  --color-hangar:   #14313D;
+  --color-ice:      #A0B8C2;
+
+  /* Accent — muted brass, never shiny gold */
+  --color-brass:     #9C7F52;
+  --color-champagne: #C6AD82;
+
+  /* Typography */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-display: var(--font-newsreader), Georgia, "Times New Roman", serif;
+
+  /* Fluid editorial scale */
+  --text-hero:      clamp(3rem, 8.6vw, 9rem);
+  --text-hero--line-height: 0.94;
+  --text-display:   clamp(2.5rem, 5.8vw, 5.75rem);
+  --text-display--line-height: 0.98;
+  --text-title:     clamp(2rem, 3.9vw, 3.75rem);
+  --text-title--line-height: 1.04;
+  --text-heading:   clamp(1.5rem, 2.5vw, 2.35rem);
+  --text-heading--line-height: 1.14;
+  --text-subhead:   clamp(1.2rem, 1.7vw, 1.6rem);
+  --text-subhead--line-height: 1.3;
+  --text-lead:      clamp(1.0625rem, 1.25vw, 1.3125rem);
+  --text-lead--line-height: 1.62;
+  --text-label:     0.6875rem;
+  --text-label--line-height: 1;
+  --text-label--letter-spacing: 0.2em;
+
+  /* Motion */
+  --ease-soft:  cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-expo:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-drape: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Rhythm */
+  --spacing-gutter: clamp(1.25rem, 4.5vw, 5rem);
+}
+
+/* ------------------------------------------------------------------ */
+
+@layer base {
+  :root {
+    --shell: var(--color-ivory);
+    --shell-ink: var(--color-ink);
+    color-scheme: light;
+  }
+
+  * {
+    border-color: color-mix(in oklab, currentColor 14%, transparent);
+    min-width: 0;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scrollbar-gutter: stable;
+  }
+
+  /* Lenis drives scrolling; native smooth would fight it. */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: clip;
+  }
+
+  body {
+    background-color: var(--shell);
+    color: var(--shell-ink);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+    transition: background-color 900ms var(--ease-soft);
+  }
+
+  ::selection {
+    background-color: var(--color-brass);
+    color: var(--color-paper);
+  }
+
+  :focus-visible {
+    outline: 1px solid currentColor;
+    outline-offset: 4px;
+    border-radius: 1px;
+  }
+
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  input, textarea, select, button {
+    font: inherit;
+    color: inherit;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------
+   Utilities
+   ------------------------------------------------------------------ */
+
+@utility container-editorial {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 96rem;
+  padding-inline: var(--spacing-gutter);
+}
+
+@utility container-narrow {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 68rem;
+  padding-inline: var(--spacing-gutter);
+}
+
+/* Editorial serif defaults — optical sizing, tight display tracking */
+@utility font-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  letter-spacing: -0.022em;
+  font-weight: 300;
+}
+
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  line-height: 1;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Hairline that draws itself in when revealed */
+@utility hairline {
+  height: 1px;
+  width: 100%;
+  background-color: currentColor;
+  opacity: 0.16;
+}
+
+/* A section that swaps the page chrome to its own tonality */
+@utility tone-dark {
+  --tone-bg: var(--color-ink);
+  --tone-fg: var(--color-ivory);
+  --tone-fg-muted: color-mix(in oklab, var(--color-ivory) 58%, transparent);
+  --tone-rule: color-mix(in oklab, var(--color-ivory) 18%, transparent);
+  --tone-accent: var(--color-champagne);
+  color: var(--tone-fg);
+}
+
+@utility tone-light {
+  --tone-bg: var(--color-ivory);
+  --tone-fg: var(--color-ink);
+  --tone-fg-muted: color-mix(in oklab, var(--color-ink) 58%, transparent);
+  --tone-rule: color-mix(in oklab, var(--color-ink) 14%, transparent);
+  --tone-accent: var(--color-brass);
+  color: var(--tone-fg);
+}
+
+@utility text-tone-muted {
+  color: var(--tone-fg-muted, color-mix(in oklab, currentColor 58%, transparent));
+}
+
+@utility border-tone {
+  border-color: var(--tone-rule, color-mix(in oklab, currentColor 14%, transparent));
+}
+
+@utility text-accent {
+  color: var(--tone-accent, var(--color-brass));
+}
+
+/* Fine-grain film so large flat fields never look like flat CSS */
+@utility grain {
+  position: relative;
+  isolation: isolate;
+}
+@utility grain-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility hanging-quote {
+  text-indent: -0.42em;
+}
+
+@keyframes markdraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Native cursor stands down only when the precision ring is actually running. */
+@media (pointer: fine) {
+  html.precision-cursor,
+  html.precision-cursor a,
+  html.precision-cursor button,
+  html.precision-cursor [role="button"],
+  html.precision-cursor [role="tab"] {
+    cursor: none;
+  }
+  html.precision-cursor input,
+  html.precision-cursor textarea,
+  html.precision-cursor select {
+    cursor: auto;
+  }
+}
+
+@keyframes scrollcue {
+  0% {
+    transform: translateY(-120%);
+  }
+  55%,
+  100% {
+    transform: translateY(340%);
+  }
+}

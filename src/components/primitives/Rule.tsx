@@ -1,0 +1,23 @@
+"use client";
+
+import { motion, useReducedMotion } from "motion/react";
+import { EASE } from "@/lib/motion";
+import { cn } from "@/lib/utils";
+
+/** A hairline that draws itself across when it enters the viewport. */
+export function Rule({ className, delay = 0 }: { className?: string; delay?: number }) {
+  const reduced = useReducedMotion();
+
+  return (
+    <span className={cn("block h-px w-full overflow-hidden bg-current/15", className)}>
+      <motion.span
+        aria-hidden
+        className="block h-px w-full origin-left bg-current/60"
+        initial={reduced ? { scaleX: 1 } : { scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        viewport={{ once: true, amount: 0.9 }}
+        transition={{ duration: 1.4, ease: EASE.expo, delay }}
+      />
+    </span>
+  );
+}
