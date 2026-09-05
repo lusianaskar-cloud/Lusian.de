@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Newsreader, Amiri, IBM_Plex_Sans_Arabic } from "next/font/google";
+import { Archivo, Newsreader, Amiri, IBM_Plex_Sans_Arabic } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { notFound } from "next/navigation";
@@ -17,6 +17,26 @@ import { SmoothScroll } from "@/components/chrome/SmoothScroll";
 import { Preloader } from "@/components/chrome/Preloader";
 import { PrecisionCursor } from "@/components/chrome/PrecisionCursor";
 import { TransitionProvider } from "@/components/chrome/TransitionProvider";
+
+/**
+ * STRUCTURE — the architectural voice.
+ *
+ * Archivo is here for its width axis, which does real work rather than
+ * decorating: aviation sets it narrow and heavy (88/600) so the type reads
+ * compressed, fast and technical, and the private practice sets it wide and
+ * light (108/400) so it reads open and calm. One family, two physical
+ * characters — which is how the two divisions differ in more than colour.
+ *
+ * It also solves German. A long compound at display size fits the narrow
+ * axis without the size having to drop.
+ */
+const archivo = Archivo({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-archivo",
+  axes: ["wdth"],
+  weight: "variable",
+});
 
 const newsreader = Newsreader({
   subsets: ["latin"],
@@ -121,6 +141,7 @@ export default async function RootLayout({
       className={[
         GeistSans.variable,
         GeistMono.variable,
+        archivo.variable,
         newsreader.variable,
         // Arabic faces are declared only where they are read.
         lang === "ar" ? `${amiri.variable} ${plexArabic.variable}` : "",

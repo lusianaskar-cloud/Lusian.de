@@ -1,57 +1,39 @@
 "use client";
 
-import { motion, useMotionValue, useTransform, type MotionValue } from "motion/react";
+import { motion, useMotionValue } from "motion/react";
+
 import { useRange } from "@/lib/useRange";
-import { Scene, Beat } from "./Scene";
-import { RouteNetwork } from "@/components/aviation/RouteNetwork";
 import { useContent } from "@/lib/i18n/context";
+import { Surface } from "@/components/light/Surface";
+import { RouteNetwork } from "@/components/aviation/RouteNetwork";
+import { Scene, Beat } from "./Scene";
 
 /**
- * SCENE 04 — THE TURN
+ * SCENE IV — THE TURN
  *
- * The one connective moment between the two practices. The route network is
- * not cross-faded out with a new graphic faded in; the same nodes travel to
- * horizon bands, the arcs flatten, the palette warms, and what was a route
- * map resolves into architectural contour. One geometry, one transformation
- * — which is what makes the two businesses read as a single system.
+ * The one connective moment, and the most important transition on the page.
+ * Nothing is cross-faded out and replaced: the same geometry travels to
+ * horizon bands, the arcs flatten, the palette warms, and the cold light
+ * gives way to a warm opening underneath it. One system, changing character
+ * — which is the whole argument of the firm, made physically.
+ *
+ * It is also where the instrument earns the right to go quiet. The network
+ * fades to almost nothing by the end of this scene and does not return until
+ * the markets, because the private practice needs stillness more than it
+ * needs continuity.
  */
-function TurnGround({ progress }: { progress: MotionValue<number> }) {
-  const morph = useRange(progress, [0.04, 0.74], [0, 1]);
-  const drawn = useMotionValue(1);
-  const ground = useTransform(
-    progress,
-    [0.02, 0.62],
-    ["rgb(11,26,33)", "rgb(31,23,19)"],
-  );
-  const netOpacity = useRange(progress, [0, 0.1, 0.86, 1], [0.7, 1, 1, 0.55]);
-
-  return (
-    <>
-      <motion.div aria-hidden className="absolute inset-0" style={{ backgroundColor: ground }} />
-      <motion.div aria-hidden className="absolute inset-0" style={{ opacity: netOpacity }}>
-        <RouteNetwork
-          progress={drawn}
-          morph={morph}
-          color="#A0B8C2"
-          accent="#C6AD82"
-          warm="#C6AD82"
-          opacity={0.62}
-          traffic={false}
-        />
-      </motion.div>
-    </>
-  );
-}
-
 export function Scene04Turn() {
   const { turn } = useContent().home;
 
   return (
     <Scene
       tone="dark"
-      length={2.0}
-      mobileLength={1.5}
+      length={2.2}
+      mobileLength={1.6}
       className="bg-umber"
+      openFrom="var(--color-petrol)"
+      closeTo="var(--color-umber)"
+      stageClassName="voice-warm"
       label={turn.line}
     >
       {({ progress, reduced }) => (
@@ -59,22 +41,52 @@ export function Scene04Turn() {
           {reduced ? (
             <div aria-hidden className="absolute inset-0 bg-umber" />
           ) : (
-            <TurnGround progress={progress} />
+            <Turning progress={progress} />
           )}
 
           <Beat
             progress={progress}
             reduced={reduced}
-            range={[0.46, 0.6, 0.9, 0.99]}
-            rise={34}
+            range={[0.42, 0.56, 0.88, 0.99]}
+            rise={30}
             className="container-editorial flex items-center"
           >
-            <p className="max-w-[15ch] font-display text-[clamp(2.2rem,6.4vw,5.25rem)] leading-[1.04] tracking-[-0.028em]">
+            <p className="type-structure max-w-[13ch] text-[calc(clamp(2.4rem,6.6vw,5.75rem)*var(--ar-struct))]">
               {turn.line}
             </p>
           </Beat>
         </>
       )}
     </Scene>
+  );
+}
+
+function Turning({ progress }: { progress: import("motion/react").MotionValue<number> }) {
+  const morph = useRange(progress, [0.05, 0.72], [0, 1]);
+  const drawn = useMotionValue(1);
+  // The system withdraws rather than being switched off.
+  const netOpacity = useRange(progress, [0, 0.12, 0.62, 0.92], [0.75, 0.95, 0.7, 0.06]);
+  // The cold field gives way to the warm one underneath it.
+  const cold = useRange(progress, [0.08, 0.6], [1, 0]);
+
+  return (
+    <>
+      <Surface preset="aperture" progress={progress} />
+      <motion.div aria-hidden className="absolute inset-0" style={{ opacity: cold }}>
+        <Surface preset="terminator" progress={progress} still={0.2} />
+      </motion.div>
+      <motion.div aria-hidden className="absolute inset-0" style={{ opacity: netOpacity }}>
+        <RouteNetwork
+          progress={drawn}
+          morph={morph}
+          color="#A8C6D2"
+          accent="#C6AD82"
+          warm="#C6AD82"
+          opacity={0.6}
+          traffic={false}
+        />
+      </motion.div>
+      <span aria-hidden className="grain-layer" />
+    </>
   );
 }

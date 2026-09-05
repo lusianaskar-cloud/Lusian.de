@@ -5,9 +5,7 @@ import { Scene02TwoWorlds } from "@/components/scenes/Scene02TwoWorlds";
 import { Scene03Aviation } from "@/components/scenes/Scene03Aviation";
 import { Scene04Turn } from "@/components/scenes/Scene04Turn";
 import { Scene05Arrival } from "@/components/scenes/Scene05Arrival";
-import { Scene06Sequence } from "@/components/scenes/Scene06Sequence";
-import { Scene07Markets } from "@/components/scenes/Scene07Markets";
-import { Scene08Closing } from "@/components/scenes/Scene08Closing";
+import { Scene06Close } from "@/components/scenes/Scene06Close";
 
 export const metadata: Metadata = { robots: { index: false, follow: false } };
 
@@ -22,9 +20,7 @@ const SCENES: Record<string, () => React.ReactElement> = {
   "3": Scene03Aviation,
   "4": Scene04Turn,
   "5": Scene05Arrival,
-  "6": Scene06Sequence,
-  "7": Scene07Markets,
-  "8": Scene08Closing,
+  "6": Scene06Close,
 };
 
 export default async function SceneHarness({ params }: { params: Promise<{ id: string }> }) {

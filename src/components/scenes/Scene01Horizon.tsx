@@ -1,268 +1,189 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import {
-  motion,
-  useInView,
-  useScroll,
-  type MotionValue,
-} from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { motion, useInView, useScroll, useMotionTemplate, type MotionValue } from "motion/react";
+
 import { useSafeReducedMotion } from "@/lib/useSafeReducedMotion";
 import { useRange } from "@/lib/useRange";
 import { useContent } from "@/lib/i18n/context";
 import { splitAccent } from "@/lib/i18n/format";
-import { LineReveal } from "@/components/primitives/Reveal";
-import { HairlineGrid } from "@/components/home/HairlineGrid";
+import { Surface } from "@/components/light/Surface";
 import { useIntroReady } from "@/components/chrome/intro";
 import { setStageTone } from "@/components/chrome/stageTone";
 import { cn } from "@/lib/utils";
 
-const INK = "#14181A";
-const IVORY = "#F4F0E8";
-const CHAMPAGNE = "#C6AD82";
-const BRASS = "#7A6039";
-
 /**
- * SCENE 01 — HORIZON
+ * SCENE I — HORIZON
  *
- * The opening statement is rendered twice at identical coordinates: dark on
- * ivory, and ivory inside the ink plate. The plate climbs with scroll, so the
- * sentence inverts *through* the horizon rather than fading — the brand mark
- * drawn at page scale.
+ * ── Why this is a mask and not a plate ──────────────────────────────────
+ * The previous version raised a hard-edged rectangle through the sentence.
+ * Moving, it read as an inversion; paused — which is how most people meet a
+ * scroll animation, and how every screenshot meets it — it read as a
+ * clipping bug, because a straight edge cutting a glyph in half is exactly
+ * what a broken layout looks like.
  *
- * Because both copies share one set of MotionValues they cannot drift apart,
- * and because the plate is `bottom-0` with a growing height, the copy inside
- * it needs no compensating offset.
+ * So the horizon is now a light terminator with a real penumbra: a soft band
+ * roughly a fifth of the viewport deep, applied as a mask to both the dark
+ * ground and the inverted copy of the sentence. A glyph is never half-cut;
+ * it is lit, or in shadow, or in the gradient between the two — which is a
+ * condition, not an artefact. There is no scroll position at which the frame
+ * can look accidental.
  *
- * Only the first copy carries the <h1>; the inverted one is aria-hidden, so
- * the sentence is announced once.
+ * The sentence is drawn twice at identical coordinates — dark on the lit
+ * wall, ivory inside the shadow — sharing one set of MotionValues so the two
+ * copies cannot drift. Only the first carries the <h1>.
  */
+
+/** Depth of the penumbra, as a percentage of the stage. */
+const PENUMBRA = 19;
+
 function Statement({
-  progress,
   reduced,
   inverted,
   ready,
 }: {
-  progress: MotionValue<number>;
   reduced: boolean;
   inverted?: boolean;
   ready: boolean;
 }) {
   const { hero } = useContent().home;
-  const rest = inverted ? IVORY : INK;
-  const glow = inverted ? CHAMPAGNE : BRASS;
-
-  // One word, one moment — as the horizon passes it.
-  const accent = useRange(progress, [0.3, 0.42, 0.5, 0.6], [rest, glow, glow, rest]);
-
   const Heading = inverted ? "p" : "h1";
 
   return (
     <Heading
       aria-hidden={inverted || undefined}
       className={cn(
-        "font-display leading-[1.04] tracking-[-0.03em]",
-        "text-[clamp(2.35rem,8.4vw,6.25rem)]",
-        /*
-         * Amiri sets a visibly larger body than Newsreader at the same point
-         * size, and this is the one heading measured against something fixed:
-         * the ink plate opens at 38% of the stage, and the statement has to
-         * sit clear of it before the scroll carries it through. So Arabic
-         * takes a step down the scale rather than crossing the horizon before
-         * the reader has moved.
-         */
-        "[&:lang(ar)]:text-[clamp(2rem,7vw,5.25rem)]",
+        "type-statement text-[calc(clamp(2.5rem,8.2vw,6.75rem)*var(--ar-state))]",
       )}
     >
-      <LineReveal
-        as="span"
-        className="block"
-        immediate
-        play={ready}
-        delay={0.3}
-        stagger={0.12}
-        lines={hero.lines.map((line, i) => {
-          // The emphasised word sits in a different place in each language,
-          // so the line is split around it rather than assembled from parts.
-          const part = splitAccent(line.text, line.accent);
-          return (
-            <span key={i}>
+      {hero.lines.map((line, i) => {
+        const part = splitAccent(line.text, line.accent);
+        return (
+          <span key={i} className="block overflow-hidden">
+            <motion.span
+              className="block"
+              initial={reduced ? false : { y: "115%" }}
+              animate={ready ? { y: "0%" } : undefined}
+              transition={{ duration: 1.15, ease: [0.16, 1, 0.3, 1], delay: 0.28 + i * 0.14 }}
+            >
               {part.before}
               {part.accent ? (
-                reduced ? (
-                  <em
-                    className={cn(
-                      "font-normal",
-                      inverted ? "text-champagne" : "text-brass",
-                    )}
-                  >
-                    {part.accent}
-                  </em>
-                ) : (
-                  <motion.em className="font-normal" style={{ color: accent }}>
-                    {part.accent}
-                  </motion.em>
-                )
+                <em
+                  className={cn(
+                    "font-normal not-italic",
+                    inverted ? "text-champagne" : "text-brass",
+                  )}
+                >
+                  {part.accent}
+                </em>
               ) : null}
               {part.after}
-            </span>
-          );
-        })}
-      />
+            </motion.span>
+          </span>
+        );
+      })}
     </Heading>
   );
 }
 
 /**
- * A motion wrapper that steps out of the way entirely under reduced motion.
- *
- * Swapping the *element* matters: when a style prop changes from a MotionValue
- * to a static number, Motion keeps its existing binding and the last value it
- * wrote stays on the node. Rendering a plain element instead makes React
- * unmount the managed one, so nothing is left behind.
+ * One of the two worlds. Both are drawn at the same coordinates; the shadow
+ * copy is revealed by the terminator mask.
  */
-function Moved({
-  reduced,
-  style,
-  className,
-  as = "div",
-  children,
-  ...rest
-}: {
-  reduced: boolean;
-  style?: Record<string, MotionValue<number> | MotionValue<string>>;
-  className?: string;
-  as?: "div" | "p" | "span";
-  children: ReactNode;
-} & Record<string, unknown>) {
-  if (reduced) {
-    const Tag = as;
-    return (
-      <Tag className={className} {...rest}>
-        {children}
-      </Tag>
-    );
-  }
-  const M = as === "p" ? motion.p : as === "span" ? motion.span : motion.div;
-  return (
-    <M className={className} style={style} {...rest}>
-      {children}
-    </M>
-  );
-}
-
-function Layer({
-  progress,
+function World({
   reduced,
   inverted,
   ready,
+  scale,
+  lift,
+  resolve,
+  resolveLift,
+  close,
+  closeLift,
 }: {
-  progress: MotionValue<number>;
   reduced: boolean;
   inverted?: boolean;
   ready: boolean;
+  scale: MotionValue<number>;
+  lift: MotionValue<string>;
+  resolve: MotionValue<number>;
+  resolveLift: MotionValue<string>;
+  close: MotionValue<number>;
+  closeLift: MotionValue<string>;
 }) {
-  const { meta, home, ui } = useContent();
-  // Each moment owns the stage in turn. Nothing shares the centre, and every
-  // beat is fully gone before the next arrives — one dominant idea per
-  // viewport is the whole discipline of this scene.
-  const statementScale = useRange(progress, [0.46, 0.68], [1, 0.86]);
-  const statementY = useRange(progress, [0.46, 0.72], ["0%", "-13%"]);
-  const statementOpacity = useRange(progress, [0.6, 0.71], [1, 0]);
-
-  const chromeOpacity = useRange(progress, [0.08, 0.26], [1, 0]);
-  const gridOpacity = useRange(progress, [0.38, 0.7], [1, 0.3]);
-
-  const resolveOpacity = useRange(progress, [0.63, 0.72, 0.79, 0.86], [0, 1, 1, 0]);
-  const resolveY = useRange(progress, [0.63, 0.72, 0.79, 0.86], [30, 0, 0, -30]);
-
-  const closeOpacity = useRange(progress, [0.85, 0.95], [0, 1]);
-  const closeY = useRange(progress, [0.85, 0.95], [40, 0]);
+  const { home, meta, ui } = useContent();
 
   return (
-    <div className="absolute inset-x-0 bottom-0 h-[100lvh]">
-      <Moved reduced={reduced} style={{ opacity: gridOpacity }}>
-        <HairlineGrid />
-      </Moved>
-
+    <div className="absolute inset-0 h-[100lvh]">
       <div
         className={cn(
           "container-editorial relative h-full",
-          reduced && "flex flex-col justify-center gap-16 py-32",
+          reduced && "flex flex-col justify-center gap-14 py-28",
         )}
       >
-        <Moved
-          reduced={reduced}
-          as="p"
+        <p
           className={cn(
-            "label-mono text-current/60",
+            "type-voice text-[0.8125rem] tracking-[0.02em] text-current/55",
             !reduced && "absolute start-(--spacing-gutter) top-28 lg:top-36",
           )}
-          style={{ opacity: chromeOpacity }}
         >
           {meta.descriptorShort}
-        </Moved>
+        </p>
 
-        {/* Beat one — the statement. */}
-        <Moved
-          reduced={reduced}
+        {/*
+          The sentence is the one persistent object in this scene. The camera
+          pulls back from it rather than fading it out, so the room it sits in
+          becomes visible and the space below it is vacated for what follows.
+        */}
+        <motion.div
           className={cn(
-            "origin-left rtl:origin-right",
-            !reduced && "absolute inset-x-(--spacing-gutter) top-1/2 -translate-y-1/2",
+            "origin-top",
+            !reduced && "absolute inset-x-(--spacing-gutter) top-[42%] -translate-y-1/2",
           )}
-          style={{ scale: statementScale, y: statementY, opacity: statementOpacity }}
+          style={reduced ? undefined : { scale, y: lift }}
         >
-          <Statement progress={progress} reduced={reduced} inverted={inverted} ready={ready} />
-        </Moved>
+          <Statement reduced={reduced} inverted={inverted} ready={ready} />
+        </motion.div>
 
-        {/* Beat two — the resolution, in the space the statement vacates. */}
-        <Moved
-          reduced={reduced}
-          as="p"
+        {/* Beat two, in the space the pull-back opened. */}
+        <motion.p
           className={cn(
-            "max-w-3xl font-display text-[clamp(1.5rem,4.4vw,3.5rem)] italic leading-[1.12]",
-            !reduced && "absolute inset-x-(--spacing-gutter) top-1/2 -translate-y-1/2",
+            "type-structure max-w-[19ch] text-[calc(clamp(1.6rem,3.4vw,2.9rem)*var(--ar-struct))]",
+            !reduced && "absolute inset-x-(--spacing-gutter) top-[58%]",
           )}
-          style={{ opacity: resolveOpacity, y: resolveY }}
+          style={reduced ? { marginTop: "2rem" } : { opacity: resolve, y: resolveLift }}
           aria-hidden={inverted || undefined}
         >
           {home.hero.resolve}
-        </Moved>
+        </motion.p>
 
-        {/* Beat three — why the firm exists. The old manifesto section, folded
-            into the opening where it actually belongs. */}
-        <Moved
-          reduced={reduced}
+        {/* Beat three — why the firm exists, arriving as the room settles. */}
+        <motion.p
           className={cn(
-            !reduced && "absolute inset-x-(--spacing-gutter) top-1/2 -translate-y-1/2",
+            "type-structure max-w-[17ch] text-[calc(clamp(1.75rem,4vw,3.4rem)*var(--ar-struct))]",
+            !reduced && "absolute inset-x-(--spacing-gutter) top-[56%]",
           )}
-          style={{ opacity: closeOpacity, y: closeY }}
+          style={reduced ? { marginTop: "2rem" } : { opacity: close, y: closeLift }}
           aria-hidden={inverted || undefined}
         >
-          <p className="max-w-[18ch] font-display text-[clamp(2rem,5.6vw,4.5rem)] leading-[1.05] tracking-[-0.028em]">
-            {home.manifesto.headline}
-          </p>
-          <p className="mt-10 max-w-md text-[0.9375rem] leading-relaxed text-current/60 lg:text-base">
-            {home.manifesto.standfirst}
-          </p>
-        </Moved>
+          {home.manifesto.headline}
+        </motion.p>
 
         {reduced ? null : (
-          <motion.span
-            className="label-mono absolute bottom-[max(2.5rem,env(safe-area-inset-bottom))] start-(--spacing-gutter) flex items-center gap-3 text-current/55"
-            style={{ opacity: chromeOpacity }}
+          <span
             aria-hidden
+            className="type-voice absolute bottom-[max(2.25rem,env(safe-area-inset-bottom))] start-(--spacing-gutter) flex items-center gap-3 text-[0.8125rem] text-current/45"
           >
             <span className="relative block h-8 w-px overflow-hidden bg-current/25">
               <span
                 className={cn(
-                  "absolute inset-x-0 top-0 block h-3 motion-safe:animate-[scrollcue_2.6s_cubic-bezier(0.65,0,0.35,1)_infinite]",
+                  "absolute inset-x-0 top-0 block h-3 motion-safe:animate-[scrollcue_2.8s_cubic-bezier(0.65,0,0.35,1)_infinite]",
                   inverted ? "bg-champagne" : "bg-brass",
                 )}
               />
             </span>
             {ui.scroll}
-          </motion.span>
+          </span>
         )}
       </div>
     </div>
@@ -281,15 +202,34 @@ export function Scene01Horizon() {
     offset: ["start start", "end end"],
   });
 
-  const plateHeight = useRange(scrollYProgress, [0.2, 0.58], ["38%", "100%"]);
+  /*
+   * The terminator. `edge` is where the shadow becomes total; the mask runs
+   * from transparent to opaque across PENUMBRA above it, so the boundary is
+   * always a gradient the depth of a shoulder rather than a line.
+   */
+  const edge = useRange(scrollYProgress, [0.02, 0.5], [118, -PENUMBRA]);
+  const mask = useMotionTemplate`linear-gradient(to bottom, transparent ${edge}%, #000 calc(${edge}% + ${PENUMBRA}%))`;
 
-  // Tell the header when the horizon has passed beneath it.
+  /*
+   * Camera. The sentence is not faded out and replaced; the frame withdraws
+   * from it, which is what turns a headline into an object in a room. Half
+   * the size by the end, and lifted, so the lower half of the stage is
+   * genuinely vacated rather than merely emptier.
+   */
+  const scale = useRange(scrollYProgress, [0.16, 0.72], [1, 0.5]);
+  const lift = useRange(scrollYProgress, [0.16, 0.72], ["0%", "-16%"]);
+
+  const resolve = useRange(scrollYProgress, [0.44, 0.56, 0.7, 0.78], [0, 1, 1, 0]);
+  const resolveLift = useRange(scrollYProgress, [0.44, 0.56, 0.7, 0.78], ["2.5rem", "0rem", "0rem", "-2rem"]);
+  const close = useRange(scrollYProgress, [0.78, 0.9], [0, 1]);
+  const closeLift = useRange(scrollYProgress, [0.78, 0.9], ["2.5rem", "0rem"]);
+
+  // Tell the header what is beneath it.
   useEffect(() => {
     if (reduced) return;
-    const unsubscribe = scrollYProgress.on("change", (v) => {
-      setDark((current) => (current === v > 0.5 ? current : v > 0.5));
+    return scrollYProgress.on("change", (v) => {
+      setDark((current) => (current === v > 0.42 ? current : v > 0.42));
     });
-    return unsubscribe;
   }, [reduced, scrollYProgress]);
 
   useEffect(() => {
@@ -305,9 +245,10 @@ export function Scene01Horizon() {
       aria-label="Opening"
       className={cn(
         "relative bg-ivory",
-        !reduced && "h-[calc(var(--scene-m)*100svh)] lg:h-[calc(var(--scene-d)*100svh)]",
+        !reduced &&
+          "h-[calc(var(--scene-m)*100svh)] md:h-[calc(var(--scene-t)*100svh)] xl:h-[calc(var(--scene-d)*100svh)]",
       )}
-      style={{ "--scene-d": 2.3, "--scene-m": 1.8 } as React.CSSProperties}
+      style={{ "--scene-d": 2.6, "--scene-t": 2.2, "--scene-m": 1.9 } as React.CSSProperties}
     >
       <div
         className={cn(
@@ -315,28 +256,42 @@ export function Scene01Horizon() {
           reduced ? "relative" : "sticky top-0 h-[100svh] overflow-hidden",
         )}
       >
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -end-1/4 -top-1/3 h-[85%] w-[70%] rounded-full opacity-70 blur-3xl"
-          style={{
-            background:
-              "radial-gradient(closest-side, color-mix(in oklab, var(--color-champagne) 30%, transparent), transparent)",
-          }}
-        />
+        {/* The lit wall. */}
+        {reduced ? null : <Surface preset="plaster" progress={scrollYProgress} travel={0.22} />}
 
-        {/* Base — dark on ivory */}
+        {/* Daylight side. */}
         <div className={cn("tone-light", reduced ? "relative" : "absolute inset-0")}>
-          <Layer progress={scrollYProgress} reduced={reduced} ready={ready} />
+          <World
+            reduced={reduced}
+            ready={ready}
+            scale={scale}
+            lift={lift}
+            resolve={resolve}
+            resolveLift={resolveLift}
+            close={close}
+            closeLift={closeLift}
+          />
         </div>
 
-        {/* Plate — ivory on ink, revealed as the horizon climbs */}
+        {/* Shadow side, revealed by the terminator rather than cut by a plate. */}
         {reduced ? null : (
           <motion.div
-            className="tone-dark grain absolute inset-x-0 bottom-0 z-10 overflow-hidden bg-ink"
-            style={{ height: plateHeight }}
+            className="tone-dark grain absolute inset-0 z-10 overflow-hidden bg-obsidian"
+            style={{ maskImage: mask, WebkitMaskImage: mask }}
           >
+            <Surface preset="hangar" progress={scrollYProgress} travel={0.3} />
             <span aria-hidden className="grain-layer" />
-            <Layer progress={scrollYProgress} reduced={false} inverted ready={ready} />
+            <World
+              reduced={false}
+              inverted
+              ready={ready}
+              scale={scale}
+              lift={lift}
+              resolve={resolve}
+              resolveLift={resolveLift}
+              close={close}
+              closeLift={closeLift}
+            />
           </motion.div>
         )}
       </div>

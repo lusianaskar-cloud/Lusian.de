@@ -15,9 +15,9 @@ import type { SiteContent } from "@/lib/i18n/types";
 export const de = {
   seo: {
     home: {
-      title: "Lusian — Luftfahrtberatung · Private Beratung Golfregion",
+      title: "Lusian — Luftfahrtberatung · Private Begleitung in der Golfregion",
       description:
-        "Lusian berät Luftfahrtunternehmen sowie Privatklienten, die sich in der Golfregion niederlassen — Betrieb, Strategie und private Etablierung, koordiniert über einen einzigen Ansprechpartner.",
+        "Lusian berät Luftfahrtunternehmen sowie Privatpersonen, die sich in der Golfregion niederlassen — Betrieb, Strategie und private Etablierung, koordiniert über einen einzigen Ansprechpartner.",
     },
     aviation: {
       title: "Luftfahrtberatung",
@@ -25,12 +25,12 @@ export const de = {
         "Beratung zu Betrieb, Entwicklung, Investition und Regulierung für Fluggesellschaften, Flughäfen, Abfertiger, Investoren und öffentliche Stellen der Luftfahrt.",
     },
     gulf: {
-      title: "Private Beratung Golfregion",
+      title: "Private Begleitung in der Golfregion",
       description:
         "Privater Umzug und Etablierung in der Golfregion — Orientierung, Koordination der Aufenthaltsverfahren, Firmengründung, Immobilie, Schule, Bankverbindung und Ankunft, gehalten in einem Mandat.",
     },
     markets: {
-      title: "Destinationen",
+      title: "Standorte",
       description:
         "Die sechs Golfmärkte, in denen wir beraten — Vereinigte Arabische Emirate, Saudi-Arabien, Katar, Bahrain, Oman und Kuwait — beschrieben nach wirtschaftlichem und alltäglichem Charakter.",
     },
@@ -50,7 +50,7 @@ export const de = {
         "Eine konkrete Frage zu einem Luftfahrtprojekt oder einem Umzug in die Golfregion, beantwortet von einem Menschen. Vertraulich und unverbindlich.",
     },
     book: {
-      title: "Beratungstermin buchen",
+      title: "Gespräch vereinbaren",
       description:
         "Wählen Sie Bereich, Gesprächsform und Zeit in Ihrer eigenen Zeitzone. Dreißig oder sechzig Minuten, vertraulich und unverbindlich.",
     },
@@ -67,11 +67,11 @@ export const de = {
   },
 
   meta: {
-    descriptor: "Luftfahrtberatung · Private Beratung Golfregion",
-    descriptorShort: "Luftfahrt · Private Beratung Golf",
+    descriptor: "Luftfahrtberatung · Private Begleitung in der Golfregion",
+    descriptorShort: "Luftfahrt · Private Begleitung",
     positioning: "Zwei Disziplinen. Ein Maßstab in der Umsetzung.",
     description:
-      "Lusian berät Luftfahrtunternehmen sowie Privatklienten, die sich in der Golfregion niederlassen — Betrieb, Strategie und private Etablierung, koordiniert über einen einzigen Ansprechpartner.",
+      "Lusian berät Luftfahrtunternehmen sowie Privatpersonen, die sich in der Golfregion niederlassen — Betrieb, Strategie und private Etablierung, koordiniert über einen einzigen Ansprechpartner.",
     keywords: [
       "Luftfahrtberatung",
       "Airline Beratung",
@@ -80,35 +80,35 @@ export const de = {
       "Umzug Golfregion Beratung",
       "Privater Umzug VAE",
       "Umzug Saudi-Arabien",
-      "Private Beratung Golf",
+      "Private Begleitung Golfregion",
     ],
   },
 
   nav: [
     { label: "Luftfahrt", href: "/aviation" },
-    { label: "Private Beratung", href: "/private-advisory" },
-    { label: "Destinationen", href: "/destinations" },
+    { label: "Private Begleitung", href: "/private-advisory" },
+    { label: "Standorte", href: "/destinations" },
     { label: "Über uns", href: "/about" },
     { label: "Perspektiven", href: "/insights" },
   ],
 
   speakNav: [
     { label: "Eine Frage stellen", href: "/speak/ask" },
-    { label: "Beratungstermin buchen", href: "/speak/book" },
+    { label: "Gespräch vereinbaren", href: "/speak/book" },
     { label: "Häufige Fragen", href: "/speak/questions" },
   ],
 
   footer: {
     tagline:
-      "Luftfahrtberatung und private Beratung für die Golfregion. Betreut über einen einzigen Ansprechpartner.",
+      "Luftfahrtberatung und private Begleitung in der Golfregion. Betreut über einen einzigen Ansprechpartner.",
     registration: "Handelsregisterangaben folgen",
     columns: [
       {
         title: "Bereiche",
         links: [
           { label: "Luftfahrtberatung", href: "/aviation" },
-          { label: "Private Beratung Golfregion", href: "/private-advisory" },
-          { label: "Destinationen", href: "/destinations" },
+          { label: "Private Begleitung in der Golfregion", href: "/private-advisory" },
+          { label: "Standorte", href: "/destinations" },
         ],
       },
       {
@@ -122,7 +122,7 @@ export const de = {
         title: "Sprechen Sie mit Lusian",
         links: [
           { label: "Eine Frage stellen", href: "/speak/ask" },
-          { label: "Beratungstermin buchen", href: "/speak/book" },
+          { label: "Gespräch vereinbaren", href: "/speak/book" },
           { label: "Häufige Fragen", href: "/speak/questions" },
         ],
       },
@@ -177,58 +177,58 @@ export const de = {
   home: {
     hero: {
       lines: [
-        { text: "Manche Vorhaben sind operativ." },
+        { text: "Manche Vorhaben sind rein operativ." },
         { text: "Manche sind zutiefst persönlich.", accent: "persönlich" },
       ],
       resolve: "Für beide gilt derselbe Maßstab.",
     },
     manifesto: {
       headline:
-        "Wir arbeiten in der Distanz zwischen einer Entscheidung und ihrer Umsetzung.",
+        "Zwischen einer Entscheidung und ihrer Umsetzung liegt unsere Arbeit.",
       standfirst:
-        "Lusian berät Luftfahrtunternehmen und Privatklienten, die sich in der Golfregion niederlassen. Ein Ansprechpartner, von der ersten Frage bis zum letzten Detail.",
+        "Lusian berät Luftfahrtunternehmen und Privatpersonen, die sich in der Golfregion niederlassen. Ein Ansprechpartner, von der ersten Frage bis zum letzten Detail.",
     },
     twoWorlds: {
       labelShort: "Zwei Disziplinen",
       labelLong: "Zwei Disziplinen · Ein Maßstab in der Umsetzung",
       headlineLarge: "Zwei Disziplinen.",
       headlineSmall: "Ein Maßstab in der Umsetzung.",
-      settle: "Ein Büro",
+      settle: "Ein Haus",
       aviation: {
         index: "01 — Luftfahrtberatung",
         line: "Der Betrieb ist die Strategie.",
         points: [
-          "Beratung für Fluggesellschaften, Flughäfen, Abfertiger und die öffentlichen Stellen, die sie in die Pflicht nehmen.",
+          "Wir beraten Fluggesellschaften, Flughäfen, Bodenabfertiger und die öffentlichen Stellen, die sie in die Pflicht nehmen.",
           "Beauftragt dort, wo ein Plan dem laufenden Betrieb standhalten muss.",
         ],
       },
       privateAdvisory: {
-        index: "02 — Private Beratung Golfregion",
-        line: "Ein Umzug, still vollzogen – und nur einmal.",
+        index: "02 — Private Begleitung in der Golfregion",
+        line: "Ein Umzug, still vollzogen. Und nur einmal.",
         points: [
-          "Private Etablierung in der Golfregion, durchgehend koordiniert.",
-          "Eine Akte. Ein Ansprechpartner. In geordneter Reihenfolge.",
+          "Ein privater Neuanfang in der Golfregion, durchgehend koordiniert.",
+          "Ein Dossier. Ein Ansprechpartner. Alles in seiner Reihenfolge.",
         ],
       },
     },
     aviationScene: {
       eyebrow: "Bereich 01 — wo wir beauftragt werden",
       opening: "Der Betrieb ist die Strategie.",
-      link: "Der Luftfahrtbereich",
+      link: "Die Luftfahrtberatung",
     },
     turn: { line: "Präzision, nach innen gewendet." },
     arrival: {
-      headline: "Ein Umzug, still vollzogen – und nur einmal.",
+      headline: "Ein Umzug, still vollzogen. Und nur einmal.",
       closing: [
-        "Eine Akte.",
+        "Ein Dossier.",
         "Ein Ansprechpartner.",
         "Hunderte Entscheidungen,",
-        "in geordneter Reihenfolge.",
+        "eine nach der anderen.",
       ],
     },
     sequence: {
-      headline: "Fünf Stufen, ein Ansprechpartner.",
-      link: "Der private Bereich",
+      headline: "Fünf Etappen, ein Ansprechpartner.",
+      link: "Die private Begleitung",
     },
     markets: {
       headline: "Sechs Märkte, sechs verschiedene Leben.",
@@ -237,34 +237,33 @@ export const de = {
     },
     argument: {
       eyebrow: "Warum Klienten uns beauftragen",
-      headlineLines: ["Vier Dinge,", "bei denen wir nicht nachgeben."],
-      note: "Wir veröffentlichen keine Klientennamen, keine Fallstudien und keine Zahlen, für die wir nicht einstehen können. Was folgt, ist das ganze Argument.",
+      headlineLines: ["Vier Dinge, bei denen wir", "keine Abstriche machen."],
+      note: "Wir veröffentlichen keine Klientennamen, keine Fallstudien und keine Zahlen, für die wir nicht einstehen können. Was folgt, ist alles, was für uns spricht.",
       items: [
         {
           title: "Ein Verantwortlicher, durchgehend",
-          body: "Wer Sie zuerst spricht, bleibt bis zum Abschluss zuständig. Die Arbeit wird nicht nach unten weitergereicht.",
+          body: "Wen Sie zuerst sprechen, der bleibt bis zum Abschluss zuständig. Die Arbeit wird nicht nach unten weitergereicht.",
         },
         {
           title: "Das Urteil eines Praktikers",
-          body: "Beratung, die sich daran orientiert, wie Dinge tatsächlich laufen — Standplätze, Dienstpläne, Genehmigungen, Vermieter, Vorlaufzeiten — und nicht daran, wie sie sich in einer Präsentation ausnehmen.",
+          body: "Beratung, die sich daran orientiert, wie Dinge tatsächlich laufen — Standplätze, Dienstpläne, Genehmigungen, Vermieter, Vorlaufzeiten — und nicht daran, wie sie in einer Präsentation aussehen.",
         },
         {
           title: "Diskretion als Methode",
-          body: "Wenige Mandate zur selben Zeit. Zurückhaltende Kommunikation. Wir veröffentlichen keine Klientennamen und bitten auch nicht darum.",
+          body: "Wenige Mandate zur gleichen Zeit. Zurückhaltende Kommunikation. Wir veröffentlichen keine Klientennamen und bitten auch nicht darum.",
         },
         {
-          title: "Regulierte Fragen, richtig platziert",
+          title: "Regulierte Fragen, in den richtigen Händen",
           body: "Rechts-, Steuer-, Aufenthalts- und Finanzberatung erbringen qualifizierte Fachleute mit Zulassung in der jeweiligen Rechtsordnung. Wir koordinieren sie. Wir geben nicht vor, sie zu sein.",
         },
       ],
     },
     closing: {
-      headline: "Ein Gespräch beginnen.",
-      body: "Sagen Sie uns, was Sie erreichen wollen und bis wann. Sind wir nicht die Richtigen, sagen wir es Ihnen.",
+      headline: "Beginnen wir ein Gespräch.",
+      body: "Sagen Sie uns, was Sie erreichen wollen — und bis wann. Sind wir nicht die Richtigen, sagen wir es Ihnen.",
       cta: "Sprechen Sie mit Lusian",
     },
   },
-
   aviation: {
     eyebrow: "Bereich 01",
     title: "Luftfahrtberatung",
@@ -436,7 +435,7 @@ export const de = {
 
   gulf: {
     eyebrow: "Bereich 02",
-    title: "Private Beratung Golfregion",
+    title: "Private Begleitung in der Golfregion",
     headlineLines: [
       { text: "Ein Umzug," },
       { text: "still vollzogen –" },
@@ -527,7 +526,7 @@ export const de = {
       },
     },
     journey: {
-      eyebrow: "Der Weg für Privatklienten",
+      eyebrow: "Der Weg für Privatpersonen",
       headlineLines: ["Fünf Stufen,", "ein Ansprechpartner."],
       note: "Nichts hiervon verlangt von Ihnen, ein Beratergremium zu führen. Das ist unser Teil der Abmachung.",
       steps: [
@@ -606,7 +605,7 @@ export const de = {
   },
 
   markets: {
-    eyebrow: "Destinationen",
+    eyebrow: "Standorte",
     titleLines: ["Sechs Märkte,", "sechs verschiedene Leben."],
     standfirst:
       "Der Golf ist nicht ein Ort, und die Wahl zwischen seinen Märkten ist die erste Entscheidung jedes Umzugs. Was folgt, ist Charakter — wie sich jedes Land für jemanden liest, der dort lebt und arbeitet.",
@@ -721,7 +720,7 @@ export const de = {
     titleLines: ["Bewusst schmal gebaut."],
     standfirst:
       "Lusian ist ein Beratungsbüro mit zwei Disziplinen und einer Arbeitsweise. Es ist bewusst klein und soll es bleiben.",
-    meta: "Luftfahrtberatung · Private Beratung Golfregion",
+    meta: "Luftfahrtberatung · Private Begleitung in der Golfregion",
     raison: {
       eyebrow: "Warum es Lusian gibt",
       headline: "Fast nichts scheitert an der Entscheidung.",
@@ -981,7 +980,7 @@ export const de = {
         },
         {
           id: "private",
-          label: "Private Beratung",
+          label: "Private Begleitung",
           note: "Umzug und Etablierung",
         },
         {
@@ -1068,7 +1067,7 @@ export const de = {
       writeTo: "Bitte schreiben Sie an",
     },
     book: {
-      eyebrow: "Beratungstermin buchen",
+      eyebrow: "Gespräch vereinbaren",
       headline: "Nehmen Sie sich dreißig Minuten.",
       standfirst:
         "Ein erstes Gespräch kostet nichts und verpflichtet Sie zu nichts. Die Zeiten erscheinen in Ihrer eigenen Zeitzone.",
@@ -1084,7 +1083,7 @@ export const de = {
         },
         {
           id: "private",
-          label: "Private Beratung",
+          label: "Private Begleitung",
           body: "Umzug und Etablierung in der Golfregion, für Einzelpersonen, Familien und ihre Unternehmen.",
         },
       ],

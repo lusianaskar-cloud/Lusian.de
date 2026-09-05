@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils";
  */
 const shell =
   "group relative inline-flex items-center gap-4 overflow-hidden rounded-full border border-current/25 " +
-  "px-7 py-4 sm:px-9 sm:py-[1.15rem] label-mono " +
+  "px-7 py-4 sm:px-9 sm:py-[1.15rem] label-ui " +
   "text-[color:var(--tone-fg,currentColor)] transition-colors duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] " +
   "hover:text-[color:var(--tone-bg,var(--color-ivory))] focus-visible:text-[color:var(--tone-bg,var(--color-ivory))]";
 
@@ -118,7 +118,7 @@ export function TextLink({
       href={href}
       transitionLabel={transitionLabel}
       className={cn(
-        "group inline-flex items-center gap-3 label-mono text-[color:var(--tone-fg,currentColor)]",
+        "group inline-flex items-center gap-3 label-ui text-[color:var(--tone-fg,currentColor)]",
         className,
       )}
     >

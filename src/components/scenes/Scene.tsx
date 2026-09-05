@@ -38,6 +38,56 @@ export type SceneRenderProps = {
   reduced: boolean;
 };
 
+/**
+ * A scene's shoulders.
+ *
+ * A pinned scene releases by scrolling away, so for exactly one viewport at
+ * every boundary the screen is two stages divided by a horizontal line. If
+ * the two sides differ in value or hue the line reads as a tear — which is
+ * the one thing this whole art direction is trying not to look like.
+ *
+ * So a scene may close down onto the ground its successor opens on, and open
+ * up from the ground its predecessor closed on. The light goes out at the end
+ * of a movement and comes up at the start of the next, the seam falls between
+ * two frames of the same colour, and there is nothing to see. It is exposure,
+ * not a cross-fade: the type is already gone by then, and what is being taken
+ * away is the light.
+ *
+ * It stops short of opaque. A shoulder taken all the way to a flat colour
+ * hides the seam but replaces it with a dead frame, and a boundary viewport
+ * is a full viewport of scrolling — a long time to spend on nothing, and
+ * longer still on a tall tablet in portrait. At 0.72 both the field and
+ * whatever the instrument is doing survive the boundary, so the seam reads as
+ * the darkest part of the room rather than as a painted rectangle.
+ *
+ * Painted at z-10, above the field and the beats but below anything a scene
+ * marks z-20 — navigation has to survive its own scene ending.
+ */
+const SHOULDER = 0.72;
+function Shoulder({
+  progress,
+  colour,
+  at,
+}: {
+  progress: MotionValue<number>;
+  colour: string;
+  at: "open" | "close";
+}) {
+  const opacity = useRange(
+    progress,
+    at === "open" ? [0, 0.09] : [0.9, 1],
+    at === "open" ? [SHOULDER, 0] : [0, SHOULDER],
+  );
+
+  return (
+    <motion.span
+      aria-hidden
+      className="pointer-events-none absolute inset-0 z-10 block"
+      style={{ opacity, backgroundColor: colour }}
+    />
+  );
+}
+
 export function Scene({
   children,
   className,
@@ -45,8 +95,11 @@ export function Scene({
   tone = "dark",
   length = 2.4,
   mobileLength,
+  tabletLength,
   id,
   label,
+  openFrom,
+  closeTo,
 }: {
   children: (props: SceneRenderProps) => ReactNode;
   /** Applied to BOTH section and stage so a retracting URL bar reveals the same ground. */
@@ -56,8 +109,19 @@ export function Scene({
   /** Multiples of the viewport. 2.4 → 140svh of pinned travel. */
   length?: number;
   mobileLength?: number;
+  /**
+   * Tablets are a target in their own right, not a narrow desktop. A portrait
+   * iPad is 1366 tall, so a scene given its desktop length there is half as
+   * long again in pixels as the same scene on a laptop — which turns a paced
+   * sequence into a slog. Defaults to the midpoint of the two.
+   */
+  tabletLength?: number;
   id?: string;
   label?: string;
+  /** Ground the previous scene ended on. The light comes up from it. */
+  openFrom?: string;
+  /** Ground the next scene begins on. The light goes down onto it. */
+  closeTo?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const reduced = useSafeReducedMotion() ?? false;
@@ -76,13 +140,15 @@ export function Scene({
       className={cn(
         "relative",
         tone === "dark" ? "tone-dark" : "tone-light",
-        !reduced && "h-[calc(var(--scene-m)*100svh)] lg:h-[calc(var(--scene-d)*100svh)]",
+        !reduced &&
+          "h-[calc(var(--scene-m)*100svh)] md:h-[calc(var(--scene-t)*100svh)] xl:h-[calc(var(--scene-d)*100svh)]",
         className,
       )}
       style={
         {
           "--scene-d": length,
           "--scene-m": mobileLength ?? Math.max(1.6, length * 0.7),
+          "--scene-t": tabletLength ?? (length + (mobileLength ?? length * 0.7)) / 2,
         } as React.CSSProperties
       }
     >
@@ -96,6 +162,12 @@ export function Scene({
         )}
       >
         {children({ progress: scrollYProgress, reduced })}
+        {reduced || !openFrom ? null : (
+          <Shoulder progress={scrollYProgress} colour={openFrom} at="open" />
+        )}
+        {reduced || !closeTo ? null : (
+          <Shoulder progress={scrollYProgress} colour={closeTo} at="close" />
+        )}
       </div>
     </section>
   );

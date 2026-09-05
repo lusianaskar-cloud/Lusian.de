@@ -1,95 +1,58 @@
 "use client";
 
 import { motion, type MotionValue } from "motion/react";
+
 import { useRange } from "@/lib/useRange";
-import { Scene, Beat } from "./Scene";
+import { useContent } from "@/lib/i18n/context";
+import { Surface } from "@/components/light/Surface";
 import { RouteNetwork } from "@/components/aviation/RouteNetwork";
 import { TextLink } from "@/components/primitives/ActionLink";
-import { useContent } from "@/lib/i18n/context";
-import { ordinal } from "@/lib/utils";
+import { Scene, Beat } from "./Scene";
 
 /**
- * SCENE 03 — AVIATION INSTRUMENT
+ * SCENE III — THE OPERATION
  *
- * The network is the stage and never leaves. Five concepts take the centre
- * one at a time, and each changes what the instrument is doing behind it:
- * trunk routes, then local ones, then new stations arriving at the edges,
- * then the graticule, then accelerated traffic.
+ * The first proof that the redesign is not abstract. A floor, lit low and
+ * hard from one side, with the operational system drawn over it — so the
+ * network has something to sit on rather than floating in a void, which is
+ * what made it read as decoration before.
  *
- * This replaces the five capability columns that used to arrive at once.
- * One idea per viewport.
+ * The capabilities arrive one at a time as structural type, deliberately
+ * large enough to be cropped by the frame, and the field behind reorganises
+ * around each. What it does not do is present five columns at once, which is
+ * a document, not a scene.
  */
-const FIRST = 0.2;
-const LAST = 0.94;
+const FIRST = 0.22;
+const LAST = 0.95;
 
-function RailTick({
-  emphasis,
-  index,
-  label,
-}: {
-  emphasis: MotionValue<number>;
-  index: number;
-  label: string;
-}) {
-  const active = useRange(emphasis, [index - 0.7, index, index + 0.7], [0.3, 1, 0.3]);
-
-  return (
-    <li className="flex items-center gap-3 lg:gap-4">
-      <motion.span
-        aria-hidden
-        className="block h-px w-5 bg-current lg:w-8"
-        style={{ opacity: active }}
-      />
-      <motion.span className="label-mono whitespace-nowrap" style={{ opacity: active }}>
-        {label}
-      </motion.span>
-    </li>
-  );
-}
-
-function Instrument({
+function Field({
   progress,
-  groups,
+  count,
 }: {
   progress: MotionValue<number>;
-  groups: readonly { group: string }[];
+  count: number;
 }) {
-  // The network arrives already built — it carried over from Scene 02.
-  const draw = useRange(progress, [0, 0.06], [0.9, 1]);
-  const emphasis = useRange(progress, [FIRST, LAST], [0, groups.length - 1]);
-  const opacity = useRange(progress, [0, 0.08, 0.9, 1], [0.5, 1, 1, 0.7]);
-  const railOpacity = useRange(progress, [0.1, 0.2], [0, 1]);
+  const draw = useRange(progress, [0, 0.1], [0.72, 1]);
+  const emphasis = useRange(progress, [FIRST, LAST], [0, count - 1]);
+  const opacity = useRange(progress, [0, 0.12, 0.86, 1], [0.3, 0.9, 0.9, 0.5]);
+  // Camera: the frame pushes slowly into the system across the scene.
+  const scale = useRange(progress, [0, 1], [1, 1.16]);
+  const drift = useRange(progress, [0, 1], ["0%", "-4%"]);
 
   return (
-    <>
-      <motion.div aria-hidden className="absolute inset-0" style={{ opacity }}>
-        <RouteNetwork
-          progress={draw}
-          emphasis={emphasis}
-          color="#A0B8C2"
-          accent="#C6AD82"
-          opacity={0.62}
-        />
-      </motion.div>
-
-      {/* On a phone the copy has nowhere to sit clear of the network, so the
-          ground is lifted behind it rather than dimming the instrument. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-1/2 h-[58%] -translate-y-1/2 bg-[linear-gradient(to_bottom,transparent,var(--color-petrol)_18%,var(--color-petrol)_82%,transparent)] opacity-85 lg:hidden"
+    <motion.div
+      aria-hidden
+      className="absolute inset-0 origin-[70%_60%]"
+      style={{ opacity, scale, x: drift }}
+    >
+      <RouteNetwork
+        progress={draw}
+        emphasis={emphasis}
+        color="#A8C6D2"
+        accent="#C6AD82"
+        opacity={0.72}
       />
-
-      {/* Position through the system. */}
-      <motion.ul
-        aria-hidden
-        className="absolute bottom-[max(2.25rem,env(safe-area-inset-bottom))] start-(--spacing-gutter) flex flex-wrap gap-x-5 gap-y-2 text-ice lg:bottom-auto lg:top-1/2 lg:block lg:-translate-y-1/2 lg:space-y-5"
-        style={{ opacity: railOpacity }}
-      >
-        {groups.map((group, i) => (
-          <RailTick key={group.group} emphasis={emphasis} index={i} label={ordinal(i)} />
-        ))}
-      </motion.ul>
-    </>
+    </motion.div>
   );
 }
 
@@ -103,23 +66,31 @@ export function Scene03Aviation() {
   return (
     <Scene
       tone="dark"
-      length={3.4}
-      mobileLength={2.4}
+      length={3.6}
+      mobileLength={2.5}
       className="bg-petrol"
+      closeTo="var(--color-petrol)"
+      stageClassName="voice-cool"
       label={title}
     >
       {({ progress, reduced }) => (
         <>
-          {reduced ? null : <Instrument progress={progress} groups={groups} />}
+          {reduced ? null : (
+            <>
+              <Surface preset="hangar" progress={progress} travel={0.34} />
+              <Field progress={progress} count={groups.length} />
+              <span aria-hidden className="grain-layer" />
+            </>
+          )}
 
-          {/* Carried over from Scene 02, then reduced to a label. */}
+          {/* Carried over from the previous scene, then reduced to a label. */}
           <Beat
             progress={progress}
             reduced={reduced}
-            range={[0, 0.02, 0.1, 0.17]}
+            range={[0, 0.02, 0.11, 0.18]}
             className="container-editorial flex items-center"
           >
-            <h2 className="max-w-[13ch] font-display text-[clamp(2.2rem,6.4vw,5.25rem)] leading-[1.03] tracking-[-0.028em]">
+            <h2 className="type-structure max-w-[12ch] text-[calc(clamp(2.6rem,7.4vw,6.5rem)*var(--ar-struct))]">
               {scene.opening}
             </h2>
           </Beat>
@@ -127,11 +98,13 @@ export function Scene03Aviation() {
           <Beat
             progress={progress}
             reduced={reduced}
-            range={[0.15, 0.22]}
-            rise={12}
+            range={[0.16, 0.23]}
+            rise={10}
             className="container-editorial pointer-events-none pt-[6.5rem] lg:pt-[8.5rem]"
           >
-            <span className="label-mono text-ice/60">{scene.eyebrow}</span>
+            <span className="type-voice text-[0.875rem] tracking-[0.03em] text-ice/70">
+              {scene.eyebrow}
+            </span>
           </Beat>
 
           {groups.map((group, i) => {
@@ -141,30 +114,36 @@ export function Scene03Aviation() {
                 key={group.group}
                 progress={progress}
                 reduced={reduced}
+                /*
+                  Each capability is gone before the next arrives. Overlapping
+                  the ranges cross-fades two five-word headings through each
+                  other, which at tablet sizes reads as one unparseable
+                  heading rather than as a transition.
+                */
                 range={[
-                  start - 0.03,
-                  start + 0.025,
-                  start + span - 0.045,
-                  start + span + 0.005,
+                  start - 0.025,
+                  start + 0.03,
+                  start + span - 0.06,
+                  start + span - 0.03,
                 ]}
-                rise={30}
+                rise={26}
                 className="container-editorial flex items-center"
               >
-                <div className="max-w-2xl lg:ps-36">
-                  <span className="label-mono text-ice/60">{ordinal(i)}</span>
-                  <h3 className="mt-6 font-display text-[clamp(2.1rem,5.6vw,4.5rem)] leading-[1.04] tracking-[-0.028em]">
+                <div className="max-w-[22ch]">
+                  {/*
+                    Set large enough that the longest of these runs past the
+                    frame edge. A capability that fits comfortably in a column
+                    reads as a list item; one that is cropped reads as scale.
+                  */}
+                  <h3 className="type-structure text-[calc(clamp(2.4rem,6.4vw,5.5rem)*var(--ar-struct))]">
                     {group.group}
                   </h3>
-                  <ul className="mt-8 space-y-3">
+                  <ul className="mt-9 space-y-2.5">
                     {group.items.slice(0, 3).map((item) => (
                       <li
                         key={item}
-                        className="flex gap-4 text-[0.9375rem] leading-relaxed text-ivory/65 lg:text-lead"
+                        className="type-voice max-w-md text-[0.9375rem] text-ivory/60"
                       >
-                        <span
-                          aria-hidden
-                          className="mt-[0.62em] block size-1 shrink-0 rounded-full bg-ice"
-                        />
                         {item}
                       </li>
                     ))}
@@ -177,9 +156,9 @@ export function Scene03Aviation() {
           <Beat
             progress={progress}
             reduced={reduced}
-            range={[0.93, 0.98]}
-            rise={14}
-            className="container-editorial flex items-end justify-end pb-[max(2.25rem,env(safe-area-inset-bottom))] lg:pb-16"
+            range={[0.8, 0.85, 0.92, 0.96]}
+            rise={12}
+            className="container-editorial z-20 flex items-end justify-end pb-[max(2.25rem,env(safe-area-inset-bottom))] lg:pb-16"
           >
             <TextLink href="/aviation" transitionLabel={title}>
               {scene.link}
