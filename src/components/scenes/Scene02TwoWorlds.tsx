@@ -148,11 +148,13 @@ export function Scene02TwoWorlds() {
             range={[0, 0.04, 0.14, 0.22]}
             className="container-editorial flex items-center"
           >
-            <h2 className="max-w-[16ch] font-display text-[clamp(2.1rem,6vw,4.75rem)] leading-[1.06] tracking-[-0.028em]">
-              Two disciplines.
-              <br />
-              One standard of{" "}
-              <em className="font-normal text-champagne">execution</em>.
+            <h2 className="max-w-[18ch] font-display leading-[1.04] tracking-[-0.028em]">
+              <span className="block text-[clamp(2.4rem,7.4vw,6rem)]">
+                Two disciplines.
+              </span>
+              <span className="mt-3 block text-[clamp(1.3rem,3vw,2.4rem)] text-ivory/55">
+                One standard of execution.
+              </span>
             </h2>
           </Beat>
 
@@ -164,7 +166,10 @@ export function Scene02TwoWorlds() {
             className="container-editorial pointer-events-none pt-[6.5rem] lg:pt-[8.5rem]"
           >
             <span className="label-mono text-ivory/45">
-              Two disciplines · One standard of execution
+              <span className="lg:hidden">Two disciplines</span>
+              <span className="hidden lg:inline">
+                Two disciplines · One standard of execution
+              </span>
             </span>
           </Beat>
 

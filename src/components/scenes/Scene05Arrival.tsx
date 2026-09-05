@@ -77,8 +77,7 @@ export function Scene05Arrival() {
             className="container-editorial flex items-center"
           >
             <h2 className="max-w-[15ch] font-display text-[clamp(2.2rem,6.6vw,5.5rem)] leading-[1.03] tracking-[-0.03em]">
-              A move made quietly, and made{" "}
-              <em className="font-normal text-champagne">once</em>.
+              A move made quietly, and made once.
             </h2>
           </Beat>
 

@@ -3,9 +3,11 @@ import {
   gulfAssurances,
   gulfHero,
   gulfJourney,
+  gulfPhases,
   gulfPositioning,
   gulfServices,
 } from "@/lib/content/gulf";
+import { engagementLevels, boundaries } from "@/lib/content/speak";
 import { Section, Container } from "@/components/primitives/Section";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { LineReveal, Reveal, RevealGroup, RevealItem } from "@/components/primitives/Reveal";
@@ -119,30 +121,46 @@ export default function PrivateAdvisoryPage() {
             </div>
             <Reveal delay={0.12}>
               <p className="max-w-sm text-[0.9375rem] leading-relaxed text-tone-muted">
-                Engagements are shaped to the situation. Most clients take some of this;
-                a few take all of it.
+                Grouped by when they happen, because the order is the difficult part.
+                Most clients take some of this; a few take all of it.
               </p>
             </Reveal>
           </div>
 
-          <RevealGroup stagger={0.05} className="mt-16 lg:mt-24">
-            {gulfServices.map((service, i) => (
-              <RevealItem key={service.title} distance={16}>
-                <div className="grid gap-3 border-t border-ink/12 py-7 lg:grid-cols-12 lg:gap-10 lg:py-9">
-                  <div className="flex items-baseline gap-5 lg:col-span-5">
-                    <span className="label-mono text-ink/35">{ordinal(i)}</span>
-                    <h3 className="font-display text-[1.5rem] leading-tight tracking-tight lg:text-heading">
-                      {service.title}
+          {/* Four phases, then the detail beneath each. */}
+          <div className="mt-16 lg:mt-24">
+            {gulfPhases.map((phase, i) => (
+              <Reveal key={phase.id} wide>
+                <section className="grid gap-8 border-t border-ink/12 py-12 lg:grid-cols-12 lg:gap-10 lg:py-16">
+                  <div className="lg:col-span-4 lg:sticky lg:top-32 lg:self-start">
+                    <span className="label-mono text-ink/40">{ordinal(i)}</span>
+                    <h3 className="mt-4 font-display text-[clamp(1.7rem,3.4vw,2.75rem)] leading-tight tracking-tight">
+                      {phase.title}
                     </h3>
+                    <p className="mt-4 max-w-xs text-[0.875rem] leading-relaxed text-tone-muted">
+                      {phase.note}
+                    </p>
                   </div>
-                  <p className="max-w-2xl text-[0.9375rem] leading-relaxed text-tone-muted lg:col-span-6 lg:col-start-7">
-                    {service.body}
-                  </p>
-                </div>
-              </RevealItem>
+
+                  <div className="lg:col-span-7 lg:col-start-6">
+                    {phase.services.map((name) => {
+                      const service = gulfServices.find((entry) => entry.title === name);
+                      if (!service) return null;
+                      return (
+                        <div key={name} className="border-t border-ink/12 py-6 first:border-t-0 first:pt-0">
+                          <h4 className="text-[1.0625rem] tracking-tight">{service.title}</h4>
+                          <p className="mt-2.5 max-w-2xl text-[0.9375rem] leading-relaxed text-tone-muted">
+                            {service.body}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </section>
+              </Reveal>
             ))}
             <span className="block border-t border-ink/12" />
-          </RevealGroup>
+          </div>
         </Container>
       </Section>
 
@@ -167,7 +185,7 @@ export default function PrivateAdvisoryPage() {
                   lines={[
                     <span key="1">Five stages,</span>,
                     <span key="2">
-                      one <em className="font-normal text-champagne">contact</em>.
+                      one contact.
                     </span>,
                   ]}
                 />
@@ -221,6 +239,80 @@ export default function PrivateAdvisoryPage() {
               <TextLink href="/destinations" transitionLabel="Destinations">
                 The six markets
               </TextLink>
+            </div>
+          </Reveal>
+        </Container>
+      </Section>
+
+      <Section tone="light" className="bg-ivory" aria-labelledby="levels-heading">
+        <Container className="py-24 lg:py-36">
+          <Reveal>
+            <Eyebrow>Depth of engagement</Eyebrow>
+          </Reveal>
+          <div className="mt-8 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <h2 id="levels-heading" className="max-w-2xl font-display text-title">
+              <LineReveal lines={[<span key="1">How far in you want us.</span>]} />
+            </h2>
+            <Reveal delay={0.12}>
+              <p className="max-w-sm text-[0.9375rem] leading-relaxed text-tone-muted">
+                Not packages. Three depths of involvement, and it is normal to move
+                between them as a move takes shape.
+              </p>
+            </Reveal>
+          </div>
+
+          <RevealGroup className="mt-16 lg:mt-24">
+            {engagementLevels.map((level, i) => (
+              <RevealItem key={level.name}>
+                <div className="grid items-baseline gap-x-10 gap-y-3 border-t border-ink/12 py-10 lg:grid-cols-12 lg:py-14">
+                  <span className="label-mono text-ink/40 lg:col-span-1">{ordinal(i)}</span>
+                  <h3 className="font-display text-[clamp(1.6rem,3vw,2.5rem)] leading-tight tracking-tight lg:col-span-4 lg:col-start-2">
+                    {level.name}
+                  </h3>
+                  <p className="label-mono text-brass lg:col-span-2 lg:col-start-6">
+                    {level.scope}
+                  </p>
+                  <p className="max-w-xl text-[0.9375rem] leading-relaxed text-tone-muted lg:col-span-4 lg:col-start-9">
+                    {level.body}
+                  </p>
+                </div>
+              </RevealItem>
+            ))}
+            <span className="block border-t border-ink/12" />
+          </RevealGroup>
+
+          <Reveal wide>
+            <div className="mt-20 grid gap-10 border-t border-ink/12 pt-12 lg:grid-cols-12">
+              <div className="lg:col-span-4">
+                <h3 className="font-display text-heading leading-tight">
+                  What we coordinate, and what we do not
+                </h3>
+                <p className="mt-5 max-w-sm text-[0.875rem] leading-relaxed text-tone-muted">
+                  {boundaries.note}
+                </p>
+              </div>
+              <div className="grid gap-10 sm:grid-cols-2 lg:col-span-7 lg:col-start-6">
+                <div>
+                  <span className="label-mono text-brass">Lusian coordinates</span>
+                  <ul className="mt-5">
+                    {boundaries.coordinated.map((item) => (
+                      <li key={item} className="border-t border-ink/12 py-2.5 text-[0.8125rem] leading-relaxed">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <span className="label-mono text-ink/45">Licensed professionals provide</span>
+                  <ul className="mt-5">
+                    {boundaries.regulated.map((item) => (
+                      <li key={item} className="border-t border-ink/12 py-2.5 text-[0.8125rem] leading-relaxed text-tone-muted">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </div>
           </Reveal>
         </Container>

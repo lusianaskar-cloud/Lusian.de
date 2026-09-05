@@ -23,6 +23,38 @@ export const gulfPositioning = {
   emphasis: "You should have to explain your situation once.",
 } as const;
 
+export const gulfPhases = [
+  {
+    id: "before",
+    title: "Before the move",
+    note: "Deciding where, and in what order.",
+    services: ["Orientation", "Relocation planning"],
+  },
+  {
+    id: "establishment",
+    title: "The establishment",
+    note: "The part with the most dependencies, and the most ways to lose time.",
+    services: [
+      "Residency coordination",
+      "Business establishment",
+      "Property",
+      "Banking coordination",
+    ],
+  },
+  {
+    id: "arrival",
+    title: "Arrival",
+    note: "The first ninety days, which decide how the move feels.",
+    services: ["Family & education", "Healthcare", "Arrival"],
+  },
+  {
+    id: "after",
+    title: "Continuity",
+    note: "What follows, at whatever cadence suits you.",
+    services: ["Continuity"],
+  },
+] as const;
+
 export const gulfServices = [
   {
     title: "Orientation",

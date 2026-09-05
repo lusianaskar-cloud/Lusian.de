@@ -64,7 +64,7 @@ function Index({ progress }: { progress: MotionValue<number> }) {
   return (
     <motion.div
       style={{ opacity }}
-      className="container-editorial pointer-events-none absolute inset-x-0 top-[6.25rem] lg:top-1/2 lg:-translate-y-1/2"
+      className="container-editorial pointer-events-none absolute inset-x-0 top-[7rem] lg:top-1/2 lg:-translate-y-1/2"
     >
       {/* Phone: a horizontal index across the top. */}
       <div className="flex items-center gap-2 lg:hidden">
@@ -126,8 +126,7 @@ export function Scene06Sequence() {
             className="container-editorial flex items-center"
           >
             <h2 className="max-w-[14ch] font-display text-[clamp(2.1rem,6vw,4.75rem)] leading-[1.05] tracking-[-0.028em]">
-              Five stages, one{" "}
-              <em className="font-normal text-champagne">contact</em>.
+              Five stages, one contact.
             </h2>
           </Beat>
 

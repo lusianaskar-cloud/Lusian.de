@@ -49,7 +49,7 @@ function Plot({ progress, index }: { progress: MotionValue<number>; index: numbe
   return (
     <motion.div
       style={{ opacity, y }}
-      className="container-editorial pointer-events-none absolute inset-x-0 top-[6rem] lg:top-1/2 lg:-translate-y-1/2"
+      className="container-editorial pointer-events-none absolute inset-x-0 top-[5.5rem] lg:top-1/2 lg:-translate-y-1/2"
     >
       <div className="lg:w-7/12">
         <MarketPlot activeIndex={index} labels />
@@ -98,8 +98,7 @@ function Markets({
         className="container-editorial flex items-center"
       >
         <h2 className="max-w-[15ch] font-display text-[clamp(2.1rem,6vw,4.75rem)] leading-[1.05] tracking-[-0.028em]">
-          Six markets, six different{" "}
-          <em className="font-normal text-champagne">lives</em>.
+          Six markets, six different lives.
         </h2>
       </Beat>
 
@@ -112,7 +111,7 @@ function Markets({
             reduced={reduced}
             range={[start - 0.015, start + 0.03, start + SPAN - 0.035, start + SPAN + 0.01]}
             rise={24}
-            className="container-editorial flex items-end pb-[max(2.5rem,env(safe-area-inset-bottom))] lg:items-center lg:pb-0"
+            className="container-editorial flex items-start pt-[21.5rem] lg:items-center lg:pt-0"
           >
             <div className="w-full lg:ml-auto lg:w-4/12">
               <div className="flex items-baseline gap-4">

@@ -92,7 +92,7 @@ export default function AviationPage() {
                     <span key="1">Findings that cannot be</span>,
                     <span key="2">recognised on the ramp</span>,
                     <span key="3">
-                      are not <em className="font-normal text-ice">findings</em>.
+                      are not findings.
                     </span>,
                   ]}
                 />
@@ -174,7 +174,7 @@ export default function AviationPage() {
               lines={[
                 <span key="1">Operators, owners,</span>,
                 <span key="2">
-                  and the bodies that <em className="font-normal text-ice">hold them</em>.
+                  and the bodies that hold them.
                 </span>,
               ]}
             />
@@ -207,7 +207,7 @@ export default function AviationPage() {
                   lines={[
                     <span key="1">Three habits</span>,
                     <span key="2">
-                      we do not <em className="font-normal text-brass">drop</em>.
+                      we do not drop.
                     </span>,
                   ]}
                 />

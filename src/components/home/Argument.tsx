@@ -21,13 +21,14 @@ export function Argument() {
             <Reveal>
               <Eyebrow>Why clients engage us</Eyebrow>
             </Reveal>
-            <h2 id="why-heading" className="mt-8 font-display text-title">
+            <h2 id="why-heading" className="mt-8 font-display leading-[1.02] tracking-[-0.028em]">
               <LineReveal
                 lines={[
-                  <span key="1">Four things</span>,
-                  <span key="2">we do not</span>,
-                  <span key="3">
-                    <em className="font-normal text-brass">compromise</em>.
+                  <span key="1" className="block text-[clamp(2.4rem,5.6vw,4.5rem)]">
+                    Four things
+                  </span>,
+                  <span key="2" className="block text-[clamp(2.4rem,5.6vw,4.5rem)]">
+                    we do not compromise.
                   </span>,
                 ]}
               />

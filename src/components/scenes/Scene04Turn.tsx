@@ -67,7 +67,7 @@ export function Scene04Turn() {
             className="container-editorial flex items-center"
           >
             <p className="max-w-[15ch] font-display text-[clamp(2.2rem,6.4vw,5.25rem)] leading-[1.04] tracking-[-0.028em]">
-              Precision, turned <em className="font-normal text-champagne">inward</em>.
+              Precision, turned inward.
             </p>
           </Beat>
         </>

@@ -12,7 +12,7 @@ export default function NotFound() {
         <Eyebrow>Error 404</Eyebrow>
         <h1 className="mt-10 max-w-[14ch] font-display text-[clamp(2.4rem,6.4vw,5.5rem)] leading-[1.03] tracking-[-0.028em]">
           This page is not
-          <em className="font-normal text-champagne"> where it was</em>.
+           where it was.
         </h1>
         <p className="mt-8 max-w-md text-lead text-tone-muted">
           The address may have changed, or it may never have existed. Either way, the

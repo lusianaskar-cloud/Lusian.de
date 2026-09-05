@@ -68,6 +68,13 @@ function Instrument({ progress }: { progress: MotionValue<number> }) {
         />
       </motion.div>
 
+      {/* On a phone the copy has nowhere to sit clear of the network, so the
+          ground is lifted behind it rather than dimming the instrument. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-1/2 h-[58%] -translate-y-1/2 bg-[linear-gradient(to_bottom,transparent,var(--color-petrol)_18%,var(--color-petrol)_82%,transparent)] opacity-85 lg:hidden"
+      />
+
       {/* Position through the system. */}
       <motion.ul
         aria-hidden
@@ -103,7 +110,7 @@ export function Scene03Aviation() {
             className="container-editorial flex items-center"
           >
             <h2 className="max-w-[13ch] font-display text-[clamp(2.2rem,6.4vw,5.25rem)] leading-[1.03] tracking-[-0.028em]">
-              The operation is the <em className="font-normal text-ice">strategy</em>.
+              The operation is the strategy.
             </h2>
           </Beat>
 

@@ -23,7 +23,7 @@ export default function InsightsPage() {
         titleLines={[
           <span key="1">Written from</span>,
           <span key="2">
-            the <em className="font-normal text-brass">work</em>.
+            the work.
           </span>,
         ]}
         standfirst="Short pieces on aviation operations, Gulf markets and the practical business of moving a life or a company across borders. Published only when there is something to say."
