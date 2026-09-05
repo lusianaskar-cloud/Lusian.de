@@ -3,8 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { nav, site } from "@/lib/content/site";
+import { site } from "@/lib/content/site";
+import { useContent } from "@/lib/i18n/context";
+import { stripLocale } from "@/lib/i18n/config";
+import { format } from "@/lib/i18n/format";
 import { TransitionLink } from "@/components/primitives/TransitionLink";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 import { EASE } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import { Mark } from "./Mark";
@@ -13,7 +17,9 @@ import { useHeaderTone } from "./useHeaderTone";
 import { useStageTone } from "./stageTone";
 
 export function SiteHeader() {
-  const pathname = usePathname();
+  const { nav, ui } = useContent();
+  // The pathname carries the locale; the nav hrefs do not.
+  const pathname = stripLocale(usePathname() ?? "/");
   const measured = useHeaderTone();
   // A pinned scene changes tonality without moving, so it declares what is
   // beneath the header and that declaration wins while it is set.
@@ -75,7 +81,7 @@ export function SiteHeader() {
             <TransitionLink
               href="/"
               transitionLabel="Lusian"
-              aria-label={`${site.name} — home`}
+              aria-label={format(ui.homeAria, { name: site.name })}
               className="group flex shrink-0 items-center gap-3"
             >
               <Mark className="h-[1.45rem] w-[1.45rem] transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:rotate-180" />
@@ -84,7 +90,7 @@ export function SiteHeader() {
               </span>
             </TransitionLink>
 
-            <nav aria-label="Primary" className="hidden lg:block">
+            <nav aria-label={ui.primaryNav} className="hidden lg:block">
               <ul className="flex items-center gap-10">
                 {nav.map((item) => {
                   const active =
@@ -104,7 +110,7 @@ export function SiteHeader() {
                         <span
                           aria-hidden
                           className={cn(
-                            "absolute -bottom-0.5 left-0 block h-px w-full origin-left bg-current transition-transform duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
+                            "absolute -bottom-0.5 start-0 block h-px w-full origin-[left] rtl:origin-[right] bg-current transition-transform duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
                             active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100",
                           )}
                         />
@@ -115,7 +121,9 @@ export function SiteHeader() {
               </ul>
             </nav>
 
-            <div className="flex shrink-0 items-center gap-3">
+            <div className="flex shrink-0 items-center gap-4">
+              <LanguageSwitcher className="hidden lg:flex" />
+
               <TransitionLink
                 href="/speak"
                 transitionLabel="Speak with Lusian"
@@ -127,10 +135,10 @@ export function SiteHeader() {
               >
                 <span
                   aria-hidden
-                  className="absolute inset-0 origin-left scale-x-0 bg-current transition-transform duration-[650ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100"
+                  className="absolute inset-0 origin-[left] rtl:origin-[right] scale-x-0 bg-current transition-transform duration-[650ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100"
                 />
                 <span aria-hidden className="relative z-10 block size-1 rounded-full bg-current" />
-                <span className="relative z-10">Speak with us</span>
+                <span className="relative z-10">{ui.headerCta}</span>
               </TransitionLink>
 
               <button
@@ -138,17 +146,17 @@ export function SiteHeader() {
                 onClick={() => setOpen((v) => !v)}
                 aria-expanded={open}
                 aria-controls="mobile-menu"
-                className="relative -mr-2 flex size-11 items-center justify-center lg:hidden"
+                className="relative -me-2 flex size-11 items-center justify-center lg:hidden"
               >
-                <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
+                <span className="sr-only">{open ? ui.closeMenu : ui.openMenu}</span>
                 <span aria-hidden className="relative block h-3 w-6">
                   <motion.span
-                    className="absolute left-0 block h-px w-full bg-current"
+                    className="absolute start-0 block h-px w-full bg-current"
                     animate={open ? { top: 6, rotate: 45 } : { top: 0, rotate: 0 }}
                     transition={{ duration: reduced ? 0 : 0.5, ease: EASE.soft }}
                   />
                   <motion.span
-                    className="absolute left-0 block h-px w-full bg-current"
+                    className="absolute start-0 block h-px w-full bg-current"
                     animate={open ? { top: 6, rotate: -45 } : { top: 12, rotate: 0 }}
                     transition={{ duration: reduced ? 0 : 0.5, ease: EASE.soft }}
                   />

@@ -33,7 +33,7 @@ export function ProcessSteps({
       <div className="relative h-px w-full bg-current/12">
         <motion.span
           aria-hidden
-          className="absolute inset-y-0 left-0 block bg-[color:var(--tone-accent)]"
+          className="absolute inset-y-0 start-0 block bg-[color:var(--tone-accent)]"
           style={{ width: reduced ? "100%" : width }}
         />
       </div>
@@ -49,7 +49,7 @@ export function ProcessSteps({
           <RevealItem key={step.title} className="relative">
             <span
               aria-hidden
-              className="absolute -top-8 left-0 block size-1.5 -translate-y-1/2 rounded-full bg-[color:var(--tone-accent)]"
+              className="absolute -top-8 start-0 block size-1.5 -translate-y-1/2 rounded-full bg-[color:var(--tone-accent)]"
             />
             <span className="label-mono text-tone-muted">{ordinal(i)}</span>
             <h3 className="mt-4 font-display text-[1.5rem] leading-tight tracking-tight">

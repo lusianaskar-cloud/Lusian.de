@@ -13,7 +13,7 @@ export function Rule({ className, delay = 0 }: { className?: string; delay?: num
     <span className={cn("block h-px w-full overflow-hidden bg-current/15", className)}>
       <motion.span
         aria-hidden
-        className="block h-px w-full origin-left bg-current/60"
+        className="block h-px w-full origin-left rtl:origin-right rtl:origin-left bg-current/60"
         initial={reduced ? { scaleX: 1 } : { scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
         viewport={{ once: true, amount: 0.9 }}

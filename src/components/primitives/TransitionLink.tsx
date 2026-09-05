@@ -3,6 +3,7 @@
 import Link from "next/link";
 import type { ComponentProps, MouseEvent } from "react";
 import { useTransitionNavigate } from "@/components/chrome/TransitionProvider";
+import { useLocalePath } from "@/lib/i18n/context";
 
 type TransitionLinkProps = ComponentProps<typeof Link> & {
   /** Shown inside the curtain while the destination loads. */
@@ -12,6 +13,12 @@ type TransitionLinkProps = ComponentProps<typeof Link> & {
 /**
  * A normal anchor for crawlers, keyboards and modified clicks — but a plain
  * left-click hands navigation to the curtain.
+ *
+ * It is also where the locale prefix is applied. Every internal href in this
+ * codebase is written without one (`/aviation`, not `/de/aviation`), and this
+ * component is what every internal link ultimately renders through, so the
+ * language a reader is in survives navigation without any caller having to
+ * remember it — and without a round trip through the proxy's redirect.
  */
 export function TransitionLink({
   href,
@@ -20,7 +27,11 @@ export function TransitionLink({
   ...rest
 }: TransitionLinkProps) {
   const { navigate } = useTransitionNavigate();
-  const target = typeof href === "string" ? href : href.pathname ?? "";
+  const withLocale = useLocalePath();
+
+  const raw = typeof href === "string" ? href : (href.pathname ?? "");
+  const internal = raw.startsWith("/");
+  const target = internal ? withLocale(raw) : raw;
 
   function handleClick(event: MouseEvent<HTMLAnchorElement>) {
     onClick?.(event);
@@ -34,11 +45,11 @@ export function TransitionLink({
     ) {
       return;
     }
-    if (!target.startsWith("/")) return;
+    if (!internal) return;
 
     event.preventDefault();
     navigate(target, transitionLabel);
   }
 
-  return <Link href={href} onClick={handleClick} {...rest} />;
+  return <Link href={internal ? target : href} onClick={handleClick} {...rest} />;
 }

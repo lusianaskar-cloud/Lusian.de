@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useSafeReducedMotion } from "@/lib/useSafeReducedMotion";
 import { markets } from "@/lib/content/markets";
+import { useContent } from "@/lib/i18n/context";
 import { MarketPlot } from "./MarketPlot";
 import { EASE } from "@/lib/motion";
 import { cn, ordinal } from "@/lib/utils";
@@ -23,7 +24,9 @@ export function MarketExplorer() {
   const [index, setIndex] = useState(0);
   const reduced = useSafeReducedMotion();
   const railRef = useRef<HTMLDivElement>(null);
+  const { entries, plot } = useContent().markets;
   const active = markets[index];
+  const copy = entries[active.id];
 
   const select = (next: number) => {
     const clamped = (next + markets.length) % markets.length;
@@ -34,10 +37,16 @@ export function MarketExplorer() {
   };
 
   const onKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+    // Left and right follow the visual order, which reverses in Arabic.
+    const rtl =
+      typeof document !== "undefined" && document.documentElement.dir === "rtl";
+    const forward = rtl ? "ArrowLeft" : "ArrowRight";
+    const back = rtl ? "ArrowRight" : "ArrowLeft";
+
+    if (event.key === forward || event.key === "ArrowDown") {
       event.preventDefault();
       select(index + 1);
-    } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+    } else if (event.key === back || event.key === "ArrowUp") {
       event.preventDefault();
       select(index - 1);
     }
@@ -49,7 +58,7 @@ export function MarketExplorer() {
       <div
         ref={railRef}
         role="tablist"
-        aria-label="Gulf markets"
+        aria-label={plot.markets}
         aria-orientation="horizontal"
         onKeyDown={onKeyDown}
         className="no-scrollbar -mx-(--spacing-gutter) flex snap-x snap-mandatory gap-2 overflow-x-auto px-(--spacing-gutter) pb-1 lg:hidden"
@@ -72,7 +81,7 @@ export function MarketExplorer() {
                 : "border-current/15 text-tone-muted",
             )}
           >
-            {market.short}
+            {entries[market.id].short}
           </button>
         ))}
       </div>
@@ -86,7 +95,7 @@ export function MarketExplorer() {
           {/* Desktop: the index sits with the detail. */}
           <ul
             role="tablist"
-            aria-label="Gulf markets"
+            aria-label={plot.markets}
             aria-orientation="vertical"
             onKeyDown={onKeyDown}
             className="hidden border-t border-tone lg:block"
@@ -101,7 +110,7 @@ export function MarketExplorer() {
                   aria-controls={`market-panel-${market.id}`}
                   tabIndex={i === index ? 0 : -1}
                   onClick={() => setIndex(i)}
-                  className="group flex w-full items-center gap-4 py-3.5 text-left"
+                  className="group flex w-full items-center gap-4 py-3.5 text-start"
                 >
                   <span
                     className={cn(
@@ -115,11 +124,11 @@ export function MarketExplorer() {
                     className={cn(
                       "flex-1 text-[1.0625rem] tracking-tight transition-all duration-500",
                       i === index
-                        ? "translate-x-1 opacity-100"
-                        : "opacity-55 group-hover:translate-x-1 group-hover:opacity-100",
+                        ? "translate-x-1 rtl:-translate-x-1 opacity-100"
+                        : "opacity-55 group-hover:translate-x-1 group-hover:rtl:-translate-x-1 group-hover:opacity-100",
                     )}
                   >
-                    {market.name}
+                    {entries[market.id].name}
                   </span>
                 </button>
               </li>
@@ -140,20 +149,22 @@ export function MarketExplorer() {
               >
                 <div className="flex items-baseline gap-4">
                   <span className="label-mono text-accent">{ordinal(index)}</span>
-                  <span className="label-mono text-tone-muted">{active.code}</span>
+                  <span className="label-mono text-tone-muted" dir="ltr">
+                    {active.code}
+                  </span>
                 </div>
                 <h3 className="mt-4 font-display text-[clamp(1.9rem,4vw,2.75rem)] leading-tight tracking-tight lg:hidden">
-                  {active.name}
+                  {copy.name}
                 </h3>
                 <p className="mt-4 font-display text-subhead italic leading-snug text-accent">
-                  {active.line}
+                  {copy.line}
                 </p>
                 <p className="mt-5 text-[0.9375rem] leading-relaxed text-tone-muted">
-                  {active.body}
+                  {copy.body}
                 </p>
 
                 <ul className="mt-8">
-                  {active.character.map((item) => (
+                  {copy.character.map((item) => (
                     <li
                       key={item}
                       className="flex gap-3 border-t border-tone py-3 text-[0.875rem] leading-relaxed"
@@ -169,13 +180,15 @@ export function MarketExplorer() {
 
                 <div className="mt-8 space-y-4 border-t border-tone pt-6">
                   <div>
-                    <span className="label-mono text-tone-muted">Principal locations</span>
+                    <span className="label-mono text-tone-muted">
+                      {plot.principalLocations}
+                    </span>
                     <p className="mt-2 text-[0.875rem] text-tone-muted">
-                      {active.cities.join(" · ")}
+                      {copy.cities.join(" · ")}
                     </p>
                   </div>
                   <p className="font-display text-[1.0625rem] italic leading-snug">
-                    {active.suits}
+                    {copy.suits}
                   </p>
                 </div>
               </motion.div>

@@ -37,6 +37,9 @@
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
   --font-display: var(--font-newsreader), Georgia, "Times New Roman", serif;
 
+  /* Label size, so Arabic can raise it without redefining the utility. */
+  --label-size: var(--text-label);
+
   /* Fluid editorial scale */
   --text-hero:      clamp(3rem, 8.6vw, 9rem);
   --text-hero--line-height: 0.94;
@@ -143,6 +146,56 @@
 }
 
 /* ------------------------------------------------------------------
+   ARABIC
+   Not a translation of the type system — a second one, with the same
+   temperature. Amiri answers Newsreader for display, IBM Plex Sans Arabic
+   answers Geist for everything else, and each Arabic face is listed ahead
+   of its Latin counterpart so a mixed line (an email address, "ORAT",
+   "TH Wildau") still renders in the same families as the rest of the site.
+   ------------------------------------------------------------------ */
+
+:root:lang(ar) {
+  --font-sans: var(--font-plex-arabic), var(--font-geist-sans), ui-sans-serif,
+    system-ui, sans-serif;
+  --font-display: var(--font-amiri), var(--font-newsreader), Georgia, serif;
+
+  /* There is no convincing Arabic monospace, and a monospaced label is not
+     an Arabic typographic convention. The small labels keep their weight and
+     their spacing role, and take the interface face. */
+  --font-mono: var(--font-plex-arabic), var(--font-geist-sans), ui-sans-serif,
+    system-ui, sans-serif;
+
+  /* Arabic needs a little more optical size than an 11px Latin label. */
+  --label-size: 0.75rem;
+}
+
+/*
+   Arabic is a joined script: any letter-spacing breaks the joins and the
+   word stops being a word. The site's display type is tracked tightly and
+   its labels are tracked wide, both set through utilities and inline
+   classes — so rather than unpick every one of them per language, tracking
+   is simply switched off wherever the text is Arabic. There is no case in
+   which tracked Arabic is what was wanted.
+*/
+:root:lang(ar) *,
+:root:lang(ar) *::before,
+:root:lang(ar) *::after {
+  letter-spacing: normal !important;
+}
+
+/* Amiri carries 400 and 700; the Latin display weight of 300 would round
+   silently, so it is stated. */
+:root:lang(ar) .font-display {
+  font-weight: 400;
+}
+
+/* Arabic sits lower and taller in its em box than the Latin faces, so body
+   copy is given a little more room to breathe. */
+:root:lang(ar) body {
+  line-height: 1.75;
+}
+
+/* ------------------------------------------------------------------
    Utilities
    ------------------------------------------------------------------ */
 
@@ -170,7 +223,7 @@
 
 @utility label-mono {
   font-family: var(--font-mono);
-  font-size: var(--text-label);
+  font-size: var(--label-size);
   line-height: 1;
   letter-spacing: 0.2em;
   text-transform: uppercase;

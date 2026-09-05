@@ -2,8 +2,10 @@
 
 import { useEffect, useRef } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { nav, contactChannels } from "@/lib/content/site";
+import { contactChannels } from "@/lib/content/site";
+import { useContent } from "@/lib/i18n/context";
 import { TransitionLink } from "@/components/primitives/TransitionLink";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 import { EASE } from "@/lib/motion";
 import { getLenis } from "./SmoothScroll";
 import { ordinal } from "@/lib/utils";
@@ -16,6 +18,7 @@ const panel = {
 
 /** Full-bleed menu. The panel unrolls downward; the list arrives behind it. */
 export function MobileMenu({ onClose }: { onClose: () => void }) {
+  const { nav, ui, contact } = useContent();
   const reduced = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
 
@@ -62,7 +65,7 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
       ref={ref}
       role="dialog"
       aria-modal="true"
-      aria-label="Site menu"
+      aria-label={ui.siteMenu}
       className="grain fixed inset-0 z-[95] flex flex-col overflow-y-auto bg-ink tone-dark lg:hidden"
       variants={panel}
       initial="hidden"
@@ -73,7 +76,7 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
       <span aria-hidden className="grain-layer" />
 
       <div className="relative z-10 flex min-h-full flex-col justify-between px-(--spacing-gutter) pb-12 pt-32">
-        <nav aria-label="Primary">
+        <nav aria-label={ui.primaryNav}>
           <ul>
             {nav.map((item, i) => (
               <li key={item.href} className="border-b border-ivory/10">
@@ -118,17 +121,25 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
             onClick={onClose}
             className="flex items-center justify-between gap-4 rounded-full border border-ivory/25 px-7 py-5 label-mono"
           >
-            Request a private consultation
+            {ui.menuCta}
             <span aria-hidden className="block size-1.5 rounded-full bg-champagne" />
           </TransitionLink>
 
           <div className="space-y-2 label-mono text-ivory/45">
-            <p>
-              <a href={`mailto:${contactChannels.email}`} className="underline-offset-4 hover:underline">
+            <p dir="ltr" className="rtl:text-end">
+              <a
+                href={`mailto:${contactChannels.email}`}
+                className="underline-offset-4 hover:underline"
+              >
                 {contactChannels.email}
               </a>
             </p>
-            <p>Enquiries are read by a principal.</p>
+            {/* Published only if the firm actually keeps the promise. */}
+            {contact.responsePromise ? <p>{contact.responsePromise}</p> : null}
+          </div>
+
+          <div className="border-t border-ivory/10 pt-8">
+            <LanguageSwitcher />
           </div>
         </motion.div>
       </div>

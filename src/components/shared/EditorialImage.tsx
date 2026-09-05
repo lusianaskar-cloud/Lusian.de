@@ -10,6 +10,8 @@ import {
 } from "motion/react";
 import { useSafeReducedMotion } from "@/lib/useSafeReducedMotion";
 import type { Plate } from "@/lib/content/plates";
+import { useContent } from "@/lib/i18n/context";
+import { format } from "@/lib/i18n/format";
 import { cn } from "@/lib/utils";
 
 /**
@@ -43,6 +45,9 @@ export function EditorialImage({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const reduced = useSafeReducedMotion();
+  const content = useContent();
+  // Alt text, the brief and the caption are read; the plate itself is not.
+  const copy = content.plates[plate.key];
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
@@ -67,7 +72,7 @@ export function EditorialImage({
         >
           <Image
             src={plate.src}
-            alt={plate.alt}
+            alt={copy.alt}
             fill
             priority={priority}
             sizes="100vw"
@@ -107,10 +112,10 @@ export function EditorialImage({
 
           <div className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center">
             <span className="label-mono text-current/45">
-              Plate {plate.id} — photography to be supplied
+              {format(content.ui.plateReserved, { id: plate.id })}
             </span>
             <p className="mt-5 max-w-lg text-[0.875rem] leading-relaxed text-current/60">
-              {plate.brief}
+              {copy.brief}
             </p>
           </div>
         </motion.div>
@@ -133,11 +138,11 @@ export function EditorialImage({
       {caption ? (
         <span
           className={cn(
-            "label-mono absolute bottom-[1.4rem] left-14",
+            "label-mono absolute bottom-[1.4rem] start-14",
             tone === "dark" ? "text-ivory/45" : "text-ink/45",
           )}
         >
-          {plate.caption}
+          {copy.caption}
         </span>
       ) : null}
     </div>

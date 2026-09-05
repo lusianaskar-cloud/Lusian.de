@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useSafeReducedMotion } from "@/lib/useSafeReducedMotion";
 import { markets } from "@/lib/content/markets";
 import { contactChannels } from "@/lib/content/site";
+import { useContent } from "@/lib/i18n/context";
 import { ActionButton } from "@/components/primitives/ActionLink";
 import { EASE } from "@/lib/motion";
 import { cn } from "@/lib/utils";
@@ -13,55 +14,6 @@ import { SelectField, TextArea, TextField } from "./Field";
 type Practice = "aviation" | "private" | "general";
 type Status = "idle" | "sending" | "sent" | "unconfigured" | "error";
 
-const practices: { id: Practice; label: string; note: string }[] = [
-  { id: "aviation", label: "Aviation Advisory", note: "Airlines, airports, handling, investment" },
-  { id: "private", label: "Private Advisory", note: "Relocation and establishment" },
-  { id: "general", label: "Something else", note: "Press, partnership, general" },
-];
-
-const contactMethods = ["Email", "Phone", "Either"] as const;
-
-const timeframes = [
-  "Within three months",
-  "Three to six months",
-  "Six to twelve months",
-  "Beyond twelve months",
-  "Exploring only",
-];
-
-const partySizes = ["Individual", "Couple", "Family", "Business", "Family and business"];
-const destinations = [...markets.map((m) => m.name), "Undecided"];
-const supportAreas = [
-  "Choosing a market",
-  "Residency coordination",
-  "Business establishment",
-  "Property",
-  "Schools and education",
-  "Banking",
-  "Healthcare",
-  "Arrival and settling in",
-];
-
-const orgTypes = [
-  "Airline",
-  "Airport or terminal operator",
-  "Ground handling or aviation services",
-  "Investor or lender",
-  "Infrastructure developer",
-  "Aviation technology",
-  "Public sector or authority",
-  "Other",
-];
-
-const projectTypes = [
-  "Assessment or review",
-  "Operational improvement",
-  "Development or transition programme",
-  "Due diligence or investment support",
-  "Regulatory or organisational",
-  "Not yet defined",
-];
-
 /**
  * A question, not a support ticket.
  *
@@ -69,14 +21,28 @@ const projectTypes = [
  * disclosure, so someone with a simple question is never made to walk past
  * twenty fields — and someone with a complicated situation can give us the
  * whole picture in one go. Optional fields are genuinely optional.
+ *
+ * Every label, option and legend is read from the active locale. The values
+ * posted to the intake are therefore in the reader's own language, which is
+ * the honest thing to send: it is what they actually chose.
  */
 export function AskFlow() {
+  const { speak, ui, markets: marketCopy } = useContent();
+  const copy = speak.ask;
+
   const [practice, setPractice] = useState<Practice>("private");
-  const [method, setMethod] = useState<(typeof contactMethods)[number]>("Email");
+  const [method, setMethod] = useState(copy.contactMethods[0]);
   const [detail, setDetail] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
   const reduced = useSafeReducedMotion();
   const methodName = useId();
+
+  const destinations = [
+    ...markets.map((market) => marketCopy.entries[market.id].name),
+    copy.undecided,
+  ];
+  // The first method is the default; the others need a number to call.
+  const wantsPhone = method !== copy.contactMethods[0];
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -119,13 +85,17 @@ export function AskFlow() {
         role="status"
         className="border-t border-current/20 pt-10"
       >
-        <span className="label-mono text-accent">Received</span>
+        <span className="label-mono text-accent">{copy.sent.label}</span>
         <p className="mt-6 max-w-lg font-display text-heading leading-tight">
-          Thank you — your note has reached us.
+          {copy.sent.headline}
         </p>
         <p className="mt-5 max-w-md text-[0.9375rem] leading-relaxed text-tone-muted">
-          You will get a reply from a person, at{" "}
-          <a href={`mailto:${contactChannels.email}`} className="underline underline-offset-4">
+          {copy.sent.body}{" "}
+          <a
+            href={`mailto:${contactChannels.email}`}
+            dir="ltr"
+            className="inline-block underline underline-offset-4"
+          >
             {contactChannels.email}
           </a>
           .
@@ -137,18 +107,18 @@ export function AskFlow() {
   return (
     <form onSubmit={handleSubmit} className="space-y-14">
       <fieldset>
-        <legend className="label-mono text-tone-muted">What is this about</legend>
+        <legend className="label-mono text-tone-muted">{copy.practiceLegend}</legend>
         <div className="mt-5 grid gap-3 sm:grid-cols-3">
-          {practices.map((option) => {
+          {copy.practices.map((option) => {
             const selected = practice === option.id;
             return (
               <button
                 key={option.id}
                 type="button"
-                onClick={() => setPractice(option.id)}
+                onClick={() => setPractice(option.id as Practice)}
                 aria-pressed={selected}
                 className={cn(
-                  "group relative flex flex-col items-start overflow-hidden border p-5 text-left transition-colors duration-500",
+                  "group relative flex flex-col items-start overflow-hidden border p-5 text-start transition-colors duration-500",
                   selected ? "border-current/60" : "border-current/15 hover:border-current/40",
                 )}
               >
@@ -180,21 +150,28 @@ export function AskFlow() {
       <TextArea
         id="message"
         name="message"
-        label="Your question, or the situation"
+        label={copy.fields.message}
         required
         rows={5}
-        placeholder="In your own words. A few lines is plenty."
+        placeholder={copy.messagePlaceholder}
       />
 
       <div className="grid gap-x-10 gap-y-12 sm:grid-cols-2">
-        <TextField id="name" name="name" label="Name" required autoComplete="name" />
-        <TextField id="email" name="email" label="Email" type="email" required autoComplete="email" />
+        <TextField id="name" name="name" label={copy.fields.name} required autoComplete="name" />
+        <TextField
+          id="email"
+          name="email"
+          label={copy.fields.email}
+          type="email"
+          required
+          autoComplete="email"
+        />
       </div>
 
       <fieldset>
-        <legend className="label-mono text-tone-muted">How should we reply</legend>
+        <legend className="label-mono text-tone-muted">{copy.contactMethodLegend}</legend>
         <div className="mt-4 flex flex-wrap gap-x-8 gap-y-3">
-          {contactMethods.map((option) => (
+          {copy.contactMethods.map((option) => (
             <label key={option} className="flex cursor-pointer items-center gap-2.5 text-[0.9375rem]">
               <input
                 type="radio"
@@ -209,7 +186,7 @@ export function AskFlow() {
           ))}
         </div>
         <AnimatePresence initial={false}>
-          {method !== "Email" ? (
+          {wantsPhone ? (
             <motion.div
               initial={reduced ? false : { opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
@@ -218,7 +195,12 @@ export function AskFlow() {
               className="overflow-hidden"
             >
               <div className="pt-8">
-                <TextField id="phone" name="phone" label="Telephone" autoComplete="tel" />
+                <TextField
+                  id="phone"
+                  name="phone"
+                  label={copy.fields.phone}
+                  autoComplete="tel"
+                />
               </div>
             </motion.div>
           ) : null}
@@ -232,14 +214,12 @@ export function AskFlow() {
             type="button"
             onClick={() => setDetail((v) => !v)}
             aria-expanded={detail}
-            className="group flex w-full items-center justify-between gap-6 text-left"
+            className="group flex w-full items-center justify-between gap-6 text-start"
           >
             <span>
-              <span className="block text-[1.0625rem] tracking-tight">
-                Add context
-              </span>
+              <span className="block text-[1.0625rem] tracking-tight">{copy.addContext}</span>
               <span className="mt-1.5 block text-[0.8125rem] text-tone-muted">
-                Optional. It makes the first reply more useful.
+                {copy.addContextNote}
               </span>
             </span>
             <span aria-hidden className="relative block size-3.5 shrink-0">
@@ -268,28 +248,33 @@ export function AskFlow() {
                       <TextField
                         id="currentCountry"
                         name="currentCountry"
-                        label="Where you are now"
+                        label={copy.fields.currentCountry}
                         autoComplete="country-name"
                       />
                       <SelectField
                         id="destination"
                         name="destination"
-                        label="Market you are considering"
+                        label={copy.fields.destination}
                         options={destinations}
                       />
-                      <SelectField id="party" name="party" label="Moving as" options={partySizes} />
+                      <SelectField
+                        id="party"
+                        name="party"
+                        label={copy.fields.party}
+                        options={copy.partySizes}
+                      />
                       <SelectField
                         id="timeframe"
                         name="timeframe"
-                        label="Approximate timing"
-                        options={timeframes}
+                        label={copy.fields.timeframe}
+                        options={copy.timeframes}
                       />
                       <fieldset className="sm:col-span-2">
                         <legend className="label-mono text-tone-muted">
-                          Where you expect to need support
+                          {copy.supportLegend}
                         </legend>
                         <div className="mt-5 grid gap-x-8 gap-y-3 sm:grid-cols-2">
-                          {supportAreas.map((area) => (
+                          {copy.supportAreas.map((area) => (
                             <label
                               key={area}
                               className="flex cursor-pointer items-start gap-3 text-[0.9375rem] leading-snug"
@@ -311,33 +296,37 @@ export function AskFlow() {
                       <TextField
                         id="company"
                         name="company"
-                        label="Organisation"
+                        label={copy.fields.company}
                         autoComplete="organization"
                       />
                       <TextField
                         id="role"
                         name="role"
-                        label="Role"
+                        label={copy.fields.role}
                         autoComplete="organization-title"
                       />
                       <SelectField
                         id="orgType"
                         name="orgType"
-                        label="Type of organisation"
-                        options={orgTypes}
+                        label={copy.fields.orgType}
+                        options={copy.orgTypes}
                       />
-                      <TextField id="geography" name="geography" label="Where the work sits" />
+                      <TextField
+                        id="geography"
+                        name="geography"
+                        label={copy.fields.geography}
+                      />
                       <SelectField
                         id="projectType"
                         name="projectType"
-                        label="Nature of the project"
-                        options={projectTypes}
+                        label={copy.fields.projectType}
+                        options={copy.projectTypes}
                       />
                       <SelectField
                         id="timeframe"
                         name="timeframe"
-                        label="Approximate timing"
-                        options={timeframes}
+                        label={copy.fields.timeframe}
+                        options={copy.timeframes}
                       />
                     </>
                   )}
@@ -350,7 +339,7 @@ export function AskFlow() {
 
       {/* Never shown, never focusable. */}
       <div aria-hidden className="absolute left-[-9999px] h-0 w-0 overflow-hidden">
-        <label htmlFor="company_website">Leave this field empty</label>
+        <label htmlFor="company_website">{copy.honeypot}</label>
         <input id="company_website" name="company_website" tabIndex={-1} autoComplete="off" />
       </div>
 
@@ -363,15 +352,13 @@ export function AskFlow() {
           className="mt-1 size-4 shrink-0 accent-[color:var(--tone-accent)]"
         />
         <label htmlFor="consent" className="text-[0.8125rem] leading-relaxed text-tone-muted">
-          I agree that Lusian may hold these details in order to reply. They are not
-          shared with anyone else without my instruction, and not used for anything
-          other than this conversation.
+          {copy.consent}
         </label>
       </div>
 
       <div className="flex flex-wrap items-center gap-8">
         <ActionButton disabled={status === "sending"}>
-          {status === "sending" ? "Sending" : "Send privately"}
+          {status === "sending" ? ui.sending : ui.send}
         </ActionButton>
 
         <AnimatePresence>
@@ -384,13 +371,12 @@ export function AskFlow() {
               role="alert"
               className="max-w-sm text-[0.8125rem] leading-relaxed text-tone-muted"
             >
-              {status === "unconfigured"
-                ? "This form is not yet connected to the firm's intake, so your message has not been sent."
-                : "The message could not be sent just now."}{" "}
-              Please write to{" "}
+              {status === "unconfigured" ? copy.unconfigured : copy.failed}{" "}
+              {copy.writeTo}{" "}
               <a
                 href={`mailto:${contactChannels.email}`}
-                className="text-accent underline underline-offset-4"
+                dir="ltr"
+                className="inline-block text-accent underline underline-offset-4"
               >
                 {contactChannels.email}
               </a>

@@ -4,15 +4,17 @@ import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useSafeReducedMotion } from "@/lib/useSafeReducedMotion";
 import { insightCategories, type Insight } from "@/lib/content/insights";
+import { useContent } from "@/lib/i18n/context";
 import { TransitionLink } from "@/components/primitives/TransitionLink";
 import { Reveal } from "@/components/primitives/Reveal";
 import { Arrow } from "@/components/primitives/Arrow";
 import { EASE } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
-const ALL = "All";
+/** The filter's "everything" state, as a value rather than a translated label. */
+const ALL = "all";
 
-function DemoTag({ className }: { className?: string }) {
+function DemoTag({ label, className }: { label: string; className?: string }) {
   return (
     <span
       className={cn(
@@ -21,7 +23,7 @@ function DemoTag({ className }: { className?: string }) {
       )}
     >
       <span aria-hidden className="block size-1 rounded-full bg-current" />
-      Demo
+      {label}
     </span>
   );
 }
@@ -29,6 +31,8 @@ function DemoTag({ className }: { className?: string }) {
 export function InsightsIndex({ insights }: { insights: Insight[] }) {
   const [category, setCategory] = useState<string>(ALL);
   const reduced = useSafeReducedMotion();
+  const content = useContent();
+  const copy = content.insights;
 
   const filtered = useMemo(
     () => (category === ALL ? insights : insights.filter((i) => i.category === category)),
@@ -41,7 +45,7 @@ export function InsightsIndex({ insights }: { insights: Insight[] }) {
     <>
       <Reveal wide>
         <div className="flex flex-wrap items-center gap-x-2 gap-y-3 border-y border-ink/12 py-5">
-          <span className="label-mono mr-4 text-ink/35">Filter</span>
+          <span className="label-mono me-4 text-ink/35">{copy.filter}</span>
           {[ALL, ...insightCategories].map((item) => {
             const selected = category === item;
             return (
@@ -57,7 +61,7 @@ export function InsightsIndex({ insights }: { insights: Insight[] }) {
                     : "border-ink/20 text-ink/55 hover:border-ink/50 hover:text-ink",
                 )}
               >
-                {item}
+                {item === ALL ? copy.all : copy.categories[item]}
               </button>
             );
           })}
@@ -75,26 +79,28 @@ export function InsightsIndex({ insights }: { insights: Insight[] }) {
           {featured ? (
             <TransitionLink
               href={`/insights/${featured.slug}`}
-              transitionLabel={featured.category}
+              transitionLabel={copy.categories[featured.category]}
               className="group mt-14 block border-b border-ink/12 pb-14 lg:mt-20 lg:pb-20"
             >
               <div className="grid gap-8 lg:grid-cols-12 lg:gap-10">
                 <div className="flex items-start gap-4 lg:col-span-4">
-                  <span className="label-mono text-brass">{featured.category}</span>
-                  <DemoTag />
+                  <span className="label-mono text-brass">
+                    {copy.categories[featured.category]}
+                  </span>
+                  <DemoTag label={content.ui.demo} />
                 </div>
                 <div className="lg:col-span-7 lg:col-start-6">
                   <h3 className="font-display text-[clamp(1.9rem,4.2vw,3.5rem)] leading-[1.06] tracking-[-0.026em]">
-                    <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-[background-size] duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:bg-[length:100%_1px]">
-                      {featured.title}
+                    <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat rtl:bg-right-bottom transition-[background-size] duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:bg-[length:100%_1px]">
+                      {copy.entries[featured.slug].title}
                     </span>
                   </h3>
                   <p className="mt-6 max-w-2xl text-lead text-tone-muted">
-                    {featured.standfirst}
+                    {copy.entries[featured.slug].standfirst}
                   </p>
                   <span className="mt-8 inline-flex items-center gap-3 label-mono text-ink/45">
-                    {featured.readingTime}
-                    <Arrow className="transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-2" />
+                    {copy.entries[featured.slug].readingTime}
+                    <Arrow className="transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-2 group-hover:rtl:-translate-x-2" />
                   </span>
                 </div>
               </div>
@@ -106,24 +112,26 @@ export function InsightsIndex({ insights }: { insights: Insight[] }) {
               <TransitionLink
                 key={insight.slug}
                 href={`/insights/${insight.slug}`}
-                transitionLabel={insight.category}
+                transitionLabel={copy.categories[insight.category]}
                 className="group relative flex flex-col bg-ivory p-8 transition-colors duration-700 hover:bg-paper lg:p-10"
               >
                 <div className="flex items-start justify-between gap-4">
-                  <span className="label-mono text-brass">{insight.category}</span>
-                  <DemoTag />
+                  <span className="label-mono text-brass">
+                    {copy.categories[insight.category]}
+                  </span>
+                  <DemoTag label={content.ui.demo} />
                 </div>
 
                 <h3 className="mt-10 font-display text-[1.6rem] leading-tight tracking-tight lg:mt-14">
-                  {insight.title}
+                  {copy.entries[insight.slug].title}
                 </h3>
                 <p className="mt-4 flex-1 text-[0.9375rem] leading-relaxed text-tone-muted">
-                  {insight.standfirst}
+                  {copy.entries[insight.slug].standfirst}
                 </p>
 
                 <span className="mt-10 flex items-center justify-between label-mono text-ink/40">
-                  {insight.readingTime}
-                  <Arrow className="transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-2" />
+                  {copy.entries[insight.slug].readingTime}
+                  <Arrow className="transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-2 group-hover:rtl:-translate-x-2" />
                 </span>
               </TransitionLink>
             ))}
@@ -131,7 +139,7 @@ export function InsightsIndex({ insights }: { insights: Insight[] }) {
 
           {filtered.length === 0 ? (
             <p className="py-20 text-center font-display text-heading text-tone-muted">
-              Nothing published in this category yet.
+              {copy.empty}
             </p>
           ) : null}
         </motion.div>

@@ -1,9 +1,12 @@
 import type { ConsultationType } from "./types";
 
 /**
- * The conversations Lusian offers.
+ * The conversations Lusian offers — structure only.
  *
- * No prices. Durations describe the conversation, not a product tier.
+ * No prices. The displayed name, duration and description are translated and
+ * live in the locale bundles keyed by these ids; `name` here is an internal
+ * reference passed to the scheduling provider as booking metadata, and is not
+ * rendered anywhere.
  *
  * TODO(client): each entry needs its scheduling-provider event type id in the
  * environment variable named by `providerKey` — see docs/SCHEDULING.md.
@@ -12,33 +15,29 @@ export const consultationTypes: ConsultationType[] = [
   {
     id: "aviation-initial",
     practice: "aviation",
-    name: "Initial conversation",
-    duration: "30 minutes",
-    body: "A first call to establish whether there is a fit. What you are trying to achieve, the constraints, and the date it has to be answered by.",
+    name: "Aviation — initial conversation",
+    minutes: 30,
     providerKey: "SCHEDULING_EVENT_AVIATION_INITIAL",
   },
   {
     id: "aviation-project",
     practice: "aviation",
-    name: "Project discussion",
-    duration: "60 minutes",
-    body: "For a defined piece of work — an operation, an asset, a programme or a supplier. Bring the question; we will tell you what a proper look would involve.",
+    name: "Aviation — project discussion",
+    minutes: 60,
     providerKey: "SCHEDULING_EVENT_AVIATION_PROJECT",
   },
   {
     id: "private-initial",
     practice: "private",
-    name: "Initial conversation",
-    duration: "30 minutes",
-    body: "A short, confidential first conversation. No documents, no obligation, and nothing shared with anyone.",
+    name: "Private — initial conversation",
+    minutes: 30,
     providerKey: "SCHEDULING_EVENT_PRIVATE_INITIAL",
   },
   {
     id: "private-relocation",
     practice: "private",
-    name: "Relocation consultation",
-    duration: "60 minutes",
-    body: "For those already some way into a decision. Market, sequence, dependencies and the specialists a move of this shape would require.",
+    name: "Private — relocation consultation",
+    minutes: 60,
     providerKey: "SCHEDULING_EVENT_PRIVATE_RELOCATION",
   },
 ];

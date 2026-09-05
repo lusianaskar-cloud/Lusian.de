@@ -4,6 +4,7 @@ import { motion, useMotionValue, useTransform, type MotionValue } from "motion/r
 import { useRange } from "@/lib/useRange";
 import { Scene, Beat } from "./Scene";
 import { RouteNetwork } from "@/components/aviation/RouteNetwork";
+import { useContent } from "@/lib/i18n/context";
 
 /**
  * SCENE 04 — THE TURN
@@ -43,13 +44,15 @@ function TurnGround({ progress }: { progress: MotionValue<number> }) {
 }
 
 export function Scene04Turn() {
+  const { turn } = useContent().home;
+
   return (
     <Scene
       tone="dark"
       length={2.0}
       mobileLength={1.5}
       className="bg-umber"
-      label="Between the practices"
+      label={turn.line}
     >
       {({ progress, reduced }) => (
         <>
@@ -67,7 +70,7 @@ export function Scene04Turn() {
             className="container-editorial flex items-center"
           >
             <p className="max-w-[15ch] font-display text-[clamp(2.2rem,6.4vw,5.25rem)] leading-[1.04] tracking-[-0.028em]">
-              Precision, turned inward.
+              {turn.line}
             </p>
           </Beat>
         </>

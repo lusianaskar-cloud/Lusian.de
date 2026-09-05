@@ -26,7 +26,7 @@ export function JourneyRail({ steps }: { steps: readonly Step[] }) {
       {/* Rail */}
       <div
         aria-hidden
-        className="absolute bottom-0 left-[7px] top-0 w-px bg-current/12 sm:left-[9px]"
+        className="absolute bottom-0 start-[7px] top-0 w-px bg-current/12 sm:start-[9px]"
       >
         <motion.span
           className="block h-full w-full origin-top bg-[color:var(--tone-accent)]"
@@ -36,10 +36,10 @@ export function JourneyRail({ steps }: { steps: readonly Step[] }) {
 
       <ol className="space-y-14 lg:space-y-20">
         {steps.map((step, i) => (
-          <li key={step.title} className="relative pl-10 sm:pl-14">
+          <li key={step.title} className="relative ps-10 sm:ps-14">
             <span
               aria-hidden
-              className="absolute left-0 top-[0.55em] block size-[15px] rounded-full border border-current/25 bg-[color:var(--tone-bg)] sm:size-[19px]"
+              className="absolute start-0 top-[0.55em] block size-[15px] rounded-full border border-current/25 bg-[color:var(--tone-bg)] sm:size-[19px]"
             >
               <span className="absolute inset-[4px] rounded-full bg-[color:var(--tone-accent)] opacity-90" />
             </span>

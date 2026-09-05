@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { clientProfiles } from "@/lib/content/speak";
+import { useContent } from "@/lib/i18n/context";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { LineReveal, Reveal } from "@/components/primitives/Reveal";
 import { EASE } from "@/lib/motion";
@@ -19,19 +19,20 @@ import { cn } from "@/lib/utils";
 export function ClientRecognition() {
   const [held, setHeld] = useState<string | null>(null);
   const reduced = useReducedMotion();
+  const { recognition } = useContent().about;
 
   const columns = [
-    { key: "aviation", label: "01 — Aviation", items: clientProfiles.aviation },
-    { key: "private", label: "02 — Private", items: clientProfiles.private },
+    { key: "aviation", label: recognition.aviationLabel, items: recognition.aviation },
+    { key: "private", label: recognition.privateLabel, items: recognition.privateAdvisory },
   ];
 
   return (
     <div>
       <Reveal>
-        <Eyebrow>Who we work with</Eyebrow>
+        <Eyebrow>{recognition.eyebrow}</Eyebrow>
       </Reveal>
       <h2 className="mt-8 max-w-[18ch] font-display text-title">
-        <LineReveal lines={[<span key="1">You will know if this is for you.</span>]} />
+        <LineReveal lines={[<span key="1">{recognition.headline}</span>]} />
       </h2>
 
       <div

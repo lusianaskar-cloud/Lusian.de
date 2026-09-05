@@ -10,6 +10,7 @@ import {
   useTransform,
 } from "motion/react";
 import { markets, type Market } from "@/lib/content/markets";
+import { useContent } from "@/lib/i18n/context";
 import { cn } from "@/lib/utils";
 
 /**
@@ -22,6 +23,14 @@ import { cn } from "@/lib/utils";
  * Presentational only — the caller owns which market is active, so the same
  * instrument serves the pinned homepage scene (index driven by scroll) and
  * the destinations page (driven by an accessible index list).
+ *
+ * ── It does not mirror in Arabic ────────────────────────────────────────
+ * The rest of the site flips with `dir`, and should. This does not: the
+ * markers sit at true relative positions derived from real coordinates, and
+ * a Gulf with Oman on the left and the Emirates on the right would simply be
+ * wrong. The instrument is therefore pinned to `dir="ltr"` and every position
+ * inside it stays physical. Only the label text is read in the page's
+ * language, which is why the labels carry `dir="auto"`.
  */
 const BOUNDS = { west: 44.5, east: 60.5, south: 22, north: 31 };
 const VIEW = { w: 1000, h: 625 };
@@ -50,7 +59,9 @@ export function MarketPlot({
   className?: string;
 }) {
   const reduced = useReducedMotion();
+  const { entries, plot } = useContent().markets;
   const active = marketPoints[Math.max(0, Math.min(marketPoints.length - 1, activeIndex))];
+  const activeCopy = entries[active.market.id];
 
   const spring = useMemo(
     () => (reduced ? { duration: 0 } : { type: "spring" as const, stiffness: 90, damping: 20, mass: 1 }),
@@ -83,7 +94,7 @@ export function MarketPlot({
         className,
       )}
     >
-      <div className="relative aspect-[16/10] w-full">
+      <div dir="ltr" className="relative aspect-[16/10] w-full">
         <svg
           viewBox={`0 0 ${VIEW.w} ${VIEW.h}`}
           className="absolute inset-0 h-full w-full"
@@ -149,14 +160,14 @@ export function MarketPlot({
                   ? { type: "button" as const, tabIndex: -1, onClick: () => onSelect(i) }
                   : {})}
                 data-cursor={onSelect ? "label" : undefined}
-                data-cursor-label={onSelect ? p.market.short : undefined}
+                data-cursor-label={onSelect ? entries[p.market.id].short : undefined}
                 style={{
                   left: `${(p.x / VIEW.w) * 100}%`,
                   top: `${(p.y / VIEW.h) * 100}%`,
                 }}
                 className="absolute grid size-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full"
               >
-                <span className="sr-only">{p.market.name}</span>
+                <span className="sr-only">{entries[p.market.id].name}</span>
                 <span
                   className={cn(
                     "block rounded-full transition-all duration-500",
@@ -167,22 +178,31 @@ export function MarketPlot({
                 />
                 {labels ? (
                   <span
+                    dir="auto"
                     className={cn(
-                      "label-mono absolute left-full top-1/2 hidden -translate-y-1/2 whitespace-nowrap transition-colors duration-500 sm:block",
+                      "label-mono absolute left-full top-1/2 hidden -translate-y-1/2 whitespace-nowrap ps-1 transition-colors duration-500 sm:block",
                       isActive ? "text-accent" : "text-tone-muted",
                     )}
                   >
-                    {p.market.short}
+                    {entries[p.market.id].short}
                   </span>
                 ) : null}
               </Tag>
             );
           })}
 
-          <span className="label-mono absolute bottom-4 left-4 hidden text-tone-muted sm:block">
-            {active.market.hub}
+          <span
+            dir="auto"
+            className="label-mono absolute bottom-4 left-4 hidden text-tone-muted sm:block"
+          >
+            {activeCopy.hub}
           </span>
-          <motion.span className="label-mono absolute bottom-4 right-4 tabular-nums text-tone-muted">
+          {/* A coordinate reads left to right in every language. */}
+          <motion.span
+            dir="ltr"
+            aria-label={plot.markets}
+            className="label-mono absolute bottom-4 right-4 tabular-nums text-tone-muted"
+          >
             {readout}
           </motion.span>
         </div>

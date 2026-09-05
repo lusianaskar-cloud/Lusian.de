@@ -3,7 +3,7 @@
 import { motion, type MotionValue } from "motion/react";
 import { useRange } from "@/lib/useRange";
 import { Scene, Beat } from "./Scene";
-import { gulfJourney } from "@/lib/content/gulf";
+import { useContent } from "@/lib/i18n/context";
 import { TextLink } from "@/components/primitives/ActionLink";
 import { ordinal } from "@/lib/utils";
 
@@ -19,8 +19,6 @@ import { ordinal } from "@/lib/utils";
  */
 const FIRST = 0.12;
 const LAST = 0.92;
-const COUNT = gulfJourney.length;
-const SPAN = (LAST - FIRST) / COUNT;
 
 function StageName({
   active,
@@ -56,8 +54,15 @@ function StageTick({ active, index }: { active: MotionValue<number>; index: numb
   );
 }
 
-function Index({ progress }: { progress: MotionValue<number> }) {
-  const active = useRange(progress, [FIRST + SPAN / 2, LAST - SPAN / 2], [0, COUNT - 1]);
+function Index({
+  progress,
+  steps,
+}: {
+  progress: MotionValue<number>;
+  steps: readonly { title: string }[];
+}) {
+  const span = (LAST - FIRST) / steps.length;
+  const active = useRange(progress, [FIRST + span / 2, LAST - span / 2], [0, steps.length - 1]);
   const fill = useRange(progress, [FIRST, LAST], [0, 1]);
   const opacity = useRange(progress, [0.04, 0.12], [0, 1]);
 
@@ -68,7 +73,7 @@ function Index({ progress }: { progress: MotionValue<number> }) {
     >
       {/* Phone: a horizontal index across the top. */}
       <div className="flex items-center gap-2 lg:hidden">
-        {gulfJourney.map((step, i) => (
+        {steps.map((step, i) => (
           <StageTick key={step.title} active={active} index={i} />
         ))}
       </div>
@@ -83,7 +88,7 @@ function Index({ progress }: { progress: MotionValue<number> }) {
           />
         </div>
         <ul className="space-y-5">
-          {gulfJourney.map((step, i) => (
+          {steps.map((step, i) => (
             <StageName key={step.title} active={active} index={i} title={step.title} />
           ))}
         </ul>
@@ -93,6 +98,11 @@ function Index({ progress }: { progress: MotionValue<number> }) {
 }
 
 export function Scene06Sequence() {
+  const content = useContent();
+  const steps = content.gulf.journey.steps;
+  const scene = content.home.sequence;
+  const span = (LAST - FIRST) / steps.length;
+
   return (
     <Scene
       tone="dark"
@@ -100,7 +110,7 @@ export function Scene06Sequence() {
       mobileLength={2.2}
       className="bg-umber"
       stageClassName="grain"
-      label="The private client sequence"
+      label={content.gulf.journey.eyebrow}
     >
       {({ progress, reduced }) => (
         <>
@@ -115,7 +125,7 @@ export function Scene06Sequence() {
                     "radial-gradient(65% 70% at 78% 40%, color-mix(in oklab, var(--color-champagne) 16%, transparent), transparent)",
                 }}
               />
-              <Index progress={progress} />
+              <Index progress={progress} steps={steps} />
             </>
           )}
 
@@ -126,22 +136,22 @@ export function Scene06Sequence() {
             className="container-editorial flex items-center"
           >
             <h2 className="max-w-[14ch] font-display text-[clamp(2.1rem,6vw,4.75rem)] leading-[1.05] tracking-[-0.028em]">
-              Five stages, one contact.
+              {scene.headline}
             </h2>
           </Beat>
 
-          {gulfJourney.map((step, i) => {
-            const start = FIRST + i * SPAN;
+          {steps.map((step, i) => {
+            const start = FIRST + i * span;
             return (
               <Beat
                 key={step.title}
                 progress={progress}
                 reduced={reduced}
-                range={[start - 0.02, start + 0.03, start + SPAN - 0.04, start + SPAN + 0.01]}
+                range={[start - 0.02, start + 0.03, start + span - 0.04, start + span + 0.01]}
                 rise={26}
                 className="container-editorial flex items-center"
               >
-                <div className="max-w-2xl pt-16 lg:ml-auto lg:w-6/12 lg:max-w-none lg:pt-0">
+                <div className="max-w-2xl pt-16 lg:ms-auto lg:w-6/12 lg:max-w-none lg:pt-0">
                   <span className="label-mono text-champagne/70 lg:hidden">
                     {ordinal(i)}
                   </span>
@@ -163,8 +173,8 @@ export function Scene06Sequence() {
             rise={14}
             className="container-editorial flex items-end justify-end pb-[max(2.25rem,env(safe-area-inset-bottom))] lg:pb-16"
           >
-            <TextLink href="/private-advisory" transitionLabel="Gulf Private Advisory">
-              The private practice
+            <TextLink href="/private-advisory" transitionLabel={content.gulf.title}>
+              {scene.link}
             </TextLink>
           </Beat>
         </>

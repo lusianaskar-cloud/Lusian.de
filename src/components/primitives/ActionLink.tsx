@@ -27,7 +27,7 @@ function Fill() {
   return (
     <span
       aria-hidden
-      className="absolute inset-0 origin-left scale-x-0 bg-[color:var(--tone-fg,currentColor)] transition-transform duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100 group-focus-visible:scale-x-100"
+      className="absolute inset-0 origin-left rtl:origin-right rtl:origin-left scale-x-0 bg-[color:var(--tone-fg,currentColor)] transition-transform duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100 group-focus-visible:scale-x-100"
     />
   );
 }
@@ -35,10 +35,10 @@ function Fill() {
 function SwapArrow() {
   return (
     <span className="relative z-10 block h-[10px] w-7 overflow-hidden">
-      <span className="absolute inset-0 flex items-center transition-transform duration-[650ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[150%] group-focus-visible:translate-x-[150%]">
+      <span className="absolute inset-0 flex items-center transition-transform duration-[650ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[150%] group-hover:rtl:-translate-x-[150%] group-focus-visible:translate-x-[150%] group-focus-visible:rtl:-translate-x-[150%]">
         <Arrow />
       </span>
-      <span className="absolute inset-0 flex -translate-x-[150%] items-center transition-transform duration-[650ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0 group-focus-visible:translate-x-0">
+      <span className="absolute inset-0 flex -translate-x-[150%] rtl:translate-x-[150%] items-center transition-transform duration-[650ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0 group-focus-visible:translate-x-0">
         <Arrow />
       </span>
     </span>
@@ -126,14 +126,14 @@ export function TextLink({
         {children}
         <span
           aria-hidden
-          className="absolute bottom-0 left-0 block h-px w-full origin-right bg-current transition-transform duration-[550ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:origin-left group-hover:scale-x-0 group-focus-visible:origin-left group-focus-visible:scale-x-0"
+          className="absolute bottom-0 start-0 block h-px w-full origin-right rtl:origin-left bg-current transition-transform duration-[550ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:origin-left rtl:origin-right rtl:origin-left group-hover:scale-x-0 group-focus-visible:origin-left rtl:origin-right rtl:origin-left group-focus-visible:scale-x-0"
         />
         <span
           aria-hidden
-          className="absolute bottom-0 left-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform delay-[200ms] duration-[550ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100 group-focus-visible:scale-x-100"
+          className="absolute bottom-0 start-0 block h-px w-full origin-left rtl:origin-right rtl:origin-left scale-x-0 bg-current transition-transform delay-[200ms] duration-[550ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100 group-focus-visible:scale-x-100"
         />
       </span>
-      <Arrow className="w-5 transition-transform duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1.5 group-focus-visible:translate-x-1.5" />
+      <Arrow className="w-5 transition-transform duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1.5 group-hover:rtl:-translate-x-1.5 group-focus-visible:translate-x-1.5 group-focus-visible:rtl:-translate-x-1.5" />
     </TransitionLink>
   );
 }

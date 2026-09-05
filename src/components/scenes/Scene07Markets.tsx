@@ -7,6 +7,7 @@ import { Scene, Beat } from "./Scene";
 import { MarketPlot } from "@/components/gulf/MarketPlot";
 import { TextLink } from "@/components/primitives/ActionLink";
 import { markets } from "@/lib/content/markets";
+import { useContent } from "@/lib/i18n/context";
 import { ordinal } from "@/lib/utils";
 
 /**
@@ -59,6 +60,8 @@ function Plot({ progress, index }: { progress: MotionValue<number>; index: numbe
 }
 
 export function Scene07Markets() {
+  const { plot } = useContent().markets;
+
   return (
     <Scene
       tone="dark"
@@ -66,7 +69,7 @@ export function Scene07Markets() {
       mobileLength={2.4}
       className="bg-ink"
       stageClassName="grain"
-      label="Gulf markets"
+      label={plot.markets}
     >
       {({ progress, reduced }) => <Markets progress={progress} reduced={reduced} />}
     </Scene>
@@ -81,6 +84,9 @@ function Markets({
   reduced: boolean;
 }) {
   const index = useScrollIndex(progress, !reduced);
+  const content = useContent();
+  const { entries } = content.markets;
+  const scene = content.home.markets;
 
   return (
     <>
@@ -98,7 +104,7 @@ function Markets({
         className="container-editorial flex items-center"
       >
         <h2 className="max-w-[15ch] font-display text-[clamp(2.1rem,6vw,4.75rem)] leading-[1.05] tracking-[-0.028em]">
-          Six markets, six different lives.
+          {scene.headline}
         </h2>
       </Beat>
 
@@ -113,19 +119,21 @@ function Markets({
             rise={24}
             className="container-editorial flex items-start pt-[21.5rem] lg:items-center lg:pt-0"
           >
-            <div className="w-full lg:ml-auto lg:w-4/12">
+            <div className="w-full lg:ms-auto lg:w-4/12">
               <div className="flex items-baseline gap-4">
                 <span className="label-mono text-champagne/70">{ordinal(i)}</span>
-                <span className="label-mono text-ivory/40">{market.code}</span>
+                <span className="label-mono text-ivory/40" dir="ltr">
+                  {market.code}
+                </span>
               </div>
               <h3 className="mt-5 font-display text-[clamp(1.9rem,4.4vw,3.25rem)] leading-[1.06] tracking-[-0.026em]">
-                {market.name}
+                {entries[market.id].name}
               </h3>
               <p className="mt-4 font-display text-[clamp(1.05rem,1.8vw,1.4rem)] italic leading-snug text-champagne">
-                {market.line}
+                {entries[market.id].line}
               </p>
               <p className="mt-5 max-w-md text-[0.875rem] leading-relaxed text-ivory/60 lg:text-[0.9375rem]">
-                {market.body}
+                {entries[market.id].body}
               </p>
             </div>
           </Beat>
@@ -134,12 +142,10 @@ function Markets({
 
       {reduced ? null : (
         <div className="container-editorial pointer-events-none absolute inset-x-0 bottom-[max(2.5rem,env(safe-area-inset-bottom))] hidden items-end justify-between lg:flex">
-          <span className="label-mono text-ivory/35">
-            Character and positioning only
-          </span>
+          <span className="label-mono text-ivory/35">{scene.note}</span>
           <span className="pointer-events-auto">
-            <TextLink href="/destinations" transitionLabel="Destinations">
-              All six markets
+            <TextLink href="/destinations" transitionLabel={content.markets.eyebrow}>
+              {scene.link}
             </TextLink>
           </span>
         </div>

@@ -10,6 +10,7 @@ import { useRange } from "@/lib/useRange";
 import { Scene, Beat } from "./Scene";
 import { RouteNetwork } from "@/components/aviation/RouteNetwork";
 import { useMediaQuery } from "@/lib/useMediaQuery";
+import { useContent, useDirection } from "@/lib/i18n/context";
 import { cn } from "@/lib/utils";
 
 /**
@@ -24,22 +25,18 @@ import { cn } from "@/lib/utils";
  * visible region changes. On a phone the same choreography runs vertically,
  * because a 50/50 vertical split at 393px is not a composition.
  *
+ * The horizontal choreography mirrors in Arabic. It has to: 01 is introduced
+ * first and 02 answers it, so 01 belongs on the side the reader starts from.
+ * A composition where the copy flips and the colour field does not is simply
+ * two halves disagreeing.
+ *
  * The network's draw is scrubbed to this scene's progress: scrolling builds
  * it. As the balance shifts it begins to morph and warm, which is what Scene
  * 04 completes.
  */
-const aviationLines = [
-  "Counsel for airlines, airports, handlers and the public bodies that hold them to standard.",
-  "Engaged where a plan has to survive contact with an operation.",
-];
-
-const privateLines = [
-  "Private establishment across the Gulf, coordinated end to end.",
-  "One file. One point of contact. Held in sequence.",
-];
-
 function Fields({ progress }: { progress: MotionValue<number> }) {
   const wide = useMediaQuery("(min-width: 1024px)");
+  const rtl = useDirection() === "rtl";
 
   // Visible extent of each field, as an inset percentage.
   const petrol = useTransform(
@@ -49,10 +46,16 @@ function Fields({ progress }: { progress: MotionValue<number> }) {
   );
   const umber = useRange(progress, [0.44, 0.62, 0.8, 0.92], [100, 34, 34, 50]);
 
-  const petrolH = useMotionTemplate`inset(0% ${petrol}% 0% 0%)`;
+  // Both directions are built unconditionally — a hook cannot sit in a branch.
+  const petrolLeft = useMotionTemplate`inset(0% ${petrol}% 0% 0%)`;
+  const petrolRight = useMotionTemplate`inset(0% 0% 0% ${petrol}%)`;
   const petrolV = useMotionTemplate`inset(0% 0% ${petrol}% 0%)`;
-  const umberH = useMotionTemplate`inset(0% 0% 0% ${umber}%)`;
+  const umberRight = useMotionTemplate`inset(0% 0% 0% ${umber}%)`;
+  const umberLeft = useMotionTemplate`inset(0% ${umber}% 0% 0%)`;
   const umberV = useMotionTemplate`inset(${umber}% 0% 0% 0%)`;
+
+  const petrolH = rtl ? petrolRight : petrolLeft;
+  const umberH = rtl ? umberLeft : umberRight;
 
   // Hoisted: these feed the join hairline and must not sit inside a branch.
   const joinPosition = useMotionTemplate`calc(100% - ${petrol}%)`;
@@ -120,7 +123,9 @@ function Fields({ progress }: { progress: MotionValue<number> }) {
         )}
         style={
           wide
-            ? { left: joinPosition, opacity: joinOpacity }
+            ? rtl
+              ? { right: joinPosition, opacity: joinOpacity }
+              : { left: joinPosition, opacity: joinOpacity }
             : { top: joinPosition, opacity: joinOpacity }
         }
       />
@@ -129,13 +134,15 @@ function Fields({ progress }: { progress: MotionValue<number> }) {
 }
 
 export function Scene02TwoWorlds() {
+  const { twoWorlds } = useContent().home;
+
   return (
     <Scene
       tone="dark"
       length={3.0}
       mobileLength={2.2}
       className="bg-obsidian"
-      label="Two divisions"
+      label={twoWorlds.labelShort}
     >
       {({ progress, reduced }) => (
         <>
@@ -150,10 +157,10 @@ export function Scene02TwoWorlds() {
           >
             <h2 className="max-w-[18ch] font-display leading-[1.04] tracking-[-0.028em]">
               <span className="block text-[clamp(2.4rem,7.4vw,6rem)]">
-                Two disciplines.
+                {twoWorlds.headlineLarge}
               </span>
               <span className="mt-3 block text-[clamp(1.3rem,3vw,2.4rem)] text-ivory/55">
-                One standard of execution.
+                {twoWorlds.headlineSmall}
               </span>
             </h2>
           </Beat>
@@ -166,10 +173,8 @@ export function Scene02TwoWorlds() {
             className="container-editorial pointer-events-none pt-[6.5rem] lg:pt-[8.5rem]"
           >
             <span className="label-mono text-ivory/45">
-              <span className="lg:hidden">Two disciplines</span>
-              <span className="hidden lg:inline">
-                Two disciplines · One standard of execution
-              </span>
+              <span className="lg:hidden">{twoWorlds.labelShort}</span>
+              <span className="hidden lg:inline">{twoWorlds.labelLong}</span>
             </span>
           </Beat>
 
@@ -181,12 +186,12 @@ export function Scene02TwoWorlds() {
             className="container-editorial flex flex-col justify-start pb-16 pt-[7.5rem] lg:justify-end lg:pt-[8.5rem]"
           >
             <div className="max-w-xl">
-              <span className="label-mono text-ice/70">01 — Aviation Advisory</span>
+              <span className="label-mono text-ice/70">{twoWorlds.aviation.index}</span>
               <p className="mt-6 font-display text-[clamp(2rem,5.2vw,4.25rem)] leading-[1.04] tracking-[-0.028em]">
-                The operation is the strategy.
+                {twoWorlds.aviation.line}
               </p>
               <ul className="mt-8 space-y-2.5">
-                {aviationLines.map((line) => (
+                {twoWorlds.aviation.points.map((line) => (
                   <li key={line} className="max-w-md text-[0.9375rem] leading-relaxed text-ivory/60">
                     {line}
                   </li>
@@ -202,18 +207,18 @@ export function Scene02TwoWorlds() {
             range={[0.58, 0.68, 0.82, 0.9]}
             className="container-editorial flex flex-col justify-end pb-16 pt-[7.5rem] lg:pt-[8.5rem]"
           >
-            <div className="max-w-xl lg:ml-auto lg:text-right">
+            <div className="max-w-xl lg:ms-auto lg:text-end">
               <span className="label-mono text-champagne/70">
-                02 — Gulf Private Advisory
+                {twoWorlds.privateAdvisory.index}
               </span>
               <p className="mt-6 font-display text-[clamp(2rem,5.2vw,4.25rem)] leading-[1.04] tracking-[-0.028em]">
-                A move made quietly, and made once.
+                {twoWorlds.privateAdvisory.line}
               </p>
-              <ul className="mt-8 space-y-2.5 lg:ml-auto">
-                {privateLines.map((line) => (
+              <ul className="mt-8 space-y-2.5 lg:ms-auto">
+                {twoWorlds.privateAdvisory.points.map((line) => (
                   <li
                     key={line}
-                    className="max-w-md text-[0.9375rem] leading-relaxed text-ivory/60 lg:ml-auto"
+                    className="max-w-md text-[0.9375rem] leading-relaxed text-ivory/60 lg:ms-auto"
                   >
                     {line}
                   </li>
@@ -230,7 +235,7 @@ export function Scene02TwoWorlds() {
             rise={16}
             className="pointer-events-none flex items-end justify-center pb-[max(3rem,env(safe-area-inset-bottom))]"
           >
-            <p className="label-mono text-ivory/70">One firm</p>
+            <p className="label-mono text-ivory/70">{twoWorlds.settle}</p>
           </Beat>
         </>
       )}

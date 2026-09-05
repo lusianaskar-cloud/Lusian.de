@@ -5,9 +5,13 @@ export type PracticeId = "aviation" | "private";
 export type ConsultationType = {
   id: string;
   practice: PracticeId;
+  /**
+   * Internal reference sent to the provider as booking metadata. Never
+   * rendered — what the reader sees is translated, and comes from the
+   * locale bundle keyed by `id`.
+   */
   name: string;
-  duration: string;
-  body: string;
+  minutes: number;
   /** Env var holding this type's id in the scheduling provider. */
   providerKey: string;
 };

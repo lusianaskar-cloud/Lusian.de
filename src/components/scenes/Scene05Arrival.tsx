@@ -5,6 +5,7 @@ import { useRange } from "@/lib/useRange";
 import { Scene, Beat } from "./Scene";
 import { EditorialImage } from "@/components/shared/EditorialImage";
 import { plates } from "@/lib/content/plates";
+import { useContent } from "@/lib/i18n/context";
 
 /**
  * SCENE 05 — ARRIVAL
@@ -16,13 +17,6 @@ import { plates } from "@/lib/content/plates";
  * Until production photography is supplied this renders the reserved frame,
  * which crops and settles exactly as the photograph will.
  */
-const closing = [
-  "One file.",
-  "One point of contact.",
-  "Hundreds of decisions,",
-  "held in sequence.",
-];
-
 function Plate({ progress }: { progress: MotionValue<number> }) {
   // The crop opens: 1.18 → 1.00 across the whole scene.
   const scale = useRange(progress, [0, 0.5, 1], [1.18, 1.06, 1]);
@@ -48,13 +42,16 @@ function Plate({ progress }: { progress: MotionValue<number> }) {
 }
 
 export function Scene05Arrival() {
+  const { arrival } = useContent().home;
+  const closing = arrival.closing;
+
   return (
     <Scene
       tone="dark"
       length={2.5}
       mobileLength={1.8}
       className="bg-umber"
-      label="Arrival"
+      label={arrival.headline}
     >
       {({ progress, reduced }) => (
         <>
@@ -77,7 +74,7 @@ export function Scene05Arrival() {
             className="container-editorial flex items-center"
           >
             <h2 className="max-w-[15ch] font-display text-[clamp(2.2rem,6.6vw,5.5rem)] leading-[1.03] tracking-[-0.03em]">
-              A move made quietly, and made once.
+              {arrival.headline}
             </h2>
           </Beat>
 

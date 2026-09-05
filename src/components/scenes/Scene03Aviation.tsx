@@ -5,7 +5,7 @@ import { useRange } from "@/lib/useRange";
 import { Scene, Beat } from "./Scene";
 import { RouteNetwork } from "@/components/aviation/RouteNetwork";
 import { TextLink } from "@/components/primitives/ActionLink";
-import { aviationCapabilities } from "@/lib/content/aviation";
+import { useContent } from "@/lib/i18n/context";
 import { ordinal } from "@/lib/utils";
 
 /**
@@ -21,8 +21,6 @@ import { ordinal } from "@/lib/utils";
  */
 const FIRST = 0.2;
 const LAST = 0.94;
-const COUNT = aviationCapabilities.length;
-const SPAN = (LAST - FIRST) / COUNT;
 
 function RailTick({
   emphasis,
@@ -49,10 +47,16 @@ function RailTick({
   );
 }
 
-function Instrument({ progress }: { progress: MotionValue<number> }) {
+function Instrument({
+  progress,
+  groups,
+}: {
+  progress: MotionValue<number>;
+  groups: readonly { group: string }[];
+}) {
   // The network arrives already built — it carried over from Scene 02.
   const draw = useRange(progress, [0, 0.06], [0.9, 1]);
-  const emphasis = useRange(progress, [FIRST, LAST], [0, COUNT - 1]);
+  const emphasis = useRange(progress, [FIRST, LAST], [0, groups.length - 1]);
   const opacity = useRange(progress, [0, 0.08, 0.9, 1], [0.5, 1, 1, 0.7]);
   const railOpacity = useRange(progress, [0.1, 0.2], [0, 1]);
 
@@ -78,10 +82,10 @@ function Instrument({ progress }: { progress: MotionValue<number> }) {
       {/* Position through the system. */}
       <motion.ul
         aria-hidden
-        className="absolute bottom-[max(2.25rem,env(safe-area-inset-bottom))] left-(--spacing-gutter) flex flex-wrap gap-x-5 gap-y-2 text-ice lg:bottom-auto lg:top-1/2 lg:block lg:-translate-y-1/2 lg:space-y-5"
+        className="absolute bottom-[max(2.25rem,env(safe-area-inset-bottom))] start-(--spacing-gutter) flex flex-wrap gap-x-5 gap-y-2 text-ice lg:bottom-auto lg:top-1/2 lg:block lg:-translate-y-1/2 lg:space-y-5"
         style={{ opacity: railOpacity }}
       >
-        {aviationCapabilities.map((group, i) => (
+        {groups.map((group, i) => (
           <RailTick key={group.group} emphasis={emphasis} index={i} label={ordinal(i)} />
         ))}
       </motion.ul>
@@ -90,17 +94,23 @@ function Instrument({ progress }: { progress: MotionValue<number> }) {
 }
 
 export function Scene03Aviation() {
+  const content = useContent();
+  const { capabilities, title } = content.aviation;
+  const scene = content.home.aviationScene;
+  const groups = capabilities.groups;
+  const span = (LAST - FIRST) / groups.length;
+
   return (
     <Scene
       tone="dark"
       length={3.4}
       mobileLength={2.4}
       className="bg-petrol"
-      label="Aviation Advisory"
+      label={title}
     >
       {({ progress, reduced }) => (
         <>
-          {reduced ? null : <Instrument progress={progress} />}
+          {reduced ? null : <Instrument progress={progress} groups={groups} />}
 
           {/* Carried over from Scene 02, then reduced to a label. */}
           <Beat
@@ -110,7 +120,7 @@ export function Scene03Aviation() {
             className="container-editorial flex items-center"
           >
             <h2 className="max-w-[13ch] font-display text-[clamp(2.2rem,6.4vw,5.25rem)] leading-[1.03] tracking-[-0.028em]">
-              The operation is the strategy.
+              {scene.opening}
             </h2>
           </Beat>
 
@@ -121,13 +131,11 @@ export function Scene03Aviation() {
             rise={12}
             className="container-editorial pointer-events-none pt-[6.5rem] lg:pt-[8.5rem]"
           >
-            <span className="label-mono text-ice/60">
-              Division 01 — where we are engaged
-            </span>
+            <span className="label-mono text-ice/60">{scene.eyebrow}</span>
           </Beat>
 
-          {aviationCapabilities.map((group, i) => {
-            const start = FIRST + i * SPAN;
+          {groups.map((group, i) => {
+            const start = FIRST + i * span;
             return (
               <Beat
                 key={group.group}
@@ -136,13 +144,13 @@ export function Scene03Aviation() {
                 range={[
                   start - 0.03,
                   start + 0.025,
-                  start + SPAN - 0.045,
-                  start + SPAN + 0.005,
+                  start + span - 0.045,
+                  start + span + 0.005,
                 ]}
                 rise={30}
                 className="container-editorial flex items-center"
               >
-                <div className="max-w-2xl lg:pl-36">
+                <div className="max-w-2xl lg:ps-36">
                   <span className="label-mono text-ice/60">{ordinal(i)}</span>
                   <h3 className="mt-6 font-display text-[clamp(2.1rem,5.6vw,4.5rem)] leading-[1.04] tracking-[-0.028em]">
                     {group.group}
@@ -173,8 +181,8 @@ export function Scene03Aviation() {
             rise={14}
             className="container-editorial flex items-end justify-end pb-[max(2.25rem,env(safe-area-inset-bottom))] lg:pb-16"
           >
-            <TextLink href="/aviation" transitionLabel="Aviation Advisory">
-              The aviation practice
+            <TextLink href="/aviation" transitionLabel={title}>
+              {scene.link}
             </TextLink>
           </Beat>
         </>

@@ -1,6 +1,6 @@
 "use client";
 
-import { differentiators } from "@/lib/content/site";
+import { useContent } from "@/lib/i18n/context";
 import { Section, Container } from "@/components/primitives/Section";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { LineReveal, Reveal } from "@/components/primitives/Reveal";
@@ -13,37 +13,35 @@ import { ordinal } from "@/lib/utils";
  * outstanding.
  */
 export function Argument() {
+  const { argument } = useContent().home;
+
   return (
     <Section tone="light" className="bg-paper" aria-labelledby="why-heading">
       <Container className="py-28 lg:py-40">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-6">
             <Reveal>
-              <Eyebrow>Why clients engage us</Eyebrow>
+              <Eyebrow>{argument.eyebrow}</Eyebrow>
             </Reveal>
             <h2 id="why-heading" className="mt-8 font-display leading-[1.02] tracking-[-0.028em]">
               <LineReveal
-                lines={[
-                  <span key="1" className="block text-[clamp(2.4rem,5.6vw,4.5rem)]">
-                    Four things
-                  </span>,
-                  <span key="2" className="block text-[clamp(2.4rem,5.6vw,4.5rem)]">
-                    we do not compromise.
-                  </span>,
-                ]}
+                lines={argument.headlineLines.map((line, i) => (
+                  <span key={i} className="block text-[clamp(2.4rem,5.6vw,4.5rem)]">
+                    {line}
+                  </span>
+                ))}
               />
             </h2>
           </div>
           <Reveal delay={0.12} className="lg:col-span-4 lg:col-start-9 lg:self-end">
             <p className="max-w-sm text-[0.9375rem] leading-relaxed text-tone-muted">
-              We publish no client names, no case studies and no numbers we cannot
-              stand behind. What follows is the whole of the argument.
+              {argument.note}
             </p>
           </Reveal>
         </div>
 
         <div className="mt-20 lg:mt-28">
-          {differentiators.map((item, i) => (
+          {argument.items.map((item, i) => (
             <Reveal key={item.title} wide>
               <div className="grid items-baseline gap-x-10 gap-y-4 border-t border-ink/12 py-10 lg:grid-cols-12 lg:py-14">
                 <span

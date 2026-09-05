@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useIsClient } from "@/lib/useIsClient";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { site } from "@/lib/content/site";
+import { useContent } from "@/lib/i18n/context";
 import { EASE } from "@/lib/motion";
 import { Mark } from "./Mark";
 import { getLenis } from "./SmoothScroll";
@@ -34,6 +35,7 @@ function shouldPlayIntro() {
  * the page. Shown once per session, never under reduced motion.
  */
 export function Preloader() {
+  const { meta } = useContent();
   const reduced = useReducedMotion();
   const mounted = useIsClient();
   const [phase, setPhase] = useState<Phase | null>(null);
@@ -105,7 +107,13 @@ export function Preloader() {
         <Mark className="h-11 w-11 text-champagne" animated />
       </div>
 
-      <span className="absolute left-1/2 top-1/2 mt-9 flex -translate-x-1/2 overflow-hidden pl-[0.5em]">
+      {/* The wordmark is Latin and letter-spaced in every language, so it is
+          laid out left to right regardless of the page direction. */}
+      <span
+        lang="en"
+        dir="ltr"
+        className="absolute left-1/2 top-1/2 mt-9 flex -translate-x-1/2 overflow-hidden pl-[0.5em]"
+      >
         {site.wordmark.split("").map((letter, i) => (
           <motion.span
             key={`${letter}-${i}`}
@@ -120,7 +128,7 @@ export function Preloader() {
       </span>
 
       <div className="absolute inset-x-0 bottom-10 flex items-end justify-between px-(--spacing-gutter)">
-        <span className="label-mono text-ivory/40">{site.descriptorShort}</span>
+        <span className="label-mono text-ivory/40">{meta.descriptorShort}</span>
         <span className="label-mono tabular-nums text-ivory/40">
           {String(count).padStart(3, "0")}
         </span>
@@ -157,7 +165,7 @@ export function Preloader() {
           </motion.div>
 
           <motion.span
-            className="absolute inset-x-0 top-1/2 z-10 h-px origin-left bg-champagne/60"
+            className="absolute inset-x-0 top-1/2 z-10 h-px origin-left rtl:origin-right rtl:origin-left bg-champagne/60"
             initial={{ scaleX: 0, opacity: 1 }}
             animate={{ scaleX: 1, opacity: parting ? 0 : 1 }}
             transition={{

@@ -1,12 +1,25 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { useContent } from "@/lib/i18n/context";
+import { format } from "@/lib/i18n/format";
 import { cn } from "@/lib/utils";
 
 const control =
   "peer w-full border-0 border-b border-current/20 bg-transparent pb-3 pt-2 text-[1.0625rem] " +
   "placeholder:text-current/30 focus:border-current/60 focus:outline-none focus:ring-0 " +
   "transition-colors duration-500";
+
+/**
+ * "(optional)" is a translated pattern rather than an appended English word,
+ * because where it sits relative to the label is a decision each language
+ * makes for itself.
+ */
+function useOptionalLabel() {
+  const { ui } = useContent();
+  return (label: string, required?: boolean) =>
+    required ? label : format(ui.optional, { label });
+}
 
 export function FieldShell({
   label,
@@ -58,8 +71,10 @@ export function TextField({
   value?: string;
   onChange?: (value: string) => void;
 }) {
+  const withOptional = useOptionalLabel();
+
   return (
-    <FieldShell label={required ? label : `${label} (optional)`} htmlFor={id} className={className}>
+    <FieldShell label={withOptional(label, required)} htmlFor={id} className={className}>
       <input
         id={id}
         name={name}
@@ -91,18 +106,21 @@ export function SelectField({
   required?: boolean;
   className?: string;
 }) {
+  const { ui } = useContent();
+  const withOptional = useOptionalLabel();
+
   return (
-    <FieldShell label={required ? label : `${label} (optional)`} htmlFor={id} className={className}>
+    <FieldShell label={withOptional(label, required)} htmlFor={id} className={className}>
       <div className="relative">
         <select
           id={id}
           name={name}
           required={required}
           defaultValue=""
-          className={cn(control, "appearance-none pr-8")}
+          className={cn(control, "appearance-none pe-8")}
         >
           <option value="" disabled>
-            Select
+            {ui.select}
           </option>
           {options.map((option) => (
             <option key={option} value={option} className="bg-ivory text-ink">
@@ -113,7 +131,7 @@ export function SelectField({
         <svg
           aria-hidden
           viewBox="0 0 12 8"
-          className="pointer-events-none absolute right-0 top-1/2 h-2 w-3 -translate-y-1/2 opacity-45"
+          className="pointer-events-none absolute end-0 top-1/2 h-2 w-3 -translate-y-1/2 opacity-45"
         >
           <path d="M1 1l5 5 5-5" fill="none" stroke="currentColor" strokeWidth="1" />
         </svg>
@@ -141,8 +159,10 @@ export function TextArea({
   value?: string;
   onChange?: (value: string) => void;
 }) {
+  const withOptional = useOptionalLabel();
+
   return (
-    <FieldShell label={required ? label : `${label} (optional)`} htmlFor={id}>
+    <FieldShell label={withOptional(label, required)} htmlFor={id}>
       <textarea
         id={id}
         name={name}

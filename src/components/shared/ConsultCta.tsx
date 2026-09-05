@@ -1,6 +1,7 @@
 "use client";
 
 import { contactChannels } from "@/lib/content/site";
+import { useContent } from "@/lib/i18n/context";
 import { Section, Container } from "@/components/primitives/Section";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { LineReveal, Reveal } from "@/components/primitives/Reveal";
@@ -8,27 +9,30 @@ import { ActionLink } from "@/components/primitives/ActionLink";
 import { Mark } from "@/components/chrome/Mark";
 
 export function ConsultCta({
-  eyebrow = "Private consultation",
+  eyebrow,
   lines,
   body,
-  ctaLabel = "Request a consultation",
+  ctaLabel,
   ctaHref = "/speak",
 }: {
+  /** Falls back to the section's own name rather than an invented label. */
   eyebrow?: string;
   lines: string[];
   body: string;
-  ctaLabel?: string;
+  ctaLabel: string;
   ctaHref?: string;
 }) {
+  const { speak } = useContent();
+
   return (
     <Section tone="dark" grain className="overflow-hidden bg-ink" aria-labelledby="cta-heading">
       <Mark
-        className="pointer-events-none absolute -right-[12%] top-1/2 h-[38rem] w-[38rem] -translate-y-1/2 text-ivory/[0.045]"
+        className="pointer-events-none absolute -end-[12%] top-1/2 h-[38rem] w-[38rem] -translate-y-1/2 text-ivory/[0.045]"
       />
 
       <Container className="py-28 lg:py-44">
         <Reveal>
-          <Eyebrow>{eyebrow}</Eyebrow>
+          <Eyebrow>{eyebrow ?? speak.eyebrow}</Eyebrow>
         </Reveal>
 
         <div className="mt-10 grid gap-12 lg:grid-cols-12 lg:gap-10">
@@ -49,7 +53,7 @@ export function ConsultCta({
             </Reveal>
             <Reveal delay={0.2}>
               <div className="mt-10">
-                <ActionLink href={ctaHref} transitionLabel="Private consultation">
+                <ActionLink href={ctaHref} transitionLabel={speak.eyebrow}>
                   {ctaLabel}
                 </ActionLink>
               </div>
@@ -58,7 +62,8 @@ export function ConsultCta({
               <p className="mt-8 label-mono text-ivory/35">
                 <a
                   href={`mailto:${contactChannels.email}`}
-                  className="underline-offset-4 transition-colors duration-500 hover:text-champagne"
+                  dir="ltr"
+                  className="inline-block underline-offset-4 transition-colors duration-500 hover:text-champagne"
                 >
                   {contactChannels.email}
                 </a>

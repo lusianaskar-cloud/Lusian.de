@@ -12,6 +12,8 @@ import type {
   Slot,
 } from "@/lib/scheduling/types";
 import { contactChannels } from "@/lib/content/site";
+import { useContent, useIntlLocale } from "@/lib/i18n/context";
+import { format } from "@/lib/i18n/format";
 import { ActionButton } from "@/components/primitives/ActionLink";
 import { TextLink } from "@/components/primitives/ActionLink";
 import { Arrow } from "@/components/primitives/Arrow";
@@ -30,20 +32,6 @@ import {
 } from "./time";
 
 type Step = 0 | 1 | 2 | 3 | 4 | 5;
-const STEPS = ["Practice", "Conversation", "When", "Details", "Review"] as const;
-
-const practices: { id: PracticeId; label: string; body: string }[] = [
-  {
-    id: "aviation",
-    label: "Aviation Advisory",
-    body: "Airlines, airports, ground handling, investors, infrastructure and public-sector aviation.",
-  },
-  {
-    id: "private",
-    label: "Private Advisory",
-    body: "Relocation and establishment across the Gulf, for individuals, families and their businesses.",
-  },
-];
 
 /**
  * The booking interface is Lusian's; only the truth about time comes from
@@ -52,6 +40,10 @@ const practices: { id: PracticeId; label: string; body: string }[] = [
  * exist — and it never reports a booking that did not happen.
  */
 export function BookingFlow() {
+  const { speak, ui } = useContent();
+  const copy = speak.book;
+  const intl = useIntlLocale();
+  const practices = copy.practices as { id: PracticeId; label: string; body: string }[];
   const reduced = useSafeReducedMotion();
   const [step, setStep] = useState<Step>(0);
   const [practice, setPractice] = useState<PracticeId | null>(null);
@@ -177,14 +169,14 @@ export function BookingFlow() {
     }
   }
 
-  const zone = `${timeZone.replace(/_/g, " ")} · ${zoneAbbreviation(timeZone)}`;
+  const zone = `${timeZone.replace(/_/g, " ")} · ${zoneAbbreviation(timeZone, intl)}`;
 
   return (
     <div>
       {/* Progress */}
       {step < 5 ? (
         <ol className="flex flex-wrap items-center gap-x-6 gap-y-3 border-b border-current/15 pb-6">
-          {STEPS.map((label, i) => (
+          {copy.steps.map((label, i) => (
             <li key={label} className="flex items-center gap-2.5">
               <span
                 aria-hidden
@@ -213,7 +205,13 @@ export function BookingFlow() {
         className="sr-only scroll-mt-40"
         aria-live="polite"
       >
-        {step < 5 ? `Step ${step + 1} of ${STEPS.length}: ${STEPS[step as 0]}` : "Booking confirmed"}
+        {step < 5
+          ? format(copy.stepAnnouncement, {
+              current: step + 1,
+              total: copy.steps.length,
+              name: copy.steps[step] ?? "",
+            })
+          : copy.confirmedAnnouncement}
       </p>
 
       <AnimatePresence mode="wait">
@@ -229,7 +227,7 @@ export function BookingFlow() {
           {step === 0 ? (
             <div>
               <h2 className="font-display text-heading leading-tight">
-                Which practice is this about?
+                {copy.practiceQuestion}
               </h2>
               <div className="mt-10 grid gap-px bg-current/12 sm:grid-cols-2">
                 {practices.map((option, i) => (
@@ -241,7 +239,7 @@ export function BookingFlow() {
                       setTypeId(null);
                       goTo(1);
                     }}
-                    className="group flex flex-col items-start bg-[color:var(--tone-bg)] p-8 text-left transition-colors duration-500 hover:bg-current/5 lg:p-10"
+                    className="group flex flex-col items-start bg-[color:var(--tone-bg)] p-8 text-start transition-colors duration-500 hover:bg-current/5 lg:p-10"
                   >
                     <span className="label-mono text-tone-muted">{ordinal(i)}</span>
                     <span className="mt-6 font-display text-[1.6rem] leading-tight tracking-tight">
@@ -250,7 +248,7 @@ export function BookingFlow() {
                     <span className="mt-4 text-[0.875rem] leading-relaxed text-tone-muted">
                       {option.body}
                     </span>
-                    <Arrow className="mt-8 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-2" />
+                    <Arrow className="mt-8 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-2 group-hover:rtl:-translate-x-2" />
                   </button>
                 ))}
               </div>
@@ -261,7 +259,7 @@ export function BookingFlow() {
           {step === 1 ? (
             <div>
               <h2 className="font-display text-heading leading-tight">
-                What kind of conversation?
+                {copy.conversationQuestion}
               </h2>
               <div className="mt-10">
                 {options.map((option, i) => (
@@ -274,23 +272,23 @@ export function BookingFlow() {
                       setSlot(null);
                       goTo(2, option);
                     }}
-                    className="group grid w-full gap-3 border-t border-current/15 py-8 text-left last:border-b lg:grid-cols-12 lg:gap-8"
+                    className="group grid w-full gap-3 border-t border-current/15 py-8 text-start last:border-b lg:grid-cols-12 lg:gap-8"
                   >
                     <span className="label-mono text-tone-muted lg:col-span-1">
                       {ordinal(i)}
                     </span>
                     <span className="lg:col-span-4">
                       <span className="block font-display text-[1.5rem] leading-tight tracking-tight">
-                        {option.name}
+                        {copy.consultations[option.id].name}
                       </span>
                       <span className="mt-2 block label-mono text-accent">
-                        {option.duration}
+                        {copy.consultations[option.id].duration}
                       </span>
                     </span>
                     <span className="text-[0.9375rem] leading-relaxed text-tone-muted lg:col-span-6 lg:col-start-6">
-                      {option.body}
+                      {copy.consultations[option.id].body}
                     </span>
-                    <Arrow className="hidden self-center transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-2 lg:col-span-1 lg:block" />
+                    <Arrow className="hidden self-center transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-2 group-hover:rtl:-translate-x-2 lg:col-span-1 lg:block" />
                   </button>
                 ))}
               </div>
@@ -299,7 +297,7 @@ export function BookingFlow() {
                 onClick={() => goTo(0)}
                 className="mt-10 label-mono text-tone-muted underline-offset-4 hover:underline"
               >
-                Back
+                {ui.back}
               </button>
             </div>
           ) : null}
@@ -308,9 +306,9 @@ export function BookingFlow() {
           {step === 2 ? (
             <div>
               <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-                <h2 className="font-display text-heading leading-tight">Choose a time</h2>
+                <h2 className="font-display text-heading leading-tight">{copy.chooseTime}</h2>
                 <label className="flex items-center gap-3 label-mono text-tone-muted">
-                  <span className="sr-only sm:not-sr-only">Times shown in</span>
+                  <span className="sr-only sm:not-sr-only">{copy.timesShownIn}</span>
                   <select
                     value={timeZone}
                     onChange={(e) => changeTimeZone(e.target.value)}
@@ -327,19 +325,18 @@ export function BookingFlow() {
 
               {availability?.status === "not_configured" ? (
                 <div className="mt-10 border border-current/25 p-8 lg:p-10">
-                  <span className="label-mono text-accent">Booking not yet connected</span>
+                  <span className="label-mono text-accent">{copy.notConnected.label}</span>
                   <p className="mt-5 max-w-lg text-[0.9375rem] leading-relaxed text-tone-muted">
-                    Scheduling is not live on this site yet, so there are no times to
-                    show. Rather than display availability that does not exist, we would
-                    rather you wrote to us — a reply will come with times in it.
+                    {copy.notConnected.body}
                   </p>
                   <div className="mt-8 flex flex-wrap items-center gap-x-10 gap-y-4">
-                    <TextLink href="/speak/ask" transitionLabel="Ask a question">
-                      Write to us instead
+                    <TextLink href="/speak/ask" transitionLabel={speak.ask.eyebrow}>
+                      {copy.notConnected.writeInstead}
                     </TextLink>
                     <a
                       href={`mailto:${contactChannels.email}`}
-                      className="label-mono text-tone-muted underline-offset-4 hover:underline"
+                      dir="ltr"
+                      className="inline-block label-mono text-tone-muted underline-offset-4 hover:underline"
                     >
                       {contactChannels.email}
                     </a>
@@ -347,16 +344,16 @@ export function BookingFlow() {
                 </div>
               ) : availability?.status === "error" ? (
                 <div className="mt-10 border border-current/25 p-8">
-                  <span className="label-mono text-accent">Availability unavailable</span>
+                  <span className="label-mono text-accent">{copy.unavailableLabel}</span>
                   <p className="mt-5 max-w-lg text-[0.9375rem] leading-relaxed text-tone-muted">
-                    We could not reach the calendar just now.
+                    {copy.unavailableBody}
                   </p>
                   <button
                     type="button"
                     onClick={() => void loadAvailability()}
                     className="mt-6 label-mono underline underline-offset-4"
                   >
-                    Try again
+                    {ui.tryAgain}
                   </button>
                 </div>
               ) : (
@@ -384,11 +381,11 @@ export function BookingFlow() {
                     {day ? (
                       <>
                         <h3 className="label-mono text-tone-muted">
-                          {formatLongDate(`${day}T12:00:00Z`, "UTC")}
+                          {formatLongDate(`${day}T12:00:00Z`, "UTC", intl)}
                         </h3>
                         {daySlots.length === 0 ? (
                           <p className="mt-6 text-[0.9375rem] text-tone-muted">
-                            Nothing free on this day.
+                            {copy.nothingThisDay}
                           </p>
                         ) : (
                           <ul className="mt-6 grid grid-cols-2 gap-2 lg:grid-cols-1">
@@ -405,7 +402,7 @@ export function BookingFlow() {
                                       : "border-current/20 hover:border-current/60",
                                   )}
                                 >
-                                  {formatTime(s.start, timeZone)}
+                                  {formatTime(s.start, timeZone, intl)}
                                 </button>
                               </li>
                             ))}
@@ -415,14 +412,16 @@ export function BookingFlow() {
                     ) : (
                       <p className="text-[0.9375rem] leading-relaxed text-tone-muted">
                         {loading
-                          ? "Checking the calendar…"
+                          ? copy.checking
                           : availableDays.size === 0
-                            ? "No availability in this month. Try the next one."
-                            : "Choose a day to see the times that are free."}
+                            ? copy.noneThisMonth
+                            : copy.chooseDay}
                       </p>
                     )}
 
-                    <p className="mt-8 label-mono text-tone-muted">All times in {zone}</p>
+                    <p className="mt-8 label-mono text-tone-muted">
+                      {format(copy.allTimesIn, { zone })}
+                    </p>
                   </div>
                 </div>
               )}
@@ -433,11 +432,11 @@ export function BookingFlow() {
                   onClick={() => goTo(1)}
                   className="label-mono text-tone-muted underline-offset-4 hover:underline"
                 >
-                  Back
+                  {ui.back}
                 </button>
                 {slot ? (
                   <ActionButton type="button" onClick={() => goTo(3)}>
-                    Continue
+                    {ui.continueLabel}
                   </ActionButton>
                 ) : null}
               </div>
@@ -453,12 +452,12 @@ export function BookingFlow() {
               }}
               className="space-y-12"
             >
-              <h2 className="font-display text-heading leading-tight">Your details</h2>
+              <h2 className="font-display text-heading leading-tight">{copy.detailsHeading}</h2>
               <div className="grid gap-x-10 gap-y-12 sm:grid-cols-2">
                 <TextField
                   id="b-name"
                   name="name"
-                  label="Name"
+                  label={copy.fields.name}
                   required
                   autoComplete="name"
                   value={details.name}
@@ -467,7 +466,7 @@ export function BookingFlow() {
                 <TextField
                   id="b-email"
                   name="email"
-                  label="Email"
+                  label={copy.fields.email}
                   type="email"
                   required
                   autoComplete="email"
@@ -478,7 +477,7 @@ export function BookingFlow() {
                   <TextField
                     id="b-company"
                     name="company"
-                    label="Organisation"
+                    label={copy.fields.company}
                     autoComplete="organization"
                     value={details.company}
                     onChange={(v) => setDetails((d) => ({ ...d, company: v }))}
@@ -487,7 +486,7 @@ export function BookingFlow() {
                 <TextField
                   id="b-phone"
                   name="phone"
-                  label="Telephone"
+                  label={copy.fields.phone}
                   autoComplete="tel"
                   value={details.phone}
                   onChange={(v) => setDetails((d) => ({ ...d, phone: v }))}
@@ -496,9 +495,9 @@ export function BookingFlow() {
               <TextArea
                 id="b-notes"
                 name="notes"
-                label="Anything useful before we speak"
+                label={copy.fields.notes}
                 rows={4}
-                placeholder="A sentence or two is plenty."
+                placeholder={copy.notesPlaceholder}
                 value={details.notes}
                 onChange={(v) => setDetails((d) => ({ ...d, notes: v }))}
               />
@@ -508,9 +507,9 @@ export function BookingFlow() {
                   onClick={() => goTo(2)}
                   className="label-mono text-tone-muted underline-offset-4 hover:underline"
                 >
-                  Back
+                  {ui.back}
                 </button>
-                <ActionButton>Review</ActionButton>
+                <ActionButton>{ui.review}</ActionButton>
               </div>
             </form>
           ) : null}
@@ -519,16 +518,22 @@ export function BookingFlow() {
           {step === 4 && type && slot ? (
             <form onSubmit={submit} className="space-y-10">
               <h2 className="font-display text-heading leading-tight">
-                Before we hold the time
+                {copy.reviewHeading}
               </h2>
               <dl className="border-t border-current/15">
                 {[
-                  ["Practice", practices.find((p) => p.id === practice)?.label ?? ""],
-                  ["Conversation", `${type.name} · ${type.duration}`],
-                  ["Date", formatLongDate(slot.start, timeZone)],
-                  ["Time", `${formatTime(slot.start, timeZone)} · ${zone}`],
-                  ["Name", details.name],
-                  ["Email", details.email],
+                  [
+                    copy.summary.practice,
+                    practices.find((p) => p.id === practice)?.label ?? "",
+                  ],
+                  [
+                    copy.summary.conversation,
+                    `${copy.consultations[type.id].name} · ${copy.consultations[type.id].duration}`,
+                  ],
+                  [copy.summary.date, formatLongDate(slot.start, timeZone, intl)],
+                  [copy.summary.time, `${formatTime(slot.start, timeZone, intl)} · ${zone}`],
+                  [copy.summary.name, details.name],
+                  [copy.summary.email, details.email],
                 ].map(([label, value]) => (
                   <div
                     key={label}
@@ -543,14 +548,15 @@ export function BookingFlow() {
               {result && result.status !== "booked" ? (
                 <p role="alert" className="max-w-lg text-[0.875rem] leading-relaxed text-tone-muted">
                   {result.status === "not_configured"
-                    ? "Scheduling is not connected yet, so nothing has been booked."
+                    ? copy.errors.notConfigured
                     : result.status === "unavailable"
-                      ? "That time was taken while you were filling this in. Choose another."
-                      : "The booking could not be completed just now."}{" "}
-                  Please write to{" "}
+                      ? copy.errors.taken
+                      : copy.errors.failed}{" "}
+                  {speak.ask.writeTo}{" "}
                   <a
                     href={`mailto:${contactChannels.email}`}
-                    className="text-accent underline underline-offset-4"
+                    dir="ltr"
+                    className="inline-block text-accent underline underline-offset-4"
                   >
                     {contactChannels.email}
                   </a>
@@ -564,10 +570,10 @@ export function BookingFlow() {
                   onClick={() => goTo(3)}
                   className="label-mono text-tone-muted underline-offset-4 hover:underline"
                 >
-                  Back
+                  {ui.back}
                 </button>
                 <ActionButton disabled={submitting}>
-                  {submitting ? "Confirming" : "Confirm"}
+                  {submitting ? ui.confirming : ui.confirm}
                 </ActionButton>
               </div>
             </form>
@@ -576,16 +582,22 @@ export function BookingFlow() {
           {/* 06 — Confirmation */}
           {step === 5 && result?.status === "booked" && type ? (
             <div>
-              <span className="label-mono text-accent">Confirmed</span>
+              <span className="label-mono text-accent">{copy.confirmedLabel}</span>
               <h2 className="mt-6 max-w-[16ch] font-display text-title leading-tight">
-                The time is held.
+                {copy.confirmedHeading}
               </h2>
               <dl className="mt-12 border-t border-current/15">
                 {[
-                  ["Conversation", `${type.name} · ${type.duration}`],
-                  ["Date", formatLongDate(result.start, result.timeZone)],
-                  ["Time", `${formatTime(result.start, result.timeZone)} · ${result.timeZone.replace(/_/g, " ")}`],
-                  ["Reference", result.reference],
+                  [
+                    copy.summary.conversation,
+                    `${copy.consultations[type.id].name} · ${copy.consultations[type.id].duration}`,
+                  ],
+                  [copy.summary.date, formatLongDate(result.start, result.timeZone, intl)],
+                  [
+                    copy.summary.time,
+                    `${formatTime(result.start, result.timeZone, intl)} · ${result.timeZone.replace(/_/g, " ")}`,
+                  ],
+                  [copy.summary.reference, result.reference],
                 ].map(([label, value]) => (
                   <div
                     key={label}
@@ -597,9 +609,7 @@ export function BookingFlow() {
                 ))}
               </dl>
               <p className="mt-8 max-w-md text-[0.9375rem] leading-relaxed text-tone-muted">
-                {result.confirmationEmailSent
-                  ? "A confirmation is on its way from our scheduling system, with the details and a link to change the time."
-                  : "Keep the reference above. If you need to move the time, write to us and we will."}
+                {result.confirmationEmailSent ? copy.emailSent : copy.keepReference}
               </p>
               {result.manageUrl ? (
                 <p className="mt-4">
@@ -607,7 +617,7 @@ export function BookingFlow() {
                     href={result.manageUrl}
                     className="label-mono text-accent underline underline-offset-4"
                   >
-                    Reschedule or cancel
+                    {copy.manage}
                   </a>
                 </p>
               ) : null}

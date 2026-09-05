@@ -1,10 +1,13 @@
 /**
- * Photography slots.
+ * Photography slots — structure only.
  *
  * ─────────────────────────────────────────────────────────────────────────
  * The site is designed to be complete without photography — typography,
  * geometry and generated visuals carry it. These three plates are the places
  * where a photograph would genuinely add something, and only those.
+ *
+ * Alt text, the brief and the caption are translated and live in the locale
+ * bundles keyed by these ids.
  *
  * TODO(client): supply licensed production photography and set `src` on each
  * plate below (a path under /public, or a remote URL whose host is added to
@@ -13,39 +16,19 @@
  * finished either way. Full briefs in docs/ASSETS.md.
  * ─────────────────────────────────────────────────────────────────────────
  */
+export type PlateId = "interlude" | "aviationApron" | "gulfInterior";
 
 export type Plate = {
+  /** Key into `content.plates`, and the plate's own identity. */
+  key: PlateId;
+  /** Plate number, as printed on the reserved frame. */
   id: string;
   /** Set this to publish a real photograph in the slot. */
   src?: string;
-  alt: string;
-  brief: string;
-  caption: string;
 };
 
 export const plates = {
-  interlude: {
-    id: "PL-01",
-    src: undefined,
-    alt: "Daylight falling through an architectural threshold",
-    brief:
-      "Interior daylight at an architectural threshold. Stone, glass, deep shadow. No people, no recognisable building, no skyline.",
-    caption: "Between the two practices",
-  },
-  aviationApron: {
-    id: "PL-02",
-    src: undefined,
-    alt: "Apron markings and terminal structure at first light",
-    brief:
-      "Operational environment at first light — apron geometry, stand markings, structure. No aircraft livery, no crew faces, no branding.",
-    caption: "Where the work happens",
-  },
-  gulfInterior: {
-    id: "PL-03",
-    src: undefined,
-    alt: "A quiet residential interior in late afternoon light",
-    brief:
-      "A quiet residential interior, late afternoon. Restraint over opulence. No faces, no identifiable address, no styling cliché.",
-    caption: "Arrival",
-  },
-} satisfies Record<string, Plate>;
+  interlude: { key: "interlude", id: "PL-01", src: undefined },
+  aviationApron: { key: "aviationApron", id: "PL-02", src: undefined },
+  gulfInterior: { key: "gulfInterior", id: "PL-03", src: undefined },
+} satisfies Record<PlateId, Plate>;

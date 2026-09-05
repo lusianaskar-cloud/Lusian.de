@@ -1,3 +1,6 @@
+"use client";
+
+import { useContent } from "@/lib/i18n/context";
 import { cn } from "@/lib/utils";
 
 /**
@@ -5,7 +8,8 @@ import { cn } from "@/lib/utils";
  *
  * Deliberately visible: it is honest about what is not yet known, and it is
  * trivial to find and delete. Every instance is also listed in
- * docs/CONTENT-TODO.md.
+ * docs/CONTENT-TODO.md — and it stays outstanding in all three languages,
+ * because a fact that is missing in English is missing everywhere.
  */
 export function PlaceholderBlock({
   title,
@@ -16,6 +20,8 @@ export function PlaceholderBlock({
   description: string;
   className?: string;
 }) {
+  const { ui } = useContent();
+
   return (
     <div
       className={cn(
@@ -25,7 +31,7 @@ export function PlaceholderBlock({
     >
       <span className="label-mono inline-flex items-center gap-2.5 text-accent">
         <span aria-hidden className="block size-1.5 bg-current" />
-        To be supplied
+        {ui.toBeSupplied}
       </span>
       <h3 className="mt-6 font-display text-[1.375rem] leading-tight tracking-tight">
         {title}

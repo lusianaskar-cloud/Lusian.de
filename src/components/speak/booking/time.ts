@@ -1,4 +1,14 @@
-/** Timezone-correct date helpers for the booking interface. */
+/**
+ * Timezone-correct date helpers for the booking interface.
+ *
+ * Every display formatter takes the reader's locale, so a German reader sees
+ * "Donnerstag, 4. Juni 2026" and an Arabic reader sees the month in Arabic —
+ * from Intl, not from a translated month table that would drift.
+ *
+ * The one formatter that does *not* take a locale is `dayKey`: it is an
+ * identifier, not a label, and must produce the same YYYY-MM-DD in every
+ * language or slots would stop grouping.
+ */
 
 export const TIMEZONES = [
   "Europe/Berlin",
@@ -32,8 +42,8 @@ export function dayKey(instant: string | Date, timeZone: string) {
   }).format(date);
 }
 
-export function formatTime(instant: string, timeZone: string) {
-  return new Intl.DateTimeFormat("en-GB", {
+export function formatTime(instant: string, timeZone: string, locale: string) {
+  return new Intl.DateTimeFormat(locale, {
     timeZone,
     hour: "2-digit",
     minute: "2-digit",
@@ -41,9 +51,13 @@ export function formatTime(instant: string, timeZone: string) {
   }).format(new Date(instant));
 }
 
-export function formatLongDate(instant: string | Date, timeZone: string) {
+export function formatLongDate(
+  instant: string | Date,
+  timeZone: string,
+  locale: string,
+) {
   const date = typeof instant === "string" ? new Date(instant) : instant;
-  return new Intl.DateTimeFormat("en-GB", {
+  return new Intl.DateTimeFormat(locale, {
     timeZone,
     weekday: "long",
     day: "numeric",
@@ -52,9 +66,9 @@ export function formatLongDate(instant: string | Date, timeZone: string) {
   }).format(date);
 }
 
-export function zoneAbbreviation(timeZone: string, at = new Date()) {
+export function zoneAbbreviation(timeZone: string, locale: string, at = new Date()) {
   try {
-    const parts = new Intl.DateTimeFormat("en-GB", {
+    const parts = new Intl.DateTimeFormat(locale, {
       timeZone,
       timeZoneName: "shortOffset",
     }).formatToParts(at);
@@ -80,10 +94,20 @@ export function monthGrid(year: number, month: number) {
   return cells;
 }
 
-export function monthLabel(year: number, month: number) {
-  return new Intl.DateTimeFormat("en-GB", { month: "long", year: "numeric" }).format(
+export function monthLabel(year: number, month: number, locale: string) {
+  return new Intl.DateTimeFormat(locale, { month: "long", year: "numeric" }).format(
     new Date(Date.UTC(year, month, 1)),
   );
 }
 
-export const WEEKDAY_LABELS = ["M", "T", "W", "T", "F", "S", "S"];
+/**
+ * Monday-first weekday initials, from the locale rather than a hard-coded
+ * ["M","T","W",…] — which would read as English in a German or Arabic month.
+ * 2024-01-01 was a Monday, so seven days from there gives the week in order.
+ */
+export function weekdayLabels(locale: string) {
+  const format = new Intl.DateTimeFormat(locale, { weekday: "narrow", timeZone: "UTC" });
+  return Array.from({ length: 7 }, (_, i) =>
+    format.format(new Date(Date.UTC(2024, 0, 1 + i))),
+  );
+}

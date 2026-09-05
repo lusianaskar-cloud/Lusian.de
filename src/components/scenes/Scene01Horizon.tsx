@@ -9,7 +9,8 @@ import {
 } from "motion/react";
 import { useSafeReducedMotion } from "@/lib/useSafeReducedMotion";
 import { useRange } from "@/lib/useRange";
-import { heroResolve, heroStandfirst, site } from "@/lib/content/site";
+import { useContent } from "@/lib/i18n/context";
+import { splitAccent } from "@/lib/i18n/format";
 import { LineReveal } from "@/components/primitives/Reveal";
 import { HairlineGrid } from "@/components/home/HairlineGrid";
 import { useIntroReady } from "@/components/chrome/intro";
@@ -47,6 +48,7 @@ function Statement({
   inverted?: boolean;
   ready: boolean;
 }) {
+  const { hero } = useContent().home;
   const rest = inverted ? IVORY : INK;
   const glow = inverted ? CHAMPAGNE : BRASS;
 
@@ -67,22 +69,33 @@ function Statement({
         play={ready}
         delay={0.3}
         stagger={0.12}
-        lines={[
-          <span key="1">Some moves are operational.</span>,
-          <span key="2">
-            Some are entirely{" "}
-            {reduced ? (
-              <em className={cn("font-normal", inverted ? "text-champagne" : "text-brass")}>
-                personal
-              </em>
-            ) : (
-              <motion.em className="font-normal" style={{ color: accent }}>
-                personal
-              </motion.em>
-            )}
-            .
-          </span>,
-        ]}
+        lines={hero.lines.map((line, i) => {
+          // The emphasised word sits in a different place in each language,
+          // so the line is split around it rather than assembled from parts.
+          const part = splitAccent(line.text, line.accent);
+          return (
+            <span key={i}>
+              {part.before}
+              {part.accent ? (
+                reduced ? (
+                  <em
+                    className={cn(
+                      "font-normal",
+                      inverted ? "text-champagne" : "text-brass",
+                    )}
+                  >
+                    {part.accent}
+                  </em>
+                ) : (
+                  <motion.em className="font-normal" style={{ color: accent }}>
+                    {part.accent}
+                  </motion.em>
+                )
+              ) : null}
+              {part.after}
+            </span>
+          );
+        })}
       />
     </Heading>
   );
@@ -137,6 +150,7 @@ function Layer({
   inverted?: boolean;
   ready: boolean;
 }) {
+  const { meta, home, ui } = useContent();
   // Each moment owns the stage in turn. Nothing shares the centre, and every
   // beat is fully gone before the next arrives — one dominant idea per
   // viewport is the whole discipline of this scene.
@@ -170,18 +184,18 @@ function Layer({
           as="p"
           className={cn(
             "label-mono text-current/60",
-            !reduced && "absolute left-(--spacing-gutter) top-28 lg:top-36",
+            !reduced && "absolute start-(--spacing-gutter) top-28 lg:top-36",
           )}
           style={{ opacity: chromeOpacity }}
         >
-          {site.descriptorShort}
+          {meta.descriptorShort}
         </Moved>
 
         {/* Beat one — the statement. */}
         <Moved
           reduced={reduced}
           className={cn(
-            "origin-left",
+            "origin-left rtl:origin-right",
             !reduced && "absolute inset-x-(--spacing-gutter) top-1/2 -translate-y-1/2",
           )}
           style={{ scale: statementScale, y: statementY, opacity: statementOpacity }}
@@ -200,7 +214,7 @@ function Layer({
           style={{ opacity: resolveOpacity, y: resolveY }}
           aria-hidden={inverted || undefined}
         >
-          {heroResolve}
+          {home.hero.resolve}
         </Moved>
 
         {/* Beat three — why the firm exists. The old manifesto section, folded
@@ -214,16 +228,16 @@ function Layer({
           aria-hidden={inverted || undefined}
         >
           <p className="max-w-[18ch] font-display text-[clamp(2rem,5.6vw,4.5rem)] leading-[1.05] tracking-[-0.028em]">
-            We work in the distance between a decision and its execution.
+            {home.manifesto.headline}
           </p>
           <p className="mt-10 max-w-md text-[0.9375rem] leading-relaxed text-current/60 lg:text-base">
-            {heroStandfirst}
+            {home.manifesto.standfirst}
           </p>
         </Moved>
 
         {reduced ? null : (
           <motion.span
-            className="label-mono absolute bottom-[max(2.5rem,env(safe-area-inset-bottom))] left-(--spacing-gutter) flex items-center gap-3 text-current/55"
+            className="label-mono absolute bottom-[max(2.5rem,env(safe-area-inset-bottom))] start-(--spacing-gutter) flex items-center gap-3 text-current/55"
             style={{ opacity: chromeOpacity }}
             aria-hidden
           >
@@ -235,7 +249,7 @@ function Layer({
                 )}
               />
             </span>
-            Scroll
+            {ui.scroll}
           </motion.span>
         )}
       </div>
@@ -291,7 +305,7 @@ export function Scene01Horizon() {
       >
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-1/4 -top-1/3 h-[85%] w-[70%] rounded-full opacity-70 blur-3xl"
+          className="pointer-events-none absolute -end-1/4 -top-1/3 h-[85%] w-[70%] rounded-full opacity-70 blur-3xl"
           style={{
             background:
               "radial-gradient(closest-side, color-mix(in oklab, var(--color-champagne) 30%, transparent), transparent)",
