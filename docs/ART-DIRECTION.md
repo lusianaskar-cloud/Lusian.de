@@ -286,3 +286,13 @@ movement, desktop composition and mobile crop, for each. No image host was
 reachable from the build environment, so nothing is hotlinked and nothing is
 placeholder-shaped: the light system stands on its own until real photography
 replaces or sits beneath it.
+
+---
+
+## Related documents
+
+- `docs/LOCALISATION.md` — the German and Arabic glossaries, the rules behind
+  them, and what is still outstanding in each language.
+- `docs/PHOTOGRAPHY.md` — the six intended photographic positions, specified so
+  a commissioned image can be dropped in without redesigning the scene.
+- `docs/DESIGN.md` — the token layer: colour, scale, spacing and motion easing.
