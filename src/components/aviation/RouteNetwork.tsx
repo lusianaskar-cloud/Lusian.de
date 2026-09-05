@@ -308,7 +308,7 @@ export function RouteNetwork({
             .sort((p, q) => p.x - q.x);
           if (members.length < 2) return;
 
-          ctx.strokeStyle = `rgba(${lineRgb},${contour * opacity * 0.5})`;
+          ctx.strokeStyle = `rgba(${lineRgb},${contour * opacity * 0.78})`;
           ctx.beginPath();
           ctx.moveTo(-40, members[0].y);
           for (let i = 0; i < members.length - 1; i += 1) {

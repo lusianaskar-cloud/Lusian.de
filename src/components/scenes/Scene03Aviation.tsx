@@ -33,7 +33,7 @@ function RailTick({
   index: number;
   label: string;
 }) {
-  const active = useRange(emphasis, [index - 0.7, index, index + 0.7], [0.22, 1, 0.22]);
+  const active = useRange(emphasis, [index - 0.7, index, index + 0.7], [0.3, 1, 0.3]);
 
   return (
     <li className="flex items-center gap-3 lg:gap-4">
@@ -142,7 +142,7 @@ export function Scene03Aviation() {
                 rise={30}
                 className="container-editorial flex items-center"
               >
-                <div className="max-w-2xl lg:pl-24">
+                <div className="max-w-2xl lg:pl-36">
                   <span className="label-mono text-ice/60">{ordinal(i)}</span>
                   <h3 className="mt-6 font-display text-[clamp(2.1rem,5.6vw,4.5rem)] leading-[1.04] tracking-[-0.028em]">
                     {group.group}

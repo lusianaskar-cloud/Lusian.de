@@ -171,23 +171,30 @@ export const boundaries = {
   note: "The second column is not a limitation we work around — it is how the work is done properly. We identify what is required, engage professionals qualified in the relevant jurisdiction, and remain accountable for the sequence they sit inside.",
 } as const;
 
-/** Who each practice is built for. Recognition, not a card grid. */
+/**
+ * Who each practice is built for.
+ *
+ * Written as situations rather than a taxonomy: the question a reader is
+ * actually asking here is "is this for someone like me", and a list of sector
+ * labels answers that badly. The formal sector list lives on /aviation, where
+ * it belongs.
+ */
 export const clientProfiles = {
   aviation: [
-    "Airlines",
-    "Airports and terminal operators",
-    "Ground handling and aviation services",
-    "Aviation investors and lenders",
-    "Infrastructure developers",
-    "Aviation technology businesses",
-    "Public-sector aviation bodies",
+    "An airline losing margin on the ground",
+    "An airport opening something new",
+    "A handler renegotiating a contract",
+    "An investor looking at an aviation asset",
+    "A developer building an airport estate",
+    "A technology business selling into operations",
+    "An authority holding others to standard",
   ],
   private: [
-    "Entrepreneurs and business owners",
-    "Executives relocating with a role",
-    "Investors establishing a base",
-    "Families moving together",
-    "Family offices",
-    "Companies moving senior personnel",
+    "A family moving together",
+    "An entrepreneur taking the business too",
+    "An executive relocating with a role",
+    "An investor establishing a second base",
+    "A family office coordinating a move",
+    "A company relocating senior people",
   ],
 } as const;
