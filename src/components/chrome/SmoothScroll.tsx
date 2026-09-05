@@ -3,6 +3,18 @@
 import { useEffect } from "react";
 import Lenis from "lenis";
 
+declare global {
+  interface Window {
+    /**
+     * The live scroll instance. Exposed deliberately: Lenis owns the scroll
+     * position, so `window.scrollTo` is reverted on the next frame — anything
+     * that needs to move the page programmatically (including automated
+     * verification of the pinned scenes) has to go through this.
+     */
+    __lusianScroll?: Lenis;
+  }
+}
+
 let lenisInstance: Lenis | null = null;
 
 export function getLenis() {
@@ -38,6 +50,7 @@ export function SmoothScroll() {
     });
 
     lenisInstance = lenis;
+    window.__lusianScroll = lenis;
 
     let frame = 0;
     const raf = (time: number) => {
@@ -50,6 +63,7 @@ export function SmoothScroll() {
       cancelAnimationFrame(frame);
       lenis.destroy();
       lenisInstance = null;
+      window.__lusianScroll = undefined;
     };
   }, []);
 

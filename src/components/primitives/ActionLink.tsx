@@ -74,11 +74,13 @@ export function ActionButton({
   className,
   disabled,
   type = "submit",
+  onClick,
 }: {
   children: React.ReactNode;
   className?: string;
   disabled?: boolean;
   type?: "submit" | "button";
+  onClick?: () => void;
 }) {
   const { ref, x, y } = useMagnetic<HTMLDivElement>(0.2);
 
@@ -87,6 +89,7 @@ export function ActionButton({
       <button
         type={type}
         disabled={disabled}
+        onClick={onClick}
         data-cursor="hide"
         className={cn(shell, "disabled:cursor-not-allowed disabled:opacity-40")}
       >

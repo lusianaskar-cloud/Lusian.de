@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { Hero } from "@/components/home/Hero";
-import { Manifesto } from "@/components/home/Manifesto";
-import { DivisionSplit } from "@/components/home/DivisionSplit";
-import { AviationFeature } from "@/components/home/AviationFeature";
-import { GulfFeature } from "@/components/home/GulfFeature";
-import { Interlude } from "@/components/home/Interlude";
-import { WhyUs } from "@/components/home/WhyUs";
-import { Reach } from "@/components/home/Reach";
-import { Engagement } from "@/components/home/Engagement";
-import { ConsultCta } from "@/components/shared/ConsultCta";
+
+import { Scene01Horizon } from "@/components/scenes/Scene01Horizon";
+import { Scene02TwoWorlds } from "@/components/scenes/Scene02TwoWorlds";
+import { Scene03Aviation } from "@/components/scenes/Scene03Aviation";
+import { Scene04Turn } from "@/components/scenes/Scene04Turn";
+import { Scene05Arrival } from "@/components/scenes/Scene05Arrival";
+import { Scene06Sequence } from "@/components/scenes/Scene06Sequence";
+import { Scene07Markets } from "@/components/scenes/Scene07Markets";
+import { Scene08Closing } from "@/components/scenes/Scene08Closing";
+import { Argument } from "@/components/home/Argument";
 import { site } from "@/lib/content/site";
 
 export const metadata: Metadata = {
@@ -17,22 +17,25 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
+/**
+ * The homepage is a sequence of scenes, not a stack of sections.
+ *
+ * Seven are pinned: the viewport holds while the composition transforms with
+ * scroll. One — the argument — deliberately is not, because after seven
+ * pinned scenes the reader needs ground that does not move.
+ */
 export default function HomePage() {
   return (
     <>
-      <Hero />
-      <Manifesto />
-      <DivisionSplit />
-      <AviationFeature />
-      <GulfFeature />
-      <Interlude />
-      <WhyUs />
-      <Reach />
-      <Engagement />
-      <ConsultCta
-        lines={["Begin a", "conversation."]}
-        body="Tell us what you are trying to achieve and by when. If we are not the right party, we will say so and point you to who is."
-      />
+      <Scene01Horizon />
+      <Scene02TwoWorlds />
+      <Scene03Aviation />
+      <Scene04Turn />
+      <Scene05Arrival />
+      <Scene06Sequence />
+      <Argument />
+      <Scene07Markets />
+      <Scene08Closing />
     </>
   );
 }

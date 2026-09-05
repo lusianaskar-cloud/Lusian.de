@@ -13,7 +13,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/private-advisory", priority: 0.9 },
     { path: "/destinations", priority: 0.8 },
     { path: "/about", priority: 0.7 },
-    { path: "/contact", priority: 0.8 },
+    { path: "/speak", priority: 0.9 },
+    { path: "/speak/ask", priority: 0.7 },
+    { path: "/speak/book", priority: 0.7 },
+    { path: "/speak/questions", priority: 0.6 },
   ];
 
   const lastModified = new Date();

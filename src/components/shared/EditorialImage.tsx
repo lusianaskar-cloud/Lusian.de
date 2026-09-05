@@ -2,7 +2,13 @@
 
 import Image from "next/image";
 import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  type MotionValue,
+} from "motion/react";
 import type { Plate } from "@/lib/content/plates";
 import { cn } from "@/lib/utils";
 
@@ -20,12 +26,20 @@ export function EditorialImage({
   ratio = "aspect-[21/9]",
   tone = "dark",
   priority = false,
+  scale,
+  fill = false,
+  caption = true,
 }: {
   plate: Plate;
   className?: string;
   ratio?: string;
   tone?: "dark" | "light";
   priority?: boolean;
+  /** Scroll-driven crop, supplied by a scene. Replaces the internal parallax. */
+  scale?: MotionValue<number>;
+  /** Fill the parent rather than holding an aspect ratio. */
+  fill?: boolean;
+  caption?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
@@ -39,14 +53,18 @@ export function EditorialImage({
     <div
       ref={ref}
       className={cn(
-        "grain relative w-full overflow-hidden",
-        ratio,
+        "grain overflow-hidden",
+        fill ? "absolute inset-0" : "relative w-full",
+        fill ? undefined : ratio,
         tone === "dark" ? "bg-petrol" : "bg-dune",
         className,
       )}
     >
       {plate.src ? (
-        <motion.div className="absolute inset-x-0 -top-[7%] h-[114%]" style={{ y: reduced ? 0 : y }}>
+        <motion.div
+          className="absolute inset-x-0 -top-[7%] h-[114%]"
+          style={scale ? { scale } : { y: reduced ? 0 : y }}
+        >
           <Image
             src={plate.src}
             alt={plate.alt}
@@ -57,8 +75,9 @@ export function EditorialImage({
           />
         </motion.div>
       ) : (
-        <div
+        <motion.div
           aria-hidden
+          style={scale ? { scale } : undefined}
           className={cn(
             "absolute inset-0",
             tone === "dark" ? "text-ivory" : "text-ink",
@@ -94,7 +113,7 @@ export function EditorialImage({
               {plate.brief}
             </p>
           </div>
-        </div>
+        </motion.div>
       )}
 
       <span aria-hidden className="grain-layer" />
@@ -111,14 +130,16 @@ export function EditorialImage({
         />
       ) : null}
 
-      <span
-        className={cn(
-          "label-mono absolute bottom-[1.4rem] left-14",
-          tone === "dark" ? "text-ivory/45" : "text-ink/45",
-        )}
-      >
-        {plate.caption}
-      </span>
+      {caption ? (
+        <span
+          className={cn(
+            "label-mono absolute bottom-[1.4rem] left-14",
+            tone === "dark" ? "text-ivory/45" : "text-ink/45",
+          )}
+        >
+          {plate.caption}
+        </span>
+      ) : null}
     </div>
   );
 }

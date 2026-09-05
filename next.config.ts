@@ -15,6 +15,14 @@ const nextConfig: NextConfig = {
     ],
   },
   poweredByHeader: false,
+  // The floating dev badge overlapped the scroll cue and read as a third-party widget.
+  devIndicators: false,
+  async redirects() {
+    return [
+      // Contact folded into the Speak with Lusian experience.
+      { source: "/contact", destination: "/speak", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

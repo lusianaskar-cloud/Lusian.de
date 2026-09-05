@@ -10,10 +10,15 @@ import { cn } from "@/lib/utils";
 import { Mark } from "./Mark";
 import { MobileMenu } from "./MobileMenu";
 import { useHeaderTone } from "./useHeaderTone";
+import { useStageTone } from "./stageTone";
 
 export function SiteHeader() {
   const pathname = usePathname();
-  const tone = useHeaderTone();
+  const measured = useHeaderTone();
+  // A pinned scene changes tonality without moving, so it declares what is
+  // beneath the header and that declaration wins while it is set.
+  const declared = useStageTone();
+  const tone = declared ?? measured;
   const reduced = useReducedMotion();
   const [open, setOpen] = useState(false);
   const [lifted, setLifted] = useState(false);
@@ -73,14 +78,14 @@ export function SiteHeader() {
               aria-label={`${site.name} — home`}
               className="group flex shrink-0 items-center gap-3"
             >
-              <Mark className="h-[1.35rem] w-[1.35rem] transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:rotate-180" />
-              <span className="text-[0.9rem] font-medium tracking-[0.38em] sm:text-[0.95rem]">
+              <Mark className="h-[1.45rem] w-[1.45rem] transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:rotate-180" />
+              <span className="text-[0.95rem] font-medium tracking-[0.38em] sm:text-[1.0125rem]">
                 {site.wordmark}
               </span>
             </TransitionLink>
 
             <nav aria-label="Primary" className="hidden lg:block">
-              <ul className="flex items-center gap-9">
+              <ul className="flex items-center gap-10">
                 {nav.map((item) => {
                   const active =
                     pathname === item.href || pathname.startsWith(`${item.href}/`);
@@ -91,8 +96,8 @@ export function SiteHeader() {
                         transitionLabel={item.label}
                         aria-current={active ? "page" : undefined}
                         className={cn(
-                          "group relative block py-2 text-[0.8125rem] tracking-[0.01em] transition-opacity duration-500",
-                          active ? "opacity-100" : "opacity-55 hover:opacity-100",
+                          "group relative block py-2 text-[0.875rem] tracking-[0.005em] transition-opacity duration-500",
+                          active ? "opacity-100" : "opacity-70 hover:opacity-100",
                         )}
                       >
                         {item.label}
@@ -112,8 +117,8 @@ export function SiteHeader() {
 
             <div className="flex shrink-0 items-center gap-3">
               <TransitionLink
-                href="/contact"
-                transitionLabel="Private consultation"
+                href="/speak"
+                transitionLabel="Speak with Lusian"
                 className={cn(
                   "group relative hidden items-center gap-2.5 overflow-hidden rounded-full border border-current/25 px-5 py-2.5 label-mono lg:inline-flex",
                   "transition-colors duration-500",
@@ -125,7 +130,7 @@ export function SiteHeader() {
                   className="absolute inset-0 origin-left scale-x-0 bg-current transition-transform duration-[650ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100"
                 />
                 <span aria-hidden className="relative z-10 block size-1 rounded-full bg-current" />
-                <span className="relative z-10">Enquire</span>
+                <span className="relative z-10">Speak with us</span>
               </TransitionLink>
 
               <button

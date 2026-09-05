@@ -22,7 +22,14 @@ const columns = [
     links: [
       { label: "About", href: "/about" },
       { label: "Insights", href: "/insights" },
-      { label: "Private consultation", href: "/contact" },
+    ],
+  },
+  {
+    title: "Speak with Lusian",
+    links: [
+      { label: "Ask a question", href: "/speak/ask" },
+      { label: "Book a consultation", href: "/speak/book" },
+      { label: "Common questions", href: "/speak/questions" },
     ],
   },
   {
@@ -67,7 +74,7 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <div className="grid gap-10 sm:grid-cols-3 lg:col-span-6 lg:col-start-7">
+          <div className="grid gap-10 sm:grid-cols-2 lg:col-span-7 lg:col-start-6 xl:grid-cols-4">
             {columns.map((column) => (
               <nav key={column.title} aria-label={column.title}>
                 <Eyebrow tick={false} className="text-ivory/35">

@@ -113,7 +113,7 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
           transition={{ duration: reduced ? 0 : 0.9, ease: EASE.expo, delay: reduced ? 0 : 0.62 }}
         >
           <TransitionLink
-            href="/contact"
+            href="/speak"
             transitionLabel="Private consultation"
             onClick={onClose}
             className="flex items-center justify-between gap-4 rounded-full border border-ivory/25 px-7 py-5 label-mono"

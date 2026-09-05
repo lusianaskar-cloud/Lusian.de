@@ -12,7 +12,7 @@ import { ordinal } from "@/lib/utils";
  * hairlines. Nothing here is boxed — on this site a border means something is
  * outstanding.
  */
-export function WhyUs() {
+export function Argument() {
   return (
     <Section tone="light" className="bg-paper" aria-labelledby="why-heading">
       <Container className="py-28 lg:py-40">

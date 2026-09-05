@@ -30,13 +30,25 @@ export const nav = [
   { label: "Insights", href: "/insights" },
 ] as const;
 
+/** The primary action, and the three ways into it. */
+export const speakNav = [
+  { label: "Ask a question", href: "/speak/ask" },
+  { label: "Book a consultation", href: "/speak/book" },
+  { label: "Common questions", href: "/speak/questions" },
+] as const;
+
 export const contactChannels = {
   // TODO(client): supply the real enquiry address, telephone line and postal
   // address. These are deliberately obvious placeholders.
   email: "enquiries@example-placeholder.com",
   phone: "+00 000 000 0000",
   addressLines: ["Registered office", "To be supplied"],
-  responseNote: "Enquiries are read by a principal, not a queue.",
+  /**
+   * TODO(client): an operational promise about who reads enquiries, or how
+   * fast a reply comes, should only be published if it is actually kept.
+   * Set a string here to display one; leave null and the site claims nothing.
+   */
+  responsePromise: null as string | null,
 } as const;
 
 export const heroLines = [

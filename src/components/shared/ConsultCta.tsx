@@ -12,7 +12,7 @@ export function ConsultCta({
   lines,
   body,
   ctaLabel = "Request a consultation",
-  ctaHref = "/contact",
+  ctaHref = "/speak",
 }: {
   eyebrow?: string;
   lines: string[];

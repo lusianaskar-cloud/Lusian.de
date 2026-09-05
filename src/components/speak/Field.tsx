@@ -43,6 +43,8 @@ export function TextField({
   autoComplete,
   placeholder,
   className,
+  value,
+  onChange,
 }: {
   id: string;
   name: string;
@@ -52,6 +54,9 @@ export function TextField({
   autoComplete?: string;
   placeholder?: string;
   className?: string;
+  /** Supply both to control the field; omit both to leave it uncontrolled. */
+  value?: string;
+  onChange?: (value: string) => void;
 }) {
   return (
     <FieldShell label={required ? label : `${label} (optional)`} htmlFor={id} className={className}>
@@ -63,6 +68,9 @@ export function TextField({
         autoComplete={autoComplete}
         placeholder={placeholder}
         className={control}
+        {...(onChange
+          ? { value: value ?? "", onChange: (e) => onChange(e.target.value) }
+          : {})}
       />
     </FieldShell>
   );
@@ -121,6 +129,8 @@ export function TextArea({
   required,
   rows = 4,
   placeholder,
+  value,
+  onChange,
 }: {
   id: string;
   name: string;
@@ -128,6 +138,8 @@ export function TextArea({
   required?: boolean;
   rows?: number;
   placeholder?: string;
+  value?: string;
+  onChange?: (value: string) => void;
 }) {
   return (
     <FieldShell label={required ? label : `${label} (optional)`} htmlFor={id}>
@@ -138,6 +150,9 @@ export function TextArea({
         rows={rows}
         placeholder={placeholder}
         className={cn(control, "resize-none")}
+        {...(onChange
+          ? { value: value ?? "", onChange: (e) => onChange(e.target.value) }
+          : {})}
       />
     </FieldShell>
   );
