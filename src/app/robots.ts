@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
       // Placeholder editorial must not be indexed as published research.
-      disallow: ["/insights", "/insights/", "/api/"],
+      disallow: ["/insights", "/insights/", "/api/", "/dev-scene/"],
     },
     sitemap: `${site.url}/sitemap.xml`,
   };

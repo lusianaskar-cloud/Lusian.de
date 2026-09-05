@@ -47,10 +47,67 @@ read from a cached table on scroll — no layout reads in the scroll handler.
 
 ### Rhythm
 
-Tone alternates deliberately down each page. The homepage runs:
+Tone alternates deliberately, and the homepage now alternates *between scenes*
+rather than between sections:
 
-> ivory → ink → obsidian (split) → ivory → umber → plate → paper → ink →
-> dune → ink
+> ivory → ink (the horizon rises through it) → obsidian → petrol → petrol/umber
+> (the turn) → umber → umber → paper (the argument, unpinned) → ink → ink
+
+---
+
+## The homepage is scenes, not sections
+
+Eight scenes. Seven pinned. One deliberately not.
+
+| | Scene | Length | What happens |
+|---|---|---|---|
+| 01 | Horizon | 2.3× | The statement, the horizon climbing through it, the resolution, then why the firm exists |
+| 02 | Two worlds | 3.0× | A cool field takes the viewport and yields it to a warm one; both settle into a composed split |
+| 03 | Aviation instrument | 3.4× | Five capabilities, one at a time, each changing what the network does behind it |
+| 04 | The turn | 2.0× | Routes resolve into architectural contour — one geometry, not a cross-fade |
+| 05 | Arrival | 2.5× | The crop opens as the statement arrives; four lines follow, one per beat |
+| 06 | The sequence | 3.0× | Five stages; only contrast and scale move |
+| — | The argument | — | **Not pinned.** After seven pinned scenes the reader needs ground that does not move |
+| 07 | Six markets | 3.4× | The instrument holds; the information changes around it |
+| 08 | Closing | 1.9× | Strip back to one hairline and one invitation |
+
+### How a scene works
+
+`components/scenes/Scene.tsx`. The section is `length × 100svh` tall and its
+only child is `sticky top-0 h-[100lvh]`. The browser holds the child for
+exactly `(length − 1)` viewports of scroll and `useScroll` reports 0→1 across
+that same distance.
+
+**Native sticky, not a pinning library.** No pin-spacer is injected, nothing
+switches to `position: fixed`, and nothing recalculates on resize — which
+removes the pin jumps, the Safari flicker, the refresh-inside-scene flash and
+the orientation-change breakage that come with library pinning. Cleanup is
+React unmount.
+
+The stage is `100lvh` while sections are measured in `svh`, so a retracting
+mobile URL bar can never reveal a seam beneath the pinned stage.
+
+Lengths are two CSS custom properties resolved by a media query, so the height
+is correct on the first paint. Reading a breakpoint in JavaScript would change
+the height after hydration and cost CLS.
+
+### Two rules that are easy to get wrong
+
+**Scroll-linked values must stay in JavaScript.** Given input/output arrays,
+Motion may hand a standalone animatable property — `opacity` above all — to a
+native scroll-driven animation using the input array as keyframe offsets, while
+`scale` and `y` fold into `transform` and stay in JS. The two paths do not
+agree, so a beat's fade and its movement end up reading different progress.
+`lib/useRange.ts` maps through a function transformer instead. Use it, not the
+array form of `useTransform`, for anything driven by scroll.
+
+**The reduced-motion preference cannot be read on the server.** Motion's
+`useReducedMotion` returns false there and true on the client, so anything
+that renders a different tree — or even a different `initial` style — fails to
+hydrate. Use `lib/useSafeReducedMotion.ts`, which reports false until mount.
+And when the preference changes what is animated, swap the *element* rather
+than dropping the style prop: removing a style prop leaves whatever Motion
+last wrote on the node.
 
 ---
 
@@ -94,22 +151,23 @@ wrapper, and scroll-linked fills render complete.
 
 Five, not fifty.
 
-1. **The horizon** (`components/home/Hero.tsx`) — the hero is split by a horizon
-   at 38% from the foot. The headline is rendered twice at identical
-   coordinates: dark on ivory, and ivory inside the ink plate. The plate rises
-   with scroll, so the statement inverts *through* the horizon rather than
-   fading. It is the brand mark drawn at page scale, and the handover into the
-   dark sections below.
-2. **The divide** (`components/home/DivisionSplit.tsx`) — two plates, one
-   hairline. Attention to either side is answered physically: the attended plate
-   takes space from the other on a spring and its ground intensifies. Both are
-   dark; the difference between them is temperature. Nothing depends on hover —
-   on touch both plates are simply presented at rest.
-3. **The route network** (`components/aviation/RouteNetwork.tsx`) — an abstract
-   network on canvas. Arcs draw themselves in sequence, then carry a slow
-   traffic pulse; hubs get survey ticks and a breathing ring. One paint for
-   twenty arcs, paused when off-screen, static under reduced motion. Drawn as
-   ink-on-ivory it becomes a technical sheet; as ice-on-petrol, an instrument.
+1. **The horizon** (`components/scenes/Scene01Horizon.tsx`) — the opening is
+   split by a horizon at 38% from the foot. The statement is rendered twice at
+   identical coordinates: dark on ivory, and ivory inside the ink plate. The
+   plate climbs with scroll, so the sentence inverts *through* the horizon
+   rather than fading, and one word holds champagne as it passes. It is the
+   brand mark drawn at page scale.
+2. **The two worlds** (`components/scenes/Scene02TwoWorlds.tsx`) — a cool field
+   wipes in and takes the viewport, then yields it as a warm one enters from
+   the opposite side; both settle into a composed split. The fields are
+   revealed with `clip-path` insets, never animated width, so nothing reflows.
+   On a phone the same choreography runs vertically. Nothing depends on hover.
+3. **The route network** (`components/aviation/RouteNetwork.tsx`) — one canvas,
+   three modes. Autonomous: it draws itself once and carries traffic. Scrubbed:
+   the draw is tied to scroll, so scrolling builds it. Morphing: the same nodes
+   travel to horizon bands, the arcs flatten and the palette warms, so routes
+   resolve into architectural contour as one continuous geometry rather than
+   two graphics cross-fading. That morph is the turn between the two practices.
 4. **The constellation** (`components/gulf/GulfConstellation.tsx`) — the six
    markets at true relative positions from their hub coordinates, over an
    abstract graticule, with bearings and range rings from the selected market.
@@ -118,9 +176,9 @@ Five, not fifty.
    list; the plotted markers are a pointer affordance over the same state.
 5. **The curtain** (`components/chrome/TransitionProvider.tsx` and `Preloader.tsx`)
    — routes hand over behind a two-layer plate that sweeps upward carrying the
-   destination's name; the route push is issued as it closes, so latency is felt
-   as intent. On a session's first load the plate instead *parts along the
-   horizon* of the brand mark.
+   destination's name. The route is pushed only once the screen is covered, so
+   the incoming page is never glimpsed climbing in behind it. On a session's
+   first load the plate instead *parts along the horizon* of the brand mark.
 
 Plus: magnetic CTAs on fine pointers, a `mix-blend-difference` precision cursor
 that stays legible on any ground without tracking tonality, and a header that
@@ -130,6 +188,9 @@ inverts against the section beneath it.
 
 ## Layout
 
+- Scroll position belongs to Lenis: `window.scrollTo` is reverted on the next
+  frame. Anything that moves the page programmatically goes through
+  `window.__lusianScroll`.
 - `container-editorial` — max 96rem with a fluid `--spacing-gutter`
   (`clamp(1.25rem, 4.5vw, 5rem)`); `container-narrow` at 68rem for reading.
 - A 12-column grid on desktop, 4 on mobile. `HairlineGrid` draws it in the hero.
