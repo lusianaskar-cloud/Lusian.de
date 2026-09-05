@@ -174,23 +174,56 @@
    word stops being a word. The site's display type is tracked tightly and
    its labels are tracked wide, both set through utilities and inline
    classes — so rather than unpick every one of them per language, tracking
-   is simply switched off wherever the text is Arabic. There is no case in
-   which tracked Arabic is what was wanted.
+   is switched off wherever the text is Arabic. There is no case in which
+   tracked Arabic is what was wanted.
+
+   The selector is `*:lang(ar)`, not `*`: a Latin run inside an Arabic page
+   that declares its own `lang` — the wordmark, the language switcher —
+   keeps the tracking it was designed with. These rules sit outside every
+   cascade layer, so they win over Tailwind's utilities without `!important`.
 */
-:root:lang(ar) *,
-:root:lang(ar) *::before,
-:root:lang(ar) *::after {
-  letter-spacing: normal !important;
+:root:lang(ar) *:lang(ar),
+:root:lang(ar) *:lang(ar)::before,
+:root:lang(ar) *:lang(ar)::after {
+  letter-spacing: normal;
+}
+
+/*
+   A Latin run that declares its own language keeps the Latin type system.
+   The wordmark is the same shape in every language, and an email address
+   set in a Naskh's Latin is a different email address to look at. These are
+   the custom properties the type utilities read, so `.font-display` and
+   `.label-mono` resolve correctly on the same element; plain inherited text
+   adds `font-sans` to pick the value up.
+*/
+:root:lang(ar) *:lang(en) {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-display: var(--font-newsreader), Georgia, "Times New Roman", serif;
 }
 
 /* Amiri carries 400 and 700; the Latin display weight of 300 would round
    silently, so it is stated. */
-:root:lang(ar) .font-display {
+:root:lang(ar) .font-display:lang(ar) {
   font-weight: 400;
 }
 
-/* Arabic sits lower and taller in its em box than the Latin faces, so body
-   copy is given a little more room to breathe. */
+/*
+   Leading, which is the other thing a Latin type scale gets wrong about
+   Arabic. The display sizes here run as tight as 0.98, which is right for a
+   Latin face with short descenders and simply collides in a script whose
+   ascenders and descenders are the letterforms. Arabic gets its own floor at
+   every scale — 1.3, which Amiri's own generous vertical metrics turn into
+   roughly the same optical rhythm as Newsreader at 1.04.
+*/
+:root:lang(ar) .font-display:lang(ar) {
+  line-height: 1.3;
+}
+
+:root:lang(ar) .label-mono:lang(ar) {
+  line-height: 1.5;
+}
+
 :root:lang(ar) body {
   line-height: 1.75;
 }
@@ -251,7 +284,13 @@
 @utility tone-light {
   --tone-bg: var(--color-ivory);
   --tone-fg: var(--color-ink);
-  --tone-fg-muted: color-mix(in oklab, var(--color-ink) 58%, transparent);
+  /*
+     65%, not the 58% used on the dark grounds. Ink on ivory needs more of
+     itself than ivory on ink does to clear 4.5:1 — measured at 62% against
+     the lightest ground the site uses — and this is body copy, which has to
+     clear it in every language.
+  */
+  --tone-fg-muted: color-mix(in oklab, var(--color-ink) 65%, transparent);
   --tone-rule: color-mix(in oklab, var(--color-ink) 14%, transparent);
   --tone-accent: var(--color-brass);
   color: var(--tone-fg);

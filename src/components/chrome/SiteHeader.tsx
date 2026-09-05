@@ -85,7 +85,11 @@ export function SiteHeader() {
               className="group flex shrink-0 items-center gap-3"
             >
               <Mark className="h-[1.45rem] w-[1.45rem] transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:rotate-180" />
-              <span className="text-[0.95rem] font-medium tracking-[0.38em] sm:text-[1.0125rem]">
+              {/* Latin in every language, and it keeps its own tracking. */}
+              <span
+                lang="en"
+                className="font-sans text-[0.95rem] font-medium tracking-[0.38em] sm:text-[1.0125rem]"
+              >
                 {site.wordmark}
               </span>
             </TransitionLink>

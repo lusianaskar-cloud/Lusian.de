@@ -117,7 +117,7 @@ export function Preloader() {
         {site.wordmark.split("").map((letter, i) => (
           <motion.span
             key={`${letter}-${i}`}
-            className="block text-[0.95rem] font-medium tracking-[0.5em] text-ivory"
+            className="block font-sans text-[0.95rem] font-medium tracking-[0.5em] text-ivory"
             initial={{ y: "120%" }}
             animate={{ y: "0%" }}
             transition={{ duration: 1, ease: EASE.expo, delay: 0.55 + i * 0.05 }}

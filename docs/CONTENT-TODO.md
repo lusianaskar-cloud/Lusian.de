@@ -7,29 +7,36 @@ Nothing on this site invents company history, headcount, offices, credentials,
 clients, results, statistics, testimonials or awards. Where a fact was unknown,
 the slot was left open rather than filled.
 
+**This holds in all three languages.** Anything outstanding in English is
+outstanding in German and Arabic; nothing was quietly resolved in translation.
+Where an item below names a locale bundle, it has to be supplied in each of
+`src/lib/content/locales/{en,de,ar}.ts` — and the legal documents in
+particular need a qualified lawyer per jurisdiction, not a translation of the
+English structure.
+
 ---
 
 ## 1 — Blocking. The site must not go live without these.
 
 | Item | Where |
 |---|---|
-| Legal entity name, legal form, registered address | `src/lib/content/site.ts` → `contactChannels.addressLines`; `src/lib/content/legal.ts` → `imprint` |
-| Company registration number and VAT identification | `legal.ts` → `imprint`; footer strip in `src/components/chrome/SiteFooter.tsx` |
-| Name of the person or persons representing the company | `legal.ts` → `imprint` |
-| Real enquiry email address | `site.ts` → `contactChannels.email` (currently `enquiries@example-placeholder.com`) |
-| Real telephone number, or delete the line | `site.ts` → `contactChannels.phone`; used in the footer and on `/contact` |
-| Production domain | `site.ts` → `site.url` (drives canonical URLs, sitemap and Open Graph) |
-| **Legal notice / Impressum** — drafted and reviewed by a lawyer | `legal.ts` → `imprint` |
-| **Privacy policy** — must match what the deployed site actually does | `legal.ts` → `privacy` |
-| **Website terms** | `legal.ts` → `terms` |
-| **Disclaimer** — review the drafted scope-of-service wording | `legal.ts` → `disclaimer` |
+| Legal entity name, legal form, registered address | `locales/*.ts` → `contact.addressLines`; `locales/*.ts` → `legal.pages.imprint` |
+| Company registration number and VAT identification | `locales/*.ts` → `legal.pages.imprint` and `footer.registration` |
+| Name of the person or persons representing the company | `locales/*.ts` → `legal.pages.imprint` |
+| Real enquiry email address | `src/lib/content/site.ts` → `contactChannels.email` (currently `enquiries@example-placeholder.com`) — one value, all languages |
+| Real telephone number, or delete the line | `src/lib/content/site.ts` → `contactChannels.phone`; used in the footer and on `/speak` |
+| Production domain | `src/lib/content/site.ts` → `site.url` (drives canonical URLs, hreflang alternates, sitemap and Open Graph) |
+| **Legal notice / Impressum** — drafted and reviewed by a lawyer | `locales/*.ts` → `legal.pages.imprint` — **once per jurisdiction, per language** |
+| **Privacy policy** — must match what the deployed site actually does | `locales/*.ts` → `legal.pages.privacy` — **once per jurisdiction, per language** |
+| **Website terms** | `locales/*.ts` → `legal.pages.terms` — **once per jurisdiction, per language** |
+| **Disclaimer** — review the drafted scope-of-service wording | `locales/*.ts` → `legal.pages.disclaimer` — **once per jurisdiction, per language** |
 | `ENQUIRY_WEBHOOK_URL` in the deployment environment | `src/app/api/enquiry/route.ts` |
 | Scheduling provider credentials, if booking is to go live | `docs/SCHEDULING.md` |
-| **The principal's name** — deliberately not inferred from anything | `src/lib/content/founder.ts` → `founder.name` |
+| **The principal's name** — deliberately not inferred from anything | `src/lib/content/founder.ts` → `founder.name` — one value, all languages |
 | **An editorial portrait of the principal** | `/about`, reserved slot |
-| Exact awarded title of the Georgian qualification | `founder.ts` → `trajectory` |
-| Whether to publish a response-time or "read personally" promise | `site.ts` → `contactChannels.responsePromise` (null = claims nothing) |
-| Confirmation of the three engagement-depth names | `src/lib/content/speak.ts` → `engagementLevels` |
+| Exact awarded title of the Georgian qualification | `locales/*.ts` → `about.founder.trajectory` |
+| Whether to publish a response-time or "read personally" promise | `locales/*.ts` → `contact.responsePromise` (null = claims nothing, in every language) |
+| Confirmation of the three engagement-depth names | `locales/*.ts` → `gulf.levels.items` |
 
 > The four legal pages are **prepared structures, not documents**. They list the
 > sections such a document normally contains and mark every factual field as
@@ -38,9 +45,11 @@ the slot was left open rather than filled.
 
 ## 2 — The principal
 
-`src/lib/content/founder.ts` carries the background exactly as supplied and
-nothing beyond it. **Read the truthfulness rules at the top of that file before
-editing it.** In particular the principal is not described as an airline or
+The background is carried exactly as supplied and nothing beyond it, in
+`locales/*.ts` → `about.founder`. **Read the truthfulness rules at the top of
+`src/lib/content/founder.ts` before editing any of it — they govern all three
+languages, and a claim that is too large in Arabic is as wrong as one in
+English.** In particular the principal is not described as an airline or
 airport executive, a senior aviation consultant, a licensed commercial pilot,
 an immigration expert, a lawyer, a tax adviser or an investment adviser, and no
 duration, employer, degree title or result is claimed that was not given.
@@ -60,9 +69,10 @@ principal" until then.
 
 ## 3 — Insights
 
-**Every entry in `src/lib/content/insights.ts` is a demonstration placeholder.**
-They exist so the layout, typography and routing can be reviewed at realistic
-length. They are not research and are not sourced.
+**Every entry is a demonstration placeholder, in all three languages** — the
+slugs in `src/lib/content/insights.ts`, the text in `locales/*.ts` →
+`insights.entries`. They exist so the layout, typography and routing can be
+reviewed at realistic length. They are not research and are not sourced.
 
 Protections currently in place — remove them only when real editorial replaces
 the placeholders:
@@ -71,14 +81,16 @@ the placeholders:
 - a `Demo` tag on every card
 - a visible "Demonstration article" notice on every article page
 - `robots: noindex` on `/insights` and on every article
-- `/insights*` disallowed in `robots.ts`
+- `/*/insights*` disallowed in `robots.ts`, for every locale
 - articles excluded from `sitemap.ts`
 
 ## 4 — Photography
 
-Three slots, briefed in `docs/ASSETS.md`, configured in
-`src/lib/content/plates.ts`. Until a `src` is set each renders as a designed
-reserved frame carrying its own brief — **the layout is complete without them**.
+Three slots, briefed in `docs/ASSETS.md`. The `src` is set in
+`src/lib/content/plates.ts`; the alt text, the on-frame brief and the caption
+are translated, in `locales/*.ts` → `plates`. Until a `src` is set each renders
+as a designed reserved frame carrying its own brief — **the layout is complete
+without them**.
 
 ## 5 — Copy review
 
@@ -91,18 +103,21 @@ should be held to in any edit:
    investment and financial advice is described as provided by qualified
    professionals licensed in the relevant jurisdiction, coordinated by Lusian.
 
+Both rules were applied to the German and Arabic separately rather than
+carried across by translation, and they bind any future edit in any language.
+
 The market descriptions on `/destinations` deliberately contain no statements
 about visa categories, residency criteria, ownership rules, tax treatment or
 thresholds, so that they cannot age into inaccuracy. Keep it that way.
 
 ## 6 — Not built, on purpose
 
-`docs/ROADMAP.md` records three things deliberately left out: case studies
-(nothing published until real engagements exist), the English/German/Arabic
-locale architecture, and a future private client area. None is wired into the
-site.
+`docs/ROADMAP.md` records what is deliberately left out — case studies
+(nothing published until real engagements exist) and a future private client
+area — together with one measured accessibility gap in the faint end of the
+muted colour ramp, which is a design decision rather than a bug.
 
 ## 7 — Indicative commercial terms
 
-`aviationEngagements` in `src/lib/content/aviation.ts` carries indicative
-durations ("2–6 weeks", "3–18 months"). Confirm or replace them.
+`locales/*.ts` → `aviation.shapes.items` carries indicative durations
+("2–6 weeks", "3–18 months"). Confirm or replace them, in each language.

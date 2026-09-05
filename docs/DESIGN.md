@@ -24,9 +24,18 @@ display type. If you lighten it, re-run the contrast check.
 No pure black and no pure white anywhere, and the accent is never used as a
 fill behind body text.
 
-Every text colour on every page was measured against its composited background
-at desktop and phone widths; all of it meets WCAG AA (4.5:1 for body and label
-sizes, 3:1 for display).
+Every text colour was measured against its composited background at 1512 and
+393, in all three languages, with colours resolved through a canvas — the
+palette uses `color-mix()`, which `getComputedStyle` reports as `oklab` and a
+hand-rolled `rgb()` parser reads as noise.
+
+Display type and body copy clear WCAG AA. **The faint end of the muted ramp
+does not**: `text-ivory/35` reads 2.99:1 and the `text-ink/40` ordinals read
+2.48:1. Ivory needs ≥ 48% alpha on the dark grounds and ink ≥ 62% on the light
+ones to clear 4.5:1 — which is why `--tone-fg-muted` is 65% on `tone-light`
+and 58% on `tone-dark` rather than one number. The remaining shortfall is
+recorded with counts and the smallest honest fix in `docs/ROADMAP.md`; it is a
+decision about the hierarchy, not an oversight.
 
 ### Tonality
 
@@ -118,12 +127,43 @@ last wrote on the node.
 | Display | **Newsreader** (variable, 200–500 + italic) | headlines, section titles, numerals. Weight 300, tracking −0.022em |
 | Interface & body | **Geist Sans** | self-hosted via the `geist` package |
 | Labels & data | **Geist Mono** | 11px, uppercase, 0.2em tracking — the `label-mono` utility |
+| Arabic display | **Amiri** | answers Newsreader. Weight 400, no tracking, leading floor 1.3 |
+| Arabic interface | **IBM Plex Sans Arabic** | answers Geist, and takes the label role too |
 
 The italic is used as punctuation, not decoration: one word per headline, on the
-word that carries the meaning, in the accent colour.
+word that carries the meaning, in the accent colour. It survives translation
+because the accented word is carried as a substring of the line rather than a
+position — `Line` in `src/lib/i18n/types.ts` — so it lands wherever that
+language puts it, and a line that has been rewritten past it renders plain.
 
 Scale is fluid (`--text-hero` … `--text-label`), so tablet is a real
 composition rather than an interpolation between two designs.
+
+### Arabic is a second type system
+
+Not a fallback, and not the Latin scale with a substitute face:
+
+- **No tracking.** Arabic is a joined script and any letter-spacing breaks the
+  joins. The site's display type is tracked tightly and its labels tracked
+  wide, both through utilities and inline classes, so tracking is switched off
+  wherever the text is Arabic rather than unpicked per rule.
+- **Its own leading floor.** The Latin display sizes run as tight as 0.98,
+  which is right for short descenders and simply collides in a script whose
+  ascenders and descenders *are* the letterforms.
+- **A larger label size.** 12px rather than 11px, because an 11px Latin label
+  and an 11px Arabic one are not the same thing to read.
+- **Latin runs keep the Latin system.** Anything that declares `lang="en"` —
+  the wordmark, the language switcher, an email address — keeps its own
+  tracking, its own faces and its own direction.
+- **The Arabic faces load only for `ar`.** They are declared ahead of their
+  Latin counterparts in the Arabic stacks, so a mixed line renders Arabic from
+  Amiri or Plex and Latin from Newsreader or Geist.
+
+One place takes a deliberate step down the scale: the opening statement on the
+homepage. It is the only heading measured against something fixed — the ink
+plate opens at 38% of the stage — and Amiri sets a visibly larger body than
+Newsreader at the same size, so Arabic would cross the horizon before the
+reader had moved.
 
 ---
 
@@ -203,6 +243,32 @@ inverts against the section beneath it.
   page from reading as a grid of cards.
 - Large flat fields carry a `grain` layer so they do not read as flat CSS.
 
+### Right to left
+
+The page mirrors in Arabic, and mirroring is a layout decision taken per
+element rather than a global flip:
+
+- Directional utilities are logical — `start`/`end`, `ms`/`me`, `ps`/`pe`,
+  `text-start`/`text-end` — so the composition follows `dir` without a second
+  stylesheet.
+- Where a physical transform is unavoidable it is paired with an `rtl:`
+  counterpart: `origin-left rtl:origin-right`, `group-hover:translate-x-2
+  group-hover:rtl:-translate-x-2`.
+- `Arrow` mirrors itself. An arrow means "onward", and onward is leftward in
+  Arabic.
+- **Scene 02's two colour fields mirror with the copy they belong to.** 01 is
+  introduced first and 02 answers it, so 01 belongs on the side the reader
+  starts from; a composition where the copy flips and the field does not is
+  two halves disagreeing. The clip-path insets and the join hairline both
+  swap sides.
+- **The market plot does not mirror.** It is a coordinate instrument plotting
+  real hub positions, and a Gulf with Oman on the left would be wrong. It is
+  pinned to `dir="ltr"` and every position inside it stays physical; only the
+  label text is read in the page's language.
+- Dates, months and weekday initials come from `Intl` in the reader's locale,
+  never from a translated month table. The one exception is the day key the
+  booking slots are grouped by, which is an identifier and stays `en-CA`.
+
 ## Accessibility
 
 - Semantic landmarks; every section labelled by its own heading.
@@ -214,3 +280,9 @@ inverts against the section beneath it.
   never over form controls.
 - Decorative canvas and SVG are `aria-hidden`; the plotted markers are
   `tabIndex={-1}` beside a real accessible control.
+- `lang` and `dir` are set on `<html>` from the route segment, so assistive
+  technology switches voice with the page. An unrecognised locale segment is a
+  404 rather than a quiet fall back to English — `/fr/aviation` should not
+  serve an English page under a French URL.
+- In the market explorer the arrow keys follow the *visual* order, which
+  reverses in Arabic.

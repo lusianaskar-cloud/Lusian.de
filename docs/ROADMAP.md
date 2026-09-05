@@ -1,8 +1,8 @@
 # Product notes
 
-Architecture notes for work that is deliberately **not** built yet. None of
-this is wired into the site; it is recorded so the current implementation does
-not make it harder later.
+Architecture notes for work that is deliberately **not** built yet, plus two
+things that are: what the trilingual layer actually turned out to be, and one
+measured accessibility gap that is a design decision rather than a bug.
 
 ---
 
@@ -22,32 +22,65 @@ the trust the rest of the site is built to earn.
 When real cases exist, add `src/lib/content/cases.ts` alongside the other
 content models and a `/work/[slug]` route. Reuse the Insights article shell.
 
-## Internationalisation — English, German, Arabic
+## Known: the faint end of the muted ramp fails AA
 
-The site is single-locale today. Two decisions already keep the door open:
+Measured across `en`, `de` and `ar` at 1512 and 393, with colours resolved
+through a canvas (the palette uses `color-mix()`, which a hand-rolled `rgb()`
+parser reads as noise) and every fixed overlay and faded scene beat excluded:
 
-1. **All copy lives in `src/lib/content/`,** never inline in components. A
-   locale layer is a change to how those modules are resolved, not a rewrite
-   of every page.
-2. **Layout is logical, not physical** in most places — the codebase uses
-   `inset-x`, `gap`, flex and grid rather than hard-coded left/right offsets.
+| Colour | Ratio | Where | Count |
+| --- | --- | --- | --- |
+| `text-ivory/35` on the dark grounds | 2.99:1 | small labels in the pinned scenes and the footer | 432 |
+| `text-ivory/40` | 3.51:1 | the scope-of-services notice in the footer | 66 |
+| `text-ink/40` | 2.48:1 | the ordinal numerals — `01`, `02` … | 40 |
+| `text-ink/45` | 2.87:1 | reading times on the Insights cards | 6 |
+| `text-ivory/45` | 4.08:1 | phase labels on the private-advisory page | 6 |
 
-What remains to be done properly:
+The numbers are identical in all three languages — this is a property of the
+palette, not of any translation.
 
-- Adopt the App Router's `[locale]` segment and move the current tree beneath
-  it. Set `lang` and `dir` on `<html>` from the segment.
-- **Arabic must be genuine RTL**, not English composition with translated text
-  poured in. That means auditing every remaining directional utility
-  (`text-right`, `origin-left`, `-translate-x`, the scene clip-path directions
-  in Scene 02, the Gulf constellation's label side) and mirroring where
-  mirroring is correct. Some things must *not* mirror: the coordinate plot is
-  geographic and stays as it is.
-- Newsreader has no Arabic. An Arabic display face has to be chosen and paired
-  deliberately — this is a type decision, not a fallback.
-- Translations must be written, not machine-generated. A private-client
-  audience will notice.
+To clear 4.5:1, **ivory needs ≥ 48% alpha on the dark grounds and ink needs
+≥ 62% on the light ones** (measured against the lightest and darkest each is
+actually used on). `--tone-fg-muted` was raised to 65% on `tone-light` for
+exactly this reason and now clears everywhere; the values in the table are
+inline utilities rather than tokens, and raising them changes the quiet
+hierarchy the design leans on.
 
-Do not add an i18n dependency before there is a second locale to serve.
+That is a design decision rather than a bug fix, so it is recorded here rather
+than taken unilaterally. The smallest honest change is to lift the label ramp
+to `/50` on dark and `/65` on light and leave the display type alone.
+
+## Internationalisation — done
+
+The site is published in English, German and Arabic. What was planned here has
+been built; this section is kept as the record of what the shape actually is.
+
+- **One contract.** `SiteContent` in `src/lib/i18n/types.ts` declares every
+  string. Each bundle in `src/lib/content/locales/` satisfies it, so a missing
+  or renamed string is a type error rather than an English word surfacing in a
+  German page.
+- **Structure is not translated.** Ids, slugs, hrefs, market coordinates,
+  insight categories and scheduling provider keys stay in
+  `src/lib/content/*`; the bundles carry only what a translator rewrites, and
+  anything keyed by id is keyed by the same id in all three.
+- **One locale reaches the client.** The server layout resolves the bundle
+  through `next/root-params` and hands it to a client provider, so a page
+  ships one language rather than three.
+- **Routing.** `src/proxy.ts` (the Next 16 name for what was `middleware.ts`)
+  negotiates `Accept-Language` against a stored preference and redirects to a
+  locale prefix. Internal links are written without one and pick it up in
+  `TransitionLink`, so navigation never round-trips the redirect.
+- **Arabic is a second type system, not a fallback.** Amiri answers
+  Newsreader, IBM Plex Sans Arabic answers Geist, tracking is switched off
+  wherever the text is Arabic, and the display leading has its own floor.
+- **The plot does not mirror.** Everything else does.
+
+What is still open:
+
+- The German and Arabic legal pages need a lawyer in each jurisdiction, not a
+  translation of the English structure. See `docs/CONTENT-TODO.md`.
+- A fourth language would want the bundles split per page; at three they are
+  still comfortably readable end to end.
 
 ## A future private client area
 

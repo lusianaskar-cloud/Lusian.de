@@ -23,7 +23,7 @@ export function SiteFooter() {
             <div className="flex items-center gap-3">
               <Mark className="h-6 w-6 text-champagne" />
               {/* The wordmark is set in Latin in every language. */}
-              <span lang="en" className="text-[0.95rem] font-medium tracking-[0.38em]">
+              <span lang="en" className="font-sans text-[0.95rem] font-medium tracking-[0.38em]">
                 {site.wordmark}
               </span>
             </div>

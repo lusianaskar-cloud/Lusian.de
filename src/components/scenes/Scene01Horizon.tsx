@@ -60,7 +60,19 @@ function Statement({
   return (
     <Heading
       aria-hidden={inverted || undefined}
-      className="font-display text-[clamp(2.35rem,8.4vw,6.25rem)] leading-[1.04] tracking-[-0.03em]"
+      className={cn(
+        "font-display leading-[1.04] tracking-[-0.03em]",
+        "text-[clamp(2.35rem,8.4vw,6.25rem)]",
+        /*
+         * Amiri sets a visibly larger body than Newsreader at the same point
+         * size, and this is the one heading measured against something fixed:
+         * the ink plate opens at 38% of the stage, and the statement has to
+         * sit clear of it before the scroll carries it through. So Arabic
+         * takes a step down the scale rather than crossing the horizon before
+         * the reader has moved.
+         */
+        "[&:lang(ar)]:text-[clamp(2rem,7vw,5.25rem)]",
+      )}
     >
       <LineReveal
         as="span"
