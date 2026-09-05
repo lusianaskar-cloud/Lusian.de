@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
+import { useSafeReducedMotion } from "@/lib/useSafeReducedMotion";
 import { contactChannels, legalNotice, site } from "@/lib/content/site";
 import { TransitionLink } from "@/components/primitives/TransitionLink";
 import { Section, Container } from "@/components/primitives/Section";
@@ -44,7 +45,7 @@ const columns = [
 ];
 
 export function SiteFooter() {
-  const reduced = useReducedMotion();
+  const reduced = useSafeReducedMotion();
 
   return (
     <Section tone="dark" as="footer" grain className="overflow-hidden bg-ink">

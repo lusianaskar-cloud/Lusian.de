@@ -1,7 +1,8 @@
 "use client";
 
 import { useRef, type ReactNode } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
+import { useSafeReducedMotion } from "@/lib/useSafeReducedMotion";
 import { cn } from "@/lib/utils";
 
 /**
@@ -20,7 +21,7 @@ export function Parallax({
   scale?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const reduced = useReducedMotion();
+  const reduced = useSafeReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],

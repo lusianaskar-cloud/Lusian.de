@@ -1,7 +1,8 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
+import { useSafeReducedMotion } from "@/lib/useSafeReducedMotion";
 import { markets } from "@/lib/content/markets";
 import { MarketPlot } from "./MarketPlot";
 import { EASE } from "@/lib/motion";
@@ -20,7 +21,7 @@ import { cn, ordinal } from "@/lib/utils";
  */
 export function MarketExplorer() {
   const [index, setIndex] = useState(0);
-  const reduced = useReducedMotion();
+  const reduced = useSafeReducedMotion();
   const railRef = useRef<HTMLDivElement>(null);
   const active = markets[index];
 

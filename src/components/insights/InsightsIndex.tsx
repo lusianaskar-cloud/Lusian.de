@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
+import { useSafeReducedMotion } from "@/lib/useSafeReducedMotion";
 import { insightCategories, type Insight } from "@/lib/content/insights";
 import { TransitionLink } from "@/components/primitives/TransitionLink";
 import { Reveal } from "@/components/primitives/Reveal";
@@ -27,7 +28,7 @@ function DemoTag({ className }: { className?: string }) {
 
 export function InsightsIndex({ insights }: { insights: Insight[] }) {
   const [category, setCategory] = useState<string>(ALL);
-  const reduced = useReducedMotion();
+  const reduced = useSafeReducedMotion();
 
   const filtered = useMemo(
     () => (category === ALL ? insights : insights.filter((i) => i.category === category)),

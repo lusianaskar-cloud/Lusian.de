@@ -1,9 +1,16 @@
 "use client";
 
 import { useCallback, useMemo, useRef, useState, type FormEvent } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
+import { useSafeReducedMotion } from "@/lib/useSafeReducedMotion";
 import { consultationTypes } from "@/lib/scheduling/consultations";
-import type { AvailabilityResult, BookingResult, PracticeId, Slot } from "@/lib/scheduling/types";
+import type {
+  AvailabilityResult,
+  BookingResult,
+  ConsultationType,
+  PracticeId,
+  Slot,
+} from "@/lib/scheduling/types";
 import { contactChannels } from "@/lib/content/site";
 import { ActionButton } from "@/components/primitives/ActionLink";
 import { TextLink } from "@/components/primitives/ActionLink";
@@ -45,7 +52,7 @@ const practices: { id: PracticeId; label: string; body: string }[] = [
  * exist — and it never reports a booking that did not happen.
  */
 export function BookingFlow() {
-  const reduced = useReducedMotion();
+  const reduced = useSafeReducedMotion();
   const [step, setStep] = useState<Step>(0);
   const [practice, setPractice] = useState<PracticeId | null>(null);
   const [typeId, setTypeId] = useState<string | null>(null);
@@ -76,12 +83,19 @@ export function BookingFlow() {
     [practice],
   );
 
+  /**
+   * `forType` is passed explicitly by the step that selects a conversation:
+   * at that moment the state update has not re-rendered yet, so the `type`
+   * derived above is still the previous value.
+   */
   const loadAvailability = useCallback(
     async (
       range: { year: number; month: number } = cursor,
       zoneName: string = timeZone,
+      forType: ConsultationType | null = null,
     ) => {
-    if (!type) return;
+    const active = forType ?? type;
+    if (!active) return;
     setLoading(true);
     const from = new Date(Date.UTC(range.year, range.month, 1));
     const to = new Date(Date.UTC(range.year, range.month + 1, 0, 23, 59, 59));
@@ -90,7 +104,7 @@ export function BookingFlow() {
 
     try {
       const params = new URLSearchParams({
-        type: type.id,
+        type: active.id,
         from: start.toISOString(),
         to: to.toISOString(),
         timeZone: zoneName,
@@ -122,9 +136,9 @@ export function BookingFlow() {
     [day, slots, timeZone],
   );
 
-  const goTo = (next: Step) => {
+  const goTo = (next: Step, forType: ConsultationType | null = null) => {
     setStep(next);
-    if (next === 2) void loadAvailability();
+    if (next === 2) void loadAvailability(cursor, timeZone, forType);
     requestAnimationFrame(() => headingRef.current?.focus());
   };
 
@@ -193,7 +207,12 @@ export function BookingFlow() {
         </ol>
       ) : null}
 
-      <p ref={headingRef} tabIndex={-1} className="sr-only" aria-live="polite">
+      <p
+        ref={headingRef}
+        tabIndex={-1}
+        className="sr-only scroll-mt-40"
+        aria-live="polite"
+      >
         {step < 5 ? `Step ${step + 1} of ${STEPS.length}: ${STEPS[step as 0]}` : "Booking confirmed"}
       </p>
 
@@ -253,7 +272,7 @@ export function BookingFlow() {
                       setTypeId(option.id);
                       setDay(null);
                       setSlot(null);
-                      goTo(2);
+                      goTo(2, option);
                     }}
                     className="group grid w-full gap-3 border-t border-current/15 py-8 text-left last:border-b lg:grid-cols-12 lg:gap-8"
                   >

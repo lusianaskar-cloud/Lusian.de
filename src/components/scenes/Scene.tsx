@@ -3,10 +3,10 @@
 import { useRef, type ReactNode } from "react";
 import {
   motion,
-  useReducedMotion,
   useScroll,
   type MotionValue,
 } from "motion/react";
+import { useSafeReducedMotion } from "@/lib/useSafeReducedMotion";
 import { useRange } from "@/lib/useRange";
 import { cn } from "@/lib/utils";
 
@@ -60,7 +60,7 @@ export function Scene({
   label?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const reduced = useReducedMotion() ?? false;
+  const reduced = useSafeReducedMotion() ?? false;
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end end"],

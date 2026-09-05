@@ -4,11 +4,11 @@ import Image from "next/image";
 import { useRef } from "react";
 import {
   motion,
-  useReducedMotion,
   useScroll,
   useTransform,
   type MotionValue,
 } from "motion/react";
+import { useSafeReducedMotion } from "@/lib/useSafeReducedMotion";
 import type { Plate } from "@/lib/content/plates";
 import { cn } from "@/lib/utils";
 
@@ -42,7 +42,7 @@ export function EditorialImage({
   caption?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const reduced = useReducedMotion();
+  const reduced = useSafeReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],

@@ -1,7 +1,8 @@
 "use client";
 
 import { useId, useState, type FormEvent } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
+import { useSafeReducedMotion } from "@/lib/useSafeReducedMotion";
 import { markets } from "@/lib/content/markets";
 import { contactChannels } from "@/lib/content/site";
 import { ActionButton } from "@/components/primitives/ActionLink";
@@ -74,7 +75,7 @@ export function AskFlow() {
   const [method, setMethod] = useState<(typeof contactMethods)[number]>("Email");
   const [detail, setDetail] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
-  const reduced = useReducedMotion();
+  const reduced = useSafeReducedMotion();
   const methodName = useId();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {

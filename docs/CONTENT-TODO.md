@@ -24,23 +24,39 @@ the slot was left open rather than filled.
 | **Website terms** | `legal.ts` → `terms` |
 | **Disclaimer** — review the drafted scope-of-service wording | `legal.ts` → `disclaimer` |
 | `ENQUIRY_WEBHOOK_URL` in the deployment environment | `src/app/api/enquiry/route.ts` |
+| Scheduling provider credentials, if booking is to go live | `docs/SCHEDULING.md` |
+| **The principal's name** — deliberately not inferred from anything | `src/lib/content/founder.ts` → `founder.name` |
+| **An editorial portrait of the principal** | `/about`, reserved slot |
+| Exact awarded title of the Georgian qualification | `founder.ts` → `trajectory` |
+| Whether to publish a response-time or "read personally" promise | `site.ts` → `contactChannels.responsePromise` (null = claims nothing) |
+| Confirmation of the three engagement-depth names | `src/lib/content/speak.ts` → `engagementLevels` |
 
 > The four legal pages are **prepared structures, not documents**. They list the
 > sections such a document normally contains and mark every factual field as
 > outstanding. Each page states this to the visitor in a visible notice. They
 > must be written or reviewed by a qualified lawyer in the relevant jurisdiction.
 
-## 2 — Firm information
+## 2 — The principal
 
-Reserved and visibly labelled on `/about`. Delete each `PlaceholderBlock` as its
-real content is written (`src/app/about/page.tsx`).
+`src/lib/content/founder.ts` carries the background exactly as supplied and
+nothing beyond it. **Read the truthfulness rules at the top of that file before
+editing it.** In particular the principal is not described as an airline or
+airport executive, a senior aviation consultant, a licensed commercial pilot,
+an immigration expert, a lawyer, a tax adviser or an investment adviser, and no
+duration, employer, degree title or result is claimed that was not given.
 
-- Founding and background
-- Leadership — named principal(s), genuine career history, portraits
-- Credentials and memberships
+Outstanding, and visibly reserved on `/about`:
+
+- Full name and an editorial portrait
+- Exact awarded qualification titles, and expected completion of the ongoing
+  Aviation Management programme
+- Any professional membership or registration that can be evidenced
 - Registered company details
-- Languages and coverage
-- How third-party specialists are selected
+- Coverage — markets the practice can act in directly rather than via partners
+- How third-party specialists are selected and reviewed
+
+If the name is added, set `founder.name`; the page falls back to "The
+principal" until then.
 
 ## 3 — Insights
 
@@ -79,7 +95,14 @@ The market descriptions on `/destinations` deliberately contain no statements
 about visa categories, residency criteria, ownership rules, tax treatment or
 thresholds, so that they cannot age into inaccuracy. Keep it that way.
 
-## 6 — Indicative commercial terms
+## 6 — Not built, on purpose
+
+`docs/ROADMAP.md` records three things deliberately left out: case studies
+(nothing published until real engagements exist), the English/German/Arabic
+locale architecture, and a future private client area. None is wired into the
+site.
+
+## 7 — Indicative commercial terms
 
 `aviationEngagements` in `src/lib/content/aviation.ts` carries indicative
 durations ("2–6 weeks", "3–18 months"). Confirm or replace them.

@@ -1,7 +1,8 @@
 "use client";
 
 import type { ElementType, ReactNode } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
+import { useSafeReducedMotion } from "@/lib/useSafeReducedMotion";
 import { EASE, VIEWPORT, VIEWPORT_WIDE } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -33,7 +34,7 @@ export function Reveal({
   wide = false,
   eager = false,
 }: RevealProps) {
-  const reduced = useReducedMotion();
+  const reduced = useSafeReducedMotion();
   const MotionTag = motion[as as "div"];
 
   if (eager) {
@@ -76,7 +77,7 @@ export function RevealGroup({
   delay?: number;
   as?: ElementType;
 }) {
-  const reduced = useReducedMotion();
+  const reduced = useSafeReducedMotion();
   const MotionTag = motion[as as "div"];
 
   return (
@@ -108,7 +109,7 @@ export function RevealItem({
   distance?: number;
   as?: ElementType;
 }) {
-  const reduced = useReducedMotion();
+  const reduced = useSafeReducedMotion();
   const MotionTag = motion[as as "div"];
 
   return (
@@ -150,7 +151,7 @@ export function LineReveal({
   immediate = false,
   play = true,
 }: LineRevealProps) {
-  const reduced = useReducedMotion();
+  const reduced = useSafeReducedMotion();
   const MotionTag = motion[as as "div"];
 
   const animateProps = immediate

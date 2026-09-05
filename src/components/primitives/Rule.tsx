@@ -1,12 +1,13 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
+import { useSafeReducedMotion } from "@/lib/useSafeReducedMotion";
 import { EASE } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 /** A hairline that draws itself across when it enters the viewport. */
 export function Rule({ className, delay = 0 }: { className?: string; delay?: number }) {
-  const reduced = useReducedMotion();
+  const reduced = useSafeReducedMotion();
 
   return (
     <span className={cn("block h-px w-full overflow-hidden bg-current/15", className)}>

@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   motion,
   useInView,
-  useReducedMotion,
   useScroll,
   type MotionValue,
 } from "motion/react";
+import { useSafeReducedMotion } from "@/lib/useSafeReducedMotion";
 import { useRange } from "@/lib/useRange";
 import { heroResolve, heroStandfirst, site } from "@/lib/content/site";
 import { LineReveal } from "@/components/primitives/Reveal";
@@ -88,6 +88,44 @@ function Statement({
   );
 }
 
+/**
+ * A motion wrapper that steps out of the way entirely under reduced motion.
+ *
+ * Swapping the *element* matters: when a style prop changes from a MotionValue
+ * to a static number, Motion keeps its existing binding and the last value it
+ * wrote stays on the node. Rendering a plain element instead makes React
+ * unmount the managed one, so nothing is left behind.
+ */
+function Moved({
+  reduced,
+  style,
+  className,
+  as = "div",
+  children,
+  ...rest
+}: {
+  reduced: boolean;
+  style?: Record<string, MotionValue<number> | MotionValue<string>>;
+  className?: string;
+  as?: "div" | "p" | "span";
+  children: ReactNode;
+} & Record<string, unknown>) {
+  if (reduced) {
+    const Tag = as;
+    return (
+      <Tag className={className} {...rest}>
+        {children}
+      </Tag>
+    );
+  }
+  const M = as === "p" ? motion.p : as === "span" ? motion.span : motion.div;
+  return (
+    <M className={className} style={style} {...rest}>
+      {children}
+    </M>
+  );
+}
+
 function Layer({
   progress,
   reduced,
@@ -115,13 +153,11 @@ function Layer({
   const closeOpacity = useRange(progress, [0.85, 0.95], [0, 1]);
   const closeY = useRange(progress, [0.85, 0.95], [40, 0]);
 
-  const still = reduced ? undefined : {};
-
   return (
     <div className="absolute inset-x-0 bottom-0 h-[100lvh]">
-      <motion.div style={reduced ? still : { opacity: gridOpacity }}>
+      <Moved reduced={reduced} style={{ opacity: gridOpacity }}>
         <HairlineGrid />
-      </motion.div>
+      </Moved>
 
       <div
         className={cn(
@@ -129,51 +165,52 @@ function Layer({
           reduced && "flex flex-col justify-center gap-16 py-32",
         )}
       >
-        <motion.p
+        <Moved
+          reduced={reduced}
+          as="p"
           className={cn(
             "label-mono text-current/60",
             !reduced && "absolute left-(--spacing-gutter) top-28 lg:top-36",
           )}
-          style={reduced ? still : { opacity: chromeOpacity }}
+          style={{ opacity: chromeOpacity }}
         >
           {site.descriptorShort}
-        </motion.p>
+        </Moved>
 
         {/* Beat one — the statement. */}
-        <motion.div
+        <Moved
+          reduced={reduced}
           className={cn(
             "origin-left",
-            !reduced &&
-              "absolute inset-x-(--spacing-gutter) top-1/2 -translate-y-1/2",
+            !reduced && "absolute inset-x-(--spacing-gutter) top-1/2 -translate-y-1/2",
           )}
-          style={
-            reduced
-              ? still
-              : { scale: statementScale, y: statementY, opacity: statementOpacity }
-          }
+          style={{ scale: statementScale, y: statementY, opacity: statementOpacity }}
         >
           <Statement progress={progress} reduced={reduced} inverted={inverted} ready={ready} />
-        </motion.div>
+        </Moved>
 
         {/* Beat two — the resolution, in the space the statement vacates. */}
-        <motion.p
+        <Moved
+          reduced={reduced}
+          as="p"
           className={cn(
             "max-w-3xl font-display text-[clamp(1.5rem,4.4vw,3.5rem)] italic leading-[1.12]",
             !reduced && "absolute inset-x-(--spacing-gutter) top-1/2 -translate-y-1/2",
           )}
-          style={reduced ? still : { opacity: resolveOpacity, y: resolveY }}
+          style={{ opacity: resolveOpacity, y: resolveY }}
           aria-hidden={inverted || undefined}
         >
           {heroResolve}
-        </motion.p>
+        </Moved>
 
         {/* Beat three — why the firm exists. The old manifesto section, folded
             into the opening where it actually belongs. */}
-        <motion.div
+        <Moved
+          reduced={reduced}
           className={cn(
             !reduced && "absolute inset-x-(--spacing-gutter) top-1/2 -translate-y-1/2",
           )}
-          style={reduced ? still : { opacity: closeOpacity, y: closeY }}
+          style={{ opacity: closeOpacity, y: closeY }}
           aria-hidden={inverted || undefined}
         >
           <p className="max-w-[18ch] font-display text-[clamp(2rem,5.6vw,4.5rem)] leading-[1.05] tracking-[-0.028em]">
@@ -182,28 +219,25 @@ function Layer({
           <p className="mt-10 max-w-md text-[0.9375rem] leading-relaxed text-current/60 lg:text-base">
             {heroStandfirst}
           </p>
-        </motion.div>
+        </Moved>
 
-        <motion.span
-          className={cn(
-            "label-mono flex items-center gap-3 text-current/55",
-            !reduced &&
-              "absolute bottom-[max(2.5rem,env(safe-area-inset-bottom))] left-(--spacing-gutter)",
-            reduced && "hidden",
-          )}
-          style={reduced ? still : { opacity: chromeOpacity }}
-          aria-hidden
-        >
-          <span className="relative block h-8 w-px overflow-hidden bg-current/25">
-            <span
-              className={cn(
-                "absolute inset-x-0 top-0 block h-3 motion-safe:animate-[scrollcue_2.6s_cubic-bezier(0.65,0,0.35,1)_infinite]",
-                inverted ? "bg-champagne" : "bg-brass",
-              )}
-            />
-          </span>
-          Scroll
-        </motion.span>
+        {reduced ? null : (
+          <motion.span
+            className="label-mono absolute bottom-[max(2.5rem,env(safe-area-inset-bottom))] left-(--spacing-gutter) flex items-center gap-3 text-current/55"
+            style={{ opacity: chromeOpacity }}
+            aria-hidden
+          >
+            <span className="relative block h-8 w-px overflow-hidden bg-current/25">
+              <span
+                className={cn(
+                  "absolute inset-x-0 top-0 block h-3 motion-safe:animate-[scrollcue_2.6s_cubic-bezier(0.65,0,0.35,1)_infinite]",
+                  inverted ? "bg-champagne" : "bg-brass",
+                )}
+              />
+            </span>
+            Scroll
+          </motion.span>
+        )}
       </div>
     </div>
   );
@@ -211,7 +245,7 @@ function Layer({
 
 export function Scene01Horizon() {
   const ref = useRef<HTMLElement>(null);
-  const reduced = useReducedMotion() ?? false;
+  const reduced = useSafeReducedMotion() ?? false;
   const ready = useIntroReady();
   const inView = useInView(ref, { amount: 0.05 });
   const [dark, setDark] = useState(false);
