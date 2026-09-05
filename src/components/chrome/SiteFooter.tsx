@@ -27,7 +27,7 @@ export function SiteFooter() {
                 {site.wordmark}
               </span>
             </div>
-            <p className="mt-6 max-w-xs text-[0.9375rem] leading-relaxed text-tone-muted">
+            <p className="mt-6 max-w-xs type-voice text-[0.9375rem] text-tone-muted">
               {footer.tagline}
             </p>
 
@@ -40,7 +40,7 @@ export function SiteFooter() {
                 {contactChannels.email}
               </a>
               {/* TODO(client): replace with the real enquiry line, or remove. */}
-              <p dir="ltr" className="label-mono text-tone-muted rtl:text-end">
+              <p dir="ltr" className="type-voice text-[0.8125rem] text-tone-muted rtl:text-end">
                 {contactChannels.phone}
               </p>
             </div>
@@ -49,7 +49,7 @@ export function SiteFooter() {
           <div className="grid gap-10 sm:grid-cols-2 lg:col-span-7 lg:col-start-6 xl:grid-cols-4">
             {footer.columns.map((column) => (
               <nav key={column.title} aria-label={column.title}>
-                <Eyebrow tick={false} className="text-ivory/35">
+                <Eyebrow className="text-ivory/35">
                   {column.title}
                 </Eyebrow>
                 <ul className="mt-6 space-y-3.5">
@@ -77,10 +77,10 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-20 border-t border-ivory/10 pt-8">
-          <p className="max-w-4xl text-[0.8125rem] leading-relaxed text-ivory/40">
+          <p className="max-w-4xl type-voice text-[0.8125rem] text-ivory/40">
             {legal.notice}
           </p>
-          <div className="mt-8 flex flex-col gap-5 label-mono text-ivory/35 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-8 flex flex-col gap-5 type-voice text-[0.8125rem] text-ivory/35 sm:flex-row sm:items-center sm:justify-between">
             <p>
               © {new Date().getFullYear()} <span lang="en">{site.wordmark}</span>
             </p>
@@ -97,7 +97,7 @@ export function SiteFooter() {
         <motion.p
           lang="en"
           dir="ltr"
-          className="translate-y-[18%] whitespace-nowrap text-center font-display text-[24vw] leading-[0.78] text-ivory/[0.07]"
+          className="translate-y-[18%] whitespace-nowrap text-center text-ivory/[0.07] type-structure text-[calc(24vw*var(--ar-struct))]"
           initial={reduced ? false : { opacity: 0, y: "34%" }}
           whileInView={{ opacity: 1, y: "18%" }}
           viewport={{ once: true, amount: 0.2 }}

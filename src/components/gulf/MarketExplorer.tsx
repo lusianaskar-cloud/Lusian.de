@@ -114,7 +114,7 @@ export function MarketExplorer() {
                 >
                   <span
                     className={cn(
-                      "label-mono transition-colors duration-500",
+                      "label-ui transition-colors duration-500",
                       i === index ? "text-accent" : "text-tone-muted",
                     )}
                   >
@@ -148,18 +148,18 @@ export function MarketExplorer() {
                 transition={{ duration: reduced ? 0 : 0.5, ease: EASE.expo }}
               >
                 <div className="flex items-baseline gap-4">
-                  <span className="label-mono text-accent">{ordinal(index)}</span>
-                  <span className="label-mono text-tone-muted" dir="ltr">
+                  <span className="type-voice text-[0.8125rem] text-accent">{ordinal(index)}</span>
+                  <span className="type-voice text-[0.8125rem] text-tone-muted" dir="ltr">
                     {active.code}
                   </span>
                 </div>
-                <h3 className="mt-4 font-display text-[clamp(1.9rem,4vw,2.75rem)] leading-tight tracking-tight lg:hidden">
+                <h3 className="mt-4 lg:hidden type-structure text-[calc(clamp(1.9rem,4vw,2.75rem)*var(--ar-struct))]">
                   {copy.name}
                 </h3>
-                <p className="mt-4 font-display text-subhead italic leading-snug text-accent">
+                <p className="mt-4 text-accent type-structure text-[calc(clamp(1.15rem,1.7vw,1.5rem)*var(--ar-struct))]">
                   {copy.line}
                 </p>
-                <p className="mt-5 text-[0.9375rem] leading-relaxed text-tone-muted">
+                <p className="mt-5 type-voice text-[0.9375rem] text-tone-muted">
                   {copy.body}
                 </p>
 
@@ -167,7 +167,7 @@ export function MarketExplorer() {
                   {copy.character.map((item) => (
                     <li
                       key={item}
-                      className="flex gap-3 border-t border-tone py-3 text-[0.875rem] leading-relaxed"
+                      className="flex gap-3 border-t border-tone py-3 type-voice text-[0.875rem]"
                     >
                       <span
                         aria-hidden
@@ -180,14 +180,14 @@ export function MarketExplorer() {
 
                 <div className="mt-8 space-y-4 border-t border-tone pt-6">
                   <div>
-                    <span className="label-mono text-tone-muted">
+                    <span className="type-voice text-[0.8125rem] text-tone-muted">
                       {plot.principalLocations}
                     </span>
                     <p className="mt-2 text-[0.875rem] text-tone-muted">
                       {copy.cities.join(" · ")}
                     </p>
                   </div>
-                  <p className="font-display text-[1.0625rem] italic leading-snug">
+                  <p className="type-structure text-[calc(1.0625rem*var(--ar-struct))]">
                     {copy.suits}
                   </p>
                 </div>

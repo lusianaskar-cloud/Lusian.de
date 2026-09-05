@@ -159,7 +159,7 @@ function Settle({
         style={{ width }}
         className="block h-px max-w-[42vw] bg-ivory/25"
       />
-      <p className="type-voice text-[0.9375rem] tracking-[0.04em] text-ivory/70">
+      <p className="type-voice text-[0.9375rem] text-ivory/70">
         {label}
       </p>
     </motion.div>

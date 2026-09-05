@@ -128,7 +128,7 @@ export function Preloader() {
       </span>
 
       <div className="absolute inset-x-0 bottom-10 flex items-end justify-between px-(--spacing-gutter)">
-        <span className="label-mono text-ivory/40">{meta.descriptorShort}</span>
+        <span className="type-voice text-[0.8125rem] text-ivory/40">{meta.descriptorShort}</span>
         <span className="label-mono tabular-nums text-ivory/40">
           {String(count).padStart(3, "0")}
         </span>

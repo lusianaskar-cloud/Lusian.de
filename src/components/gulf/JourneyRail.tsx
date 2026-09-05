@@ -47,12 +47,12 @@ export function JourneyRail({ steps }: { steps: readonly Step[] }) {
             <Reveal wide delay={0.04}>
               <div className="grid gap-4 lg:grid-cols-12 lg:gap-10">
                 <div className="lg:col-span-5">
-                  <span className="label-mono text-tone-muted">{ordinal(i)}</span>
-                  <h3 className="mt-3 font-display text-[clamp(1.75rem,3.4vw,2.75rem)] leading-tight tracking-tight">
+                  <span className="type-voice text-[0.8125rem] text-tone-muted">{ordinal(i)}</span>
+                  <h3 className="mt-3 type-structure text-[calc(clamp(1.75rem,3.4vw,2.75rem)*var(--ar-struct))]">
                     {step.title}
                   </h3>
                 </div>
-                <p className="max-w-xl text-[0.9375rem] leading-relaxed text-tone-muted lg:col-span-6 lg:col-start-7 lg:self-center lg:text-base">
+                <p className="max-w-xl type-voice text-[0.9375rem] text-tone-muted lg:col-span-6 lg:col-start-7 lg:self-center lg:text-base">
                   {step.body}
                 </p>
               </div>

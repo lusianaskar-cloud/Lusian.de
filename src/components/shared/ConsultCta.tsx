@@ -3,11 +3,22 @@
 import { contactChannels } from "@/lib/content/site";
 import { useContent } from "@/lib/i18n/context";
 import { Section, Container } from "@/components/primitives/Section";
-import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { LineReveal, Reveal } from "@/components/primitives/Reveal";
 import { ActionLink } from "@/components/primitives/ActionLink";
-import { Mark } from "@/components/chrome/Mark";
+import { Surface } from "@/components/light/Surface";
 
+/**
+ * The invitation at the foot of every page.
+ *
+ * Lit by `terminator` — one volume between a cold opening and a warm interior
+ * — which is the condition the homepage closes on and the picture of the firm
+ * both divisions belong to. Whichever page the reader has just finished, they
+ * arrive back at the same room.
+ *
+ * The giant ghosted wordmark that used to sit behind it is gone. It was a
+ * watermark, and a watermark is what a page reaches for when the type is not
+ * carrying the frame on its own.
+ */
 export function ConsultCta({
   eyebrow,
   lines,
@@ -25,51 +36,46 @@ export function ConsultCta({
   const { speak } = useContent();
 
   return (
-    <Section tone="dark" grain className="overflow-hidden bg-ink" aria-labelledby="cta-heading">
-      <Mark
-        className="pointer-events-none absolute -end-[12%] top-1/2 h-[38rem] w-[38rem] -translate-y-1/2 text-ivory/[0.045]"
-      />
+    <Section tone="dark" className="relative overflow-hidden bg-obsidian" aria-labelledby="cta-heading">
+      <Surface preset="terminator" still={0.62} />
 
-      <Container className="py-28 lg:py-44">
+      <Container className="relative py-28 lg:py-44">
         <Reveal>
-          <Eyebrow>{eyebrow ?? speak.eyebrow}</Eyebrow>
+          <p className="type-voice text-[0.9375rem] text-tone-muted">
+            {eyebrow ?? speak.eyebrow}
+          </p>
         </Reveal>
 
-        <div className="mt-10 grid gap-12 lg:grid-cols-12 lg:gap-10">
-          <h2 id="cta-heading" className="font-display text-display lg:col-span-7">
-            <LineReveal
-              stagger={0.1}
-              lines={lines.map((line, i) => (
-                <span key={i}>{line}</span>
-              ))}
-            />
-          </h2>
+        <h2
+          id="cta-heading"
+          className="type-structure mt-9 max-w-[15ch] text-[calc(clamp(2.4rem,6.4vw,5rem)*var(--ar-struct))]"
+        >
+          <LineReveal
+            stagger={0.1}
+            lines={lines.map((line, i) => (
+              <span key={i}>{line}</span>
+            ))}
+          />
+        </h2>
 
-          <div className="lg:col-span-4 lg:col-start-9 lg:self-end">
-            <Reveal delay={0.12}>
-              <p className="max-w-sm text-[0.9375rem] leading-relaxed text-tone-muted">
-                {body}
-              </p>
-            </Reveal>
-            <Reveal delay={0.2}>
-              <div className="mt-10">
-                <ActionLink href={ctaHref} transitionLabel={speak.eyebrow}>
-                  {ctaLabel}
-                </ActionLink>
-              </div>
-            </Reveal>
-            <Reveal delay={0.28}>
-              <p className="mt-8 label-mono text-ivory/35">
-                <a
-                  href={`mailto:${contactChannels.email}`}
-                  dir="ltr"
-                  className="inline-block underline-offset-4 transition-colors duration-500 hover:text-champagne"
-                >
-                  {contactChannels.email}
-                </a>
-              </p>
-            </Reveal>
-          </div>
+        <div className="mt-14 max-w-md lg:mt-20">
+          <Reveal delay={0.12}>
+            <p className="type-voice text-[0.9375rem] text-tone-muted">{body}</p>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <div className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-5">
+              <ActionLink href={ctaHref} transitionLabel={speak.eyebrow}>
+                {ctaLabel}
+              </ActionLink>
+              <a
+                href={`mailto:${contactChannels.email}`}
+                dir="ltr"
+                className="type-voice text-[0.8125rem] tracking-[0.04em] text-ivory/40 underline-offset-8 transition-colors duration-500 hover:text-champagne hover:underline"
+              >
+                {contactChannels.email}
+              </a>
+            </div>
+          </Reveal>
         </div>
       </Container>
     </Section>

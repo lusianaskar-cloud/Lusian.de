@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { isLegalSlug, legalSlugs } from "@/lib/content/legal";
 import { Section, Container } from "@/components/primitives/Section";
+import { LitGround } from "@/components/light/LitGround";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { LineReveal, Reveal } from "@/components/primitives/Reveal";
 import { TextLink } from "@/components/primitives/ActionLink";
@@ -39,25 +40,26 @@ export default async function LegalPage({ params }: Params) {
   const page = copy.pages[slug];
 
   return (
-    <Section tone="light" className="bg-ivory">
+    <Section tone="light" className="relative overflow-hidden bg-ivory">
+      <LitGround preset="plaster" still={0.5} dim={0.4} />
       <Container narrow className="pb-28 pt-36 lg:pb-40 lg:pt-44">
         <Reveal>
           <Eyebrow>{page.eyebrow}</Eyebrow>
         </Reveal>
 
-        <h1 className="mt-10 font-display text-[clamp(2.2rem,5vw,4rem)] leading-[1.04] tracking-[-0.028em]">
+        <h1 className="mt-10 type-structure text-[calc(clamp(2.2rem,5vw,4rem)*var(--ar-struct))]">
           <LineReveal immediate delay={0.15} lines={[<span key="t">{page.title}</span>]} />
         </h1>
 
         <Reveal eager delay={0.24}>
-          <p className="mt-8 max-w-2xl text-lead text-tone-muted">{page.standfirst}</p>
+          <p className="mt-8 max-w-2xl type-voice text-[clamp(1rem,1.25vw,1.15rem)] text-tone-muted">{page.standfirst}</p>
         </Reveal>
 
         {/* Unmissable: this document is not finished and is not legal advice. */}
         <Reveal eager delay={0.3}>
           <div className="mt-12 border border-brass/40 bg-brass/[0.07] p-6 lg:p-8">
-            <span className="label-mono text-brass">{copy.outstanding.label}</span>
-            <p className="mt-4 text-[0.9375rem] leading-relaxed text-tone-muted">
+            <span className="type-voice text-[0.8125rem] text-brass">{copy.outstanding.label}</span>
+            <p className="mt-4 type-voice text-[0.9375rem] text-tone-muted">
               {copy.outstanding.body}
             </p>
           </div>
@@ -67,7 +69,7 @@ export default async function LegalPage({ params }: Params) {
           {page.sections.map((section, i) => (
             <Reveal key={section.heading} wide delay={i * 0.03}>
               <section className="border-t border-ink/12 py-10">
-                <h2 className="font-display text-heading leading-tight">{section.heading}</h2>
+                <h2 className="type-structure text-[calc(clamp(1.4rem,2.4vw,1.9rem)*var(--ar-struct))]">{section.heading}</h2>
                 {section.body ? (
                   <p className="mt-5 max-w-2xl text-[1rem] leading-[1.75] text-graphite">
                     {section.body}
@@ -75,12 +77,12 @@ export default async function LegalPage({ params }: Params) {
                 ) : null}
                 {section.required ? (
                   <div className="mt-7">
-                    <span className="label-mono text-brass">{copy.toBeSupplied}</span>
+                    <span className="type-voice text-[0.8125rem] text-brass">{copy.toBeSupplied}</span>
                     <ul className="mt-4 space-y-2.5">
                       {section.required.map((item) => (
                         <li
                           key={item}
-                          className="flex gap-3 text-[0.9375rem] leading-relaxed text-tone-muted"
+                          className="flex gap-3 type-voice text-[0.9375rem] text-tone-muted"
                         >
                           <span
                             aria-hidden

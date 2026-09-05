@@ -5,7 +5,12 @@ import { splitAccent } from "@/lib/i18n/format";
 import { cn } from "@/lib/utils";
 
 /**
- * Renders translated headline lines, setting the accented word in italic.
+ * Renders translated headline lines, marking the accented word.
+ *
+ * The accent is a change of tone, not a change of style. It used to be set in
+ * italic — the same italicised coloured word at the head of every page, which
+ * was one of the tics that made the site read as generated. `<em>` still
+ * carries the semantics; the italic is switched off.
  *
  * The accent is carried as a substring rather than a position, because the
  * emphasised word lands somewhere different in every language — "strategy",
@@ -19,7 +24,7 @@ export function accentLines(lines: Line[], accentClass: string): ReactNode[] {
       <span key={i}>
         {part.before}
         {part.accent ? (
-          <em className={cn("font-normal", accentClass)}>{part.accent}</em>
+          <em className={cn("font-normal not-italic", accentClass)}>{part.accent}</em>
         ) : null}
         {part.after}
       </span>

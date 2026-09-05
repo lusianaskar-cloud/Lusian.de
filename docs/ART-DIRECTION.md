@@ -1,8 +1,8 @@
 # Lusian — art direction
 
-The homepage. Everything here is implemented; nothing is aspirational. Interior
-pages still carry the previous system and are deliberately out of scope until
-this one is signed off.
+The whole site. Everything here is implemented; nothing is aspirational. The
+homepage was built first and signed off; the system has since been rolled
+across every interior page.
 
 ---
 
@@ -239,7 +239,45 @@ frame at the position its scene settles on. Same DOM, same copy, same order.
 
 ---
 
-## 10. Photography
+## 10. The interior pages
+
+The homepage is six scenes. An interior page is a document, and it is built the
+other way round: it holds still, it is read rather than experienced, and its
+authority comes from type and light rather than from choreography.
+
+**One ground per movement, not one per section.** The aviation page used to be
+eight stacked rectangles — petrol, ivory, petrol, paper, petrol, ivory, dune —
+each announcing a new subject with a new colour. It is now three movements: the
+position stated in daylight, the practice shown on a hangar floor, the method
+set down in daylight again. Sections that belong together share a ground and
+are separated by space and by a change in the size of the type. Every page
+follows the same rule, and adjacent light sections were collapsed onto one
+ivory rather than alternating paper and dune.
+
+**The light is a room, not a wash.** `LitGround` renders the field one viewport
+tall and sticky, because a `Surface` stretched over a four-thousand-pixel
+section loses the geometry it is built on: the horizon lands somewhere
+arbitrary, the pool becomes a soft smear several screens high, and small type
+ends up set on the brightest part of it. That happened — the sector list on the
+aviation page was barely legible against its own light. A reading section also
+takes a `dim`, because you read away from the window.
+
+**Each page opens in the condition that belongs to its subject.** Aviation on a
+hangar floor in `voice-cool`; the private practice and the destinations in a
+quiet stone room in `voice-warm`; the firm, the journal and the legal pages on
+the plastered wall; `speak` on the terminator, which is the volume both
+divisions share. The closing invitation is the same room on every page.
+
+**What was removed.** The monospace eyebrow with its tick hairline, at the head
+of every section on the site. The italicised accent word in every page title.
+The hairline rules used as section boundaries and as list separators — kept
+only where a list is genuinely tabular. The two giant ghosted wordmarks used as
+watermarks behind the speak hero and the closing call. `label-mono` now appears
+in seven places, and every one of them is a machine value: plate references,
+IANA timezone identifiers, market codes, coordinate readouts, and a loading
+counter.
+
+## 11. Photography
 
 The design is complete without photography and becomes extraordinary with it.
 Every intended position is specified in `docs/PHOTOGRAPHY.md` — subject,

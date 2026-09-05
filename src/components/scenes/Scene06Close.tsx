@@ -146,7 +146,7 @@ function Invitation({
           <a
             href={`mailto:${contactChannels.email}`}
             dir="ltr"
-            className="type-voice text-[0.8125rem] tracking-[0.06em] text-ivory/40 underline-offset-8 transition-colors duration-500 hover:text-champagne hover:underline"
+            className="type-voice text-[0.8125rem] tracking-[0.04em] text-ivory/40 underline-offset-8 transition-colors duration-500 hover:text-champagne hover:underline"
           >
             {contactChannels.email}
           </a>

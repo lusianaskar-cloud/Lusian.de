@@ -31,7 +31,7 @@ export function ClientRecognition() {
       <Reveal>
         <Eyebrow>{recognition.eyebrow}</Eyebrow>
       </Reveal>
-      <h2 className="mt-8 max-w-[18ch] font-display text-title">
+      <h2 className="mt-8 max-w-[18ch] type-structure text-[calc(clamp(1.9rem,4vw,3.1rem)*var(--ar-struct))]">
         <LineReveal lines={[<span key="1">{recognition.headline}</span>]} />
       </h2>
 
@@ -42,7 +42,7 @@ export function ClientRecognition() {
         {columns.map((column) => (
           <div key={column.key}>
             <Reveal>
-              <span className="label-mono text-tone-muted">{column.label}</span>
+              <span className="type-voice text-[0.8125rem] text-tone-muted">{column.label}</span>
             </Reveal>
             <ul className="mt-8">
               {column.items.map((item) => (
@@ -57,7 +57,7 @@ export function ClientRecognition() {
                     }}
                     transition={{ duration: 0.45, ease: EASE.soft }}
                     className={cn(
-                      "cursor-default py-2 font-display text-[clamp(1.3rem,2.5vw,2rem)] leading-snug tracking-tight",
+                      "cursor-default py-2 type-structure text-[calc(clamp(1.3rem,2.5vw,2rem)*var(--ar-struct))]",
                       "outline-none focus-visible:text-accent",
                     )}
                   >

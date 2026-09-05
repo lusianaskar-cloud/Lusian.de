@@ -29,14 +29,14 @@ export function PlaceholderBlock({
         className,
       )}
     >
-      <span className="label-mono inline-flex items-center gap-2.5 text-accent">
+      <span className="type-voice inline-flex items-center gap-2.5 text-[0.8125rem] text-accent">
         <span aria-hidden className="block size-1.5 bg-current" />
         {ui.toBeSupplied}
       </span>
-      <h3 className="mt-6 font-display text-[1.375rem] leading-tight tracking-tight">
+      <h3 className="type-structure mt-6 text-[calc(clamp(1.2rem,1.6vw,1.45rem)*var(--ar-struct))]">
         {title}
       </h3>
-      <p className="mt-3 text-[0.875rem] leading-relaxed text-tone-muted">{description}</p>
+      <p className="type-voice mt-4 text-[0.875rem] text-tone-muted">{description}</p>
     </div>
   );
 }

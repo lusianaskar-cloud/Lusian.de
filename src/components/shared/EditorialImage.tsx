@@ -114,7 +114,7 @@ export function EditorialImage({
             <span className="label-mono text-current/45">
               {format(content.ui.plateReserved, { id: plate.id })}
             </span>
-            <p className="mt-5 max-w-lg text-[0.875rem] leading-relaxed text-current/60">
+            <p className="mt-5 max-w-lg type-voice text-[0.875rem] text-current/60">
               {copy.brief}
             </p>
           </div>

@@ -152,7 +152,7 @@ export default async function RootLayout({
       <body className="antialiased">
         <a
           href="#main"
-          className="sr-only rounded-full border border-ink px-6 py-3 label-mono focus:not-sr-only focus:fixed focus:start-6 focus:top-6 focus:z-[300] focus:bg-ivory focus:text-ink"
+          className="sr-only rounded-full border border-ink px-6 py-3 label-ui focus:not-sr-only focus:fixed focus:start-6 focus:top-6 focus:z-[300] focus:bg-ivory focus:text-ink"
         >
           {content.ui.skipToContent}
         </a>

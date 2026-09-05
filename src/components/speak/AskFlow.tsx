@@ -85,11 +85,11 @@ export function AskFlow() {
         role="status"
         className="border-t border-current/20 pt-10"
       >
-        <span className="label-mono text-accent">{copy.sent.label}</span>
-        <p className="mt-6 max-w-lg font-display text-heading leading-tight">
+        <span className="type-voice text-[0.8125rem] text-accent">{copy.sent.label}</span>
+        <p className="mt-6 max-w-lg type-structure text-[calc(clamp(1.4rem,2.4vw,1.9rem)*var(--ar-struct))]">
           {copy.sent.headline}
         </p>
-        <p className="mt-5 max-w-md text-[0.9375rem] leading-relaxed text-tone-muted">
+        <p className="mt-5 max-w-md type-voice text-[0.9375rem] text-tone-muted">
           {copy.sent.body}{" "}
           <a
             href={`mailto:${contactChannels.email}`}
@@ -107,7 +107,7 @@ export function AskFlow() {
   return (
     <form onSubmit={handleSubmit} className="space-y-14">
       <fieldset>
-        <legend className="label-mono text-tone-muted">{copy.practiceLegend}</legend>
+        <legend className="type-voice text-[0.8125rem] text-tone-muted">{copy.practiceLegend}</legend>
         <div className="mt-5 grid gap-3 sm:grid-cols-3">
           {copy.practices.map((option) => {
             const selected = practice === option.id;
@@ -138,7 +138,7 @@ export function AskFlow() {
                 >
                   {option.label}
                 </span>
-                <span className="mt-2 block min-h-[2.6em] text-[0.75rem] leading-relaxed text-tone-muted">
+                <span className="mt-2 block min-h-[2.6em] type-voice text-[0.75rem] text-tone-muted">
                   {option.note}
                 </span>
               </button>
@@ -169,7 +169,7 @@ export function AskFlow() {
       </div>
 
       <fieldset>
-        <legend className="label-mono text-tone-muted">{copy.contactMethodLegend}</legend>
+        <legend className="type-voice text-[0.8125rem] text-tone-muted">{copy.contactMethodLegend}</legend>
         <div className="mt-4 flex flex-wrap gap-x-8 gap-y-3">
           {copy.contactMethods.map((option) => (
             <label key={option} className="flex cursor-pointer items-center gap-2.5 text-[0.9375rem]">
@@ -270,7 +270,7 @@ export function AskFlow() {
                         options={copy.timeframes}
                       />
                       <fieldset className="sm:col-span-2">
-                        <legend className="label-mono text-tone-muted">
+                        <legend className="type-voice text-[0.8125rem] text-tone-muted">
                           {copy.supportLegend}
                         </legend>
                         <div className="mt-5 grid gap-x-8 gap-y-3 sm:grid-cols-2">
@@ -351,7 +351,7 @@ export function AskFlow() {
           required
           className="mt-1 size-4 shrink-0 accent-[color:var(--tone-accent)]"
         />
-        <label htmlFor="consent" className="text-[0.8125rem] leading-relaxed text-tone-muted">
+        <label htmlFor="consent" className="type-voice text-[0.8125rem] text-tone-muted">
           {copy.consent}
         </label>
       </div>
@@ -369,7 +369,7 @@ export function AskFlow() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5, ease: EASE.expo }}
               role="alert"
-              className="max-w-sm text-[0.8125rem] leading-relaxed text-tone-muted"
+              className="max-w-sm type-voice text-[0.8125rem] text-tone-muted"
             >
               {status === "unconfigured" ? copy.unconfigured : copy.failed}{" "}
               {copy.writeTo}{" "}

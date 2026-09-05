@@ -132,7 +132,7 @@ export function SiteHeader() {
                 href="/speak"
                 transitionLabel="Speak with Lusian"
                 className={cn(
-                  "group relative hidden items-center gap-2.5 overflow-hidden rounded-full border border-current/25 px-5 py-2.5 label-mono lg:inline-flex",
+                  "group relative hidden items-center gap-2.5 overflow-hidden rounded-full border border-current/25 px-5 py-2.5 label-ui lg:inline-flex",
                   "transition-colors duration-500",
                   dark ? "hover:text-ink" : "hover:text-ivory",
                 )}

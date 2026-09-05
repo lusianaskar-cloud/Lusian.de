@@ -141,7 +141,7 @@ export function TransitionProvider({ children }: { children: React.ReactNode }) 
                 plate, so the name is actually readable while it holds. */}
             <div className="absolute inset-0 flex items-center justify-center">
               <motion.span
-                className="label-mono text-ivory/70"
+                className="label-ui text-ivory/70"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{
                   opacity: covering ? 1 : 0,

@@ -3,7 +3,7 @@
 import { useContent } from "@/lib/i18n/context";
 import { Section, Container } from "@/components/primitives/Section";
 import { Reveal } from "@/components/primitives/Reveal";
-import { Surface } from "@/components/light/Surface";
+import { LitGround } from "@/components/light/LitGround";
 
 /**
  * THE ARGUMENT — the ground between Scene V and Scene VI.
@@ -27,7 +27,7 @@ export function Argument() {
 
   return (
     <Section tone="light" className="bg-paper" aria-labelledby="why-heading">
-      <Surface preset="plaster" still={0.42} className="opacity-90" />
+      <LitGround preset="plaster" still={0.42} dim={0.3} />
       <Container className="pb-24 pt-28 lg:pb-32 lg:pt-40">
         <div className="max-w-4xl">
           <Reveal>

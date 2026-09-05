@@ -97,8 +97,8 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
                       onClick={onClose}
                       className="flex items-baseline gap-5 py-5"
                     >
-                      <span className="label-mono text-ivory/35">{ordinal(i)}</span>
-                      <span className="font-display text-[clamp(2.1rem,10vw,3.25rem)] leading-none">
+                      <span className="type-voice text-[0.8125rem] text-ivory/35">{ordinal(i)}</span>
+                      <span className="type-structure text-[calc(clamp(2.1rem,10vw,3.25rem)*var(--ar-struct))]">
                         {item.label}
                       </span>
                     </TransitionLink>
@@ -119,13 +119,13 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
             href="/speak"
             transitionLabel="Private consultation"
             onClick={onClose}
-            className="flex items-center justify-between gap-4 rounded-full border border-ivory/25 px-7 py-5 label-mono"
+            className="flex items-center justify-between gap-4 rounded-full border border-ivory/25 px-7 py-5 label-ui"
           >
             {ui.menuCta}
             <span aria-hidden className="block size-1.5 rounded-full bg-champagne" />
           </TransitionLink>
 
-          <div className="space-y-2 label-mono text-ivory/45">
+          <div className="space-y-2 type-voice text-[0.8125rem] text-ivory/45">
             <p dir="ltr" className="rtl:text-end">
               <a
                 href={`mailto:${contactChannels.email}`}

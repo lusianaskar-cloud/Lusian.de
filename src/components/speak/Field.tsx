@@ -36,12 +36,12 @@ export function FieldShell({
 }) {
   return (
     <div className={cn("relative", className)}>
-      <label htmlFor={htmlFor} className="label-mono block text-tone-muted">
+      <label htmlFor={htmlFor} className="type-voice block text-[0.8125rem] text-tone-muted">
         {label}
       </label>
       <div className="mt-3">{children}</div>
       {hint ? (
-        <p className="mt-2 text-[0.75rem] leading-relaxed text-tone-muted">{hint}</p>
+        <p className="mt-2 type-voice text-[0.75rem] text-tone-muted">{hint}</p>
       ) : null}
     </div>
   );

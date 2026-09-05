@@ -28,6 +28,8 @@ export default async function InsightsPage() {
     <>
       <PageHero
         eyebrow={copy.eyebrow}
+        condition="plaster"
+        still={0.56}
         className="bg-ivory"
         titleLines={plainLines(copy.titleLines)}
         standfirst={copy.standfirst}
@@ -38,8 +40,8 @@ export default async function InsightsPage() {
           {/* Honest framing — nothing below is published research. */}
           <Reveal eager>
             <div className="mb-14 flex flex-col gap-4 border border-brass/35 bg-brass/[0.06] p-6 sm:flex-row sm:items-center sm:gap-8 lg:mb-20 lg:p-8">
-              <span className="label-mono shrink-0 text-brass">{copy.notice.label}</span>
-              <p className="text-[0.875rem] leading-relaxed text-tone-muted">
+              <span className="type-voice shrink-0 text-[0.8125rem] text-brass">{copy.notice.label}</span>
+              <p className="type-voice text-[0.875rem] text-tone-muted">
                 {copy.notice.body}
               </p>
             </div>

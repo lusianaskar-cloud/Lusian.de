@@ -93,7 +93,7 @@ export function PrecisionCursor() {
       >
         {state === "label" ? (
           <motion.span
-            className="label-mono select-none text-black"
+            className="label-ui select-none text-[0.6875rem] text-black"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.25 }}

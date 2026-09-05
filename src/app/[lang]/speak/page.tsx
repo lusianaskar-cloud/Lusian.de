@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 
 import { Section, Container } from "@/components/primitives/Section";
+import { LitGround } from "@/components/light/LitGround";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { LineReveal, Reveal } from "@/components/primitives/Reveal";
 import { TransitionLink } from "@/components/primitives/TransitionLink";
 import { TextLink } from "@/components/primitives/ActionLink";
 import { Arrow } from "@/components/primitives/Arrow";
-import { Mark } from "@/components/chrome/Mark";
 import { plainLines } from "@/components/shared/AccentLines";
 import { contactChannels } from "@/lib/content/site";
 import { getContent, getLocale } from "@/lib/i18n/dictionary";
@@ -29,13 +29,13 @@ export default async function SpeakPage() {
 
   return (
     <>
-      <Section tone="dark" grain className="overflow-hidden bg-ink">
-        <Mark className="pointer-events-none absolute -start-[16%] top-[6%] h-[30rem] w-[30rem] text-ivory/[0.04]" />
+      <Section tone="dark" className="relative overflow-hidden bg-obsidian">
+        <LitGround preset="terminator" still={0.5} dim={0.25} />
         <Container className="relative pb-20 pt-36 lg:pb-28 lg:pt-44">
           <Reveal eager>
             <Eyebrow>{copy.eyebrow}</Eyebrow>
           </Reveal>
-          <h1 className="mt-10 max-w-[13ch] font-display text-[clamp(2.4rem,6.4vw,5.5rem)] leading-[1.03] tracking-[-0.03em] lg:mt-14">
+          <h1 className="mt-10 max-w-[13ch] lg:mt-14 type-structure text-[calc(clamp(2.4rem,6.4vw,5.5rem)*var(--ar-struct))]">
             <LineReveal
               immediate
               delay={0.15}
@@ -44,7 +44,7 @@ export default async function SpeakPage() {
             />
           </h1>
           <Reveal eager delay={0.3}>
-            <p className="mt-9 max-w-xl text-lead text-tone-muted">{copy.standfirst}</p>
+            <p className="mt-9 max-w-xl type-voice text-[clamp(1rem,1.25vw,1.15rem)] text-tone-muted">{copy.standfirst}</p>
           </Reveal>
         </Container>
       </Section>
@@ -66,7 +66,7 @@ export default async function SpeakPage() {
               >
                 <span
                   className={cn(
-                    "label-mono text-ink/40",
+                    "type-voice text-[0.8125rem] tabular-nums text-ink/40",
                     i === 0 ? "lg:col-span-1" : "lg:order-2 lg:col-span-1 lg:col-start-12",
                   )}
                 >
@@ -79,14 +79,14 @@ export default async function SpeakPage() {
                       : "lg:order-1 lg:col-span-8 lg:col-start-3",
                   )}
                 >
-                  <h2 className="font-display text-[clamp(2.2rem,6.6vw,5rem)] leading-[1.02] tracking-[-0.03em]">
+                  <h2 className="type-structure text-[calc(clamp(2.2rem,6.6vw,5rem)*var(--ar-struct))]">
                     <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-[background-size] duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:bg-[length:100%_1px] rtl:bg-right-bottom">
                       {intent.title}
                     </span>
                   </h2>
                   <p
                     className={cn(
-                      "mt-7 max-w-md text-lead text-tone-muted",
+                      "mt-7 max-w-md type-voice text-[clamp(1rem,1.25vw,1.15rem)] text-tone-muted",
                       i === 1 && "lg:ms-auto",
                     )}
                   >
@@ -94,7 +94,7 @@ export default async function SpeakPage() {
                   </p>
                   <span
                     className={cn(
-                      "mt-9 inline-flex items-center gap-3 label-mono",
+                      "label-ui mt-9 inline-flex items-center gap-3",
                       i === 1 && "lg:flex-row-reverse",
                     )}
                   >
@@ -115,7 +115,7 @@ export default async function SpeakPage() {
 
           <Reveal wide>
             <div className="flex flex-col gap-6 border-t border-ink/12 py-10 sm:flex-row sm:items-center sm:justify-between">
-              <p className="max-w-md text-[0.9375rem] leading-relaxed text-tone-muted">
+              <p className="max-w-md type-voice text-[0.9375rem] text-tone-muted">
                 {copy.questionsTeaser.body}
               </p>
               <TextLink href="/speak/questions" transitionLabel={copy.questions.eyebrow}>
@@ -127,18 +127,18 @@ export default async function SpeakPage() {
       </Section>
 
       {/* What we coordinate, and what licensed professionals provide. */}
-      <Section tone="light" className="bg-paper" aria-labelledby="boundaries-heading">
+      <Section tone="light" className="bg-ivory" aria-labelledby="boundaries-heading">
         <Container className="py-24 lg:py-36">
           <div className="grid gap-12 lg:grid-cols-12">
             <div className="lg:col-span-5">
               <Reveal>
                 <Eyebrow>{boundaries.eyebrow}</Eyebrow>
               </Reveal>
-              <h2 id="boundaries-heading" className="mt-8 font-display text-title">
+              <h2 id="boundaries-heading" className="mt-8 type-structure text-[calc(clamp(1.9rem,4vw,3.1rem)*var(--ar-struct))]">
                 <LineReveal lines={plainLines(boundaries.headlineLines)} />
               </h2>
               <Reveal delay={0.12}>
-                <p className="mt-8 max-w-md text-[0.9375rem] leading-relaxed text-tone-muted">
+                <p className="mt-8 max-w-md type-voice text-[0.9375rem] text-tone-muted">
                   {boundaries.note}
                 </p>
               </Reveal>
@@ -146,12 +146,12 @@ export default async function SpeakPage() {
 
             <div className="grid gap-10 sm:grid-cols-2 lg:col-span-6 lg:col-start-7">
               <Reveal>
-                <h3 className="label-mono text-brass">{boundaries.coordinatedLabel}</h3>
+                <h3 className="type-voice text-[0.8125rem] text-brass">{boundaries.coordinatedLabel}</h3>
                 <ul className="mt-6">
                   {boundaries.coordinated.map((item) => (
                     <li
                       key={item}
-                      className="border-t border-ink/12 py-3 text-[0.875rem] leading-relaxed"
+                      className="border-t border-ink/12 py-3 type-voice text-[0.875rem]"
                     >
                       {item}
                     </li>
@@ -159,12 +159,12 @@ export default async function SpeakPage() {
                 </ul>
               </Reveal>
               <Reveal delay={0.08}>
-                <h3 className="label-mono text-ink/45">{boundaries.regulatedLabel}</h3>
+                <h3 className="type-voice text-[0.8125rem] tabular-nums text-ink/45">{boundaries.regulatedLabel}</h3>
                 <ul className="mt-6">
                   {boundaries.regulated.map((item) => (
                     <li
                       key={item}
-                      className="border-t border-ink/12 py-3 text-[0.875rem] leading-relaxed text-tone-muted"
+                      className="border-t border-ink/12 py-3 type-voice text-[0.875rem] text-tone-muted"
                     >
                       {item}
                     </li>
@@ -185,11 +185,11 @@ export default async function SpeakPage() {
                   {contactChannels.email}
                 </a>
                 {/* TODO(client): real line, or delete. */}
-                <p dir="ltr" className="mt-2 label-mono text-ink/40 rtl:text-end">
+                <p dir="ltr" className="mt-2 type-voice text-[0.8125rem] tabular-nums text-ink/40 rtl:text-end">
                   {contactChannels.phone}
                 </p>
               </div>
-              <p className="max-w-lg text-[0.8125rem] leading-relaxed text-tone-muted">
+              <p className="max-w-lg type-voice text-[0.8125rem] text-tone-muted">
                 {content.legal.notice}
               </p>
             </div>

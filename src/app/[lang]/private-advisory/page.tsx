@@ -7,6 +7,7 @@ import { PageHero } from "@/components/shared/PageHero";
 import { ConsultCta } from "@/components/shared/ConsultCta";
 import { JourneyRail } from "@/components/gulf/JourneyRail";
 import { EditorialImage } from "@/components/shared/EditorialImage";
+import { LitGround } from "@/components/light/LitGround";
 import { accentLines, plainLines } from "@/components/shared/AccentLines";
 import { TextLink } from "@/components/primitives/ActionLink";
 import { plates } from "@/lib/content/plates";
@@ -29,9 +30,12 @@ export default async function PrivateAdvisoryPage() {
   const { boundaries } = content.speak;
 
   return (
-    <>
+    <div className="voice-warm">
       <PageHero
         tone="dark"
+        condition="stone"
+        voice="warm"
+        still={0.4}
         className="bg-umber"
         eyebrow={`${copy.eyebrow} — ${copy.title}`}
         titleLines={accentLines(copy.headlineLines, "text-champagne")}
@@ -68,28 +72,29 @@ export default async function PrivateAdvisoryPage() {
         }
       />
 
-      <Section tone="light" className="bg-ivory" aria-labelledby="gulf-position">
-        <Container className="py-24 lg:py-36">
+      <Section tone="light" className="relative overflow-hidden bg-ivory" aria-labelledby="gulf-position">
+        <LitGround preset="plaster" still={0.34} dim={0.35} />
+        <Container className="relative py-24 lg:py-36">
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
             <h2
               id="gulf-position"
-              className="font-display text-title leading-[1.06] lg:col-span-7"
+              className="lg:col-span-7 type-structure text-[calc(clamp(1.9rem,4vw,3.1rem)*var(--ar-struct))]"
             >
               <LineReveal lines={plainLines(copy.positioning.headlineLines)} />
             </h2>
             <div className="space-y-6 lg:col-span-4 lg:col-start-9 lg:self-end">
               <Reveal>
-                <p className="text-[0.9375rem] leading-relaxed text-tone-muted">
+                <p className="type-voice text-[0.9375rem] text-tone-muted">
                   {copy.positioning.statement}
                 </p>
               </Reveal>
               <Reveal delay={0.08}>
-                <p className="text-[0.9375rem] leading-relaxed text-tone-muted">
+                <p className="type-voice text-[0.9375rem] text-tone-muted">
                   {copy.positioning.support}
                 </p>
               </Reveal>
               <Reveal delay={0.16}>
-                <p className="font-display text-subhead italic text-brass">
+                <p className="text-brass type-structure text-[calc(clamp(1.15rem,1.7vw,1.5rem)*var(--ar-struct))]">
                   {copy.positioning.emphasis}
                 </p>
               </Reveal>
@@ -98,19 +103,20 @@ export default async function PrivateAdvisoryPage() {
         </Container>
       </Section>
 
-      <Section tone="light" className="bg-paper" aria-labelledby="services-heading">
-        <Container className="py-24 lg:py-36">
+      <Section tone="light" className="relative overflow-hidden bg-ivory" aria-labelledby="services-heading">
+        <LitGround preset="plaster" still={0.6} dim={0.4} />
+        <Container className="relative py-24 lg:py-36">
           <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <Reveal>
                 <Eyebrow>{copy.scope.eyebrow}</Eyebrow>
               </Reveal>
-              <h2 id="services-heading" className="mt-8 font-display text-title">
+              <h2 id="services-heading" className="mt-8 type-structure text-[calc(clamp(1.9rem,4vw,3.1rem)*var(--ar-struct))]">
                 <LineReveal lines={plainLines([copy.scope.headline])} />
               </h2>
             </div>
             <Reveal delay={0.12}>
-              <p className="max-w-sm text-[0.9375rem] leading-relaxed text-tone-muted">
+              <p className="max-w-sm type-voice text-[0.9375rem] text-tone-muted">
                 {copy.scope.note}
               </p>
             </Reveal>
@@ -121,13 +127,13 @@ export default async function PrivateAdvisoryPage() {
           <div className="mt-16 lg:mt-24">
             {copy.scope.phases.map((phase, i) => (
               <Reveal key={phase.id} wide>
-                <section className="grid gap-8 border-t border-ink/12 py-12 lg:grid-cols-12 lg:gap-10 lg:py-16">
+                <section className="grid gap-8 pb-4 lg:grid-cols-12 lg:gap-10">
                   <div className="lg:col-span-4 lg:sticky lg:top-32 lg:self-start">
-                    <span className="label-mono text-ink/40">{ordinal(i)}</span>
-                    <h3 className="mt-4 font-display text-[clamp(1.7rem,3.4vw,2.75rem)] leading-tight tracking-tight">
+                    <span className="type-voice text-[0.8125rem] tabular-nums text-ink/40">{ordinal(i)}</span>
+                    <h3 className="mt-4 type-structure text-[calc(clamp(1.7rem,3.4vw,2.75rem)*var(--ar-struct))]">
                       {phase.title}
                     </h3>
-                    <p className="mt-4 max-w-xs text-[0.875rem] leading-relaxed text-tone-muted">
+                    <p className="mt-4 max-w-xs type-voice text-[0.875rem] text-tone-muted">
                       {phase.note}
                     </p>
                   </div>
@@ -139,10 +145,10 @@ export default async function PrivateAdvisoryPage() {
                       return (
                         <div
                           key={id}
-                          className="border-t border-ink/12 py-6 first:border-t-0 first:pt-0"
+                          className="pb-7"
                         >
                           <h4 className="text-[1.0625rem] tracking-tight">{service.title}</h4>
-                          <p className="mt-2.5 max-w-2xl text-[0.9375rem] leading-relaxed text-tone-muted">
+                          <p className="mt-2.5 max-w-2xl type-voice text-[0.9375rem] text-tone-muted">
                             {service.body}
                           </p>
                         </div>
@@ -152,7 +158,6 @@ export default async function PrivateAdvisoryPage() {
                 </section>
               </Reveal>
             ))}
-            <span className="block border-t border-ink/12" />
           </div>
         </Container>
       </Section>
@@ -166,19 +171,20 @@ export default async function PrivateAdvisoryPage() {
         />
       </Section>
 
-      <Section tone="dark" grain className="bg-umber" aria-labelledby="journey-heading">
-        <Container className="py-24 lg:py-36">
+      <Section tone="dark" grain className="relative overflow-hidden bg-umber" aria-labelledby="journey-heading">
+        <LitGround preset="stone" still={0.52} dim={0.42} />
+        <Container className="relative py-24 lg:py-36">
           <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <Reveal>
                 <Eyebrow>{copy.journey.eyebrow}</Eyebrow>
               </Reveal>
-              <h2 id="journey-heading" className="mt-8 font-display text-title">
+              <h2 id="journey-heading" className="mt-8 type-structure text-[calc(clamp(1.9rem,4vw,3.1rem)*var(--ar-struct))]">
                 <LineReveal lines={plainLines(copy.journey.headlineLines)} />
               </h2>
             </div>
             <Reveal delay={0.12}>
-              <p className="max-w-sm text-[0.9375rem] leading-relaxed text-tone-muted">
+              <p className="max-w-sm type-voice text-[0.9375rem] text-tone-muted">
                 {copy.journey.note}
               </p>
             </Reveal>
@@ -190,22 +196,23 @@ export default async function PrivateAdvisoryPage() {
         </Container>
       </Section>
 
-      <Section tone="light" className="bg-dune" aria-labelledby="assurances-heading">
-        <Container className="py-24 lg:py-36">
+      <Section tone="light" className="relative overflow-hidden bg-ivory" aria-labelledby="assurances-heading">
+        <LitGround preset="plaster" still={0.28} dim={0.4} />
+        <Container className="relative py-24 lg:py-36">
           <Reveal>
             <Eyebrow>{copy.assurances.eyebrow}</Eyebrow>
           </Reveal>
-          <h2 id="assurances-heading" className="mt-8 max-w-2xl font-display text-title">
+          <h2 id="assurances-heading" className="mt-8 max-w-2xl type-structure text-[calc(clamp(1.9rem,4vw,3.1rem)*var(--ar-struct))]">
             <LineReveal lines={plainLines([copy.assurances.headline])} />
           </h2>
 
           <RevealGroup className="mt-16 grid gap-x-12 gap-y-12 lg:mt-24 lg:grid-cols-3">
             {copy.assurances.items.map((item, i) => (
               <RevealItem key={item.title}>
-                <div className="flex h-full flex-col border-t border-ink/25 pt-7">
-                  <span className="label-mono text-ink/45">{ordinal(i)}</span>
-                  <h3 className="mt-6 font-display text-heading leading-tight">{item.title}</h3>
-                  <p className="mt-5 max-w-sm text-[0.9375rem] leading-relaxed text-tone-muted">
+                <div className="flex h-full flex-col">
+                  <span className="type-voice text-[0.8125rem] tabular-nums text-ink/45">{ordinal(i)}</span>
+                  <h3 className="mt-6 type-structure text-[calc(clamp(1.4rem,2.4vw,1.9rem)*var(--ar-struct))]">{item.title}</h3>
+                  <p className="mt-5 max-w-sm type-voice text-[0.9375rem] text-tone-muted">
                     {item.body}
                   </p>
                 </div>
@@ -214,8 +221,8 @@ export default async function PrivateAdvisoryPage() {
           </RevealGroup>
 
           <Reveal wide>
-            <div className="mt-14 flex flex-col gap-5 border-t border-ink/12 pt-8 sm:flex-row sm:items-center sm:justify-between">
-              <p className="max-w-2xl text-[0.8125rem] leading-relaxed text-tone-muted">
+            <div className="mt-20 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+              <p className="max-w-2xl type-voice text-[0.8125rem] text-tone-muted">
                 {copy.destinationsNote}
               </p>
               <TextLink href="/destinations" transitionLabel={content.markets.eyebrow}>
@@ -232,11 +239,11 @@ export default async function PrivateAdvisoryPage() {
             <Eyebrow>{copy.levels.eyebrow}</Eyebrow>
           </Reveal>
           <div className="mt-8 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <h2 id="levels-heading" className="max-w-2xl font-display text-title">
+            <h2 id="levels-heading" className="max-w-2xl type-structure text-[calc(clamp(1.9rem,4vw,3.1rem)*var(--ar-struct))]">
               <LineReveal lines={plainLines([copy.levels.headline])} />
             </h2>
             <Reveal delay={0.12}>
-              <p className="max-w-sm text-[0.9375rem] leading-relaxed text-tone-muted">
+              <p className="max-w-sm type-voice text-[0.9375rem] text-tone-muted">
                 {copy.levels.note}
               </p>
             </Reveal>
@@ -245,41 +252,40 @@ export default async function PrivateAdvisoryPage() {
           <RevealGroup className="mt-16 lg:mt-24">
             {copy.levels.items.map((level, i) => (
               <RevealItem key={level.name}>
-                <div className="grid items-baseline gap-x-10 gap-y-3 border-t border-ink/12 py-10 lg:grid-cols-12 lg:py-14">
-                  <span className="label-mono text-ink/40 lg:col-span-1">{ordinal(i)}</span>
-                  <h3 className="font-display text-[clamp(1.6rem,3vw,2.5rem)] leading-tight tracking-tight lg:col-span-4 lg:col-start-2">
+                <div className="grid items-baseline gap-x-10 gap-y-3 border-t border-ink/8 py-10 first:border-t-0 lg:grid-cols-12 lg:py-14">
+                  <span className="type-voice text-[0.8125rem] tabular-nums text-ink/40 lg:col-span-1">{ordinal(i)}</span>
+                  <h3 className="lg:col-span-4 lg:col-start-2 type-structure text-[calc(clamp(1.6rem,3vw,2.5rem)*var(--ar-struct))]">
                     {level.name}
                   </h3>
-                  <p className="label-mono text-brass lg:col-span-2 lg:col-start-6">
+                  <p className="type-voice text-[0.8125rem] text-brass lg:col-span-2 lg:col-start-6">
                     {level.scope}
                   </p>
-                  <p className="max-w-xl text-[0.9375rem] leading-relaxed text-tone-muted lg:col-span-4 lg:col-start-9">
+                  <p className="max-w-xl type-voice text-[0.9375rem] text-tone-muted lg:col-span-4 lg:col-start-9">
                     {level.body}
                   </p>
                 </div>
               </RevealItem>
             ))}
-            <span className="block border-t border-ink/12" />
           </RevealGroup>
 
           <Reveal wide>
-            <div className="mt-20 grid gap-10 border-t border-ink/12 pt-12 lg:grid-cols-12">
+            <div className="mt-24 grid gap-10 lg:grid-cols-12">
               <div className="lg:col-span-4">
-                <h3 className="font-display text-heading leading-tight">
+                <h3 className="type-structure text-[calc(clamp(1.4rem,2.4vw,1.9rem)*var(--ar-struct))]">
                   {copy.boundaries.heading}
                 </h3>
-                <p className="mt-5 max-w-sm text-[0.875rem] leading-relaxed text-tone-muted">
+                <p className="mt-5 max-w-sm type-voice text-[0.875rem] text-tone-muted">
                   {boundaries.note}
                 </p>
               </div>
               <div className="grid gap-10 sm:grid-cols-2 lg:col-span-7 lg:col-start-6">
                 <div>
-                  <span className="label-mono text-brass">{boundaries.coordinatedLabel}</span>
+                  <span className="type-voice text-[0.8125rem] text-brass">{boundaries.coordinatedLabel}</span>
                   <ul className="mt-5">
                     {boundaries.coordinated.map((item) => (
                       <li
                         key={item}
-                        className="border-t border-ink/12 py-2.5 text-[0.8125rem] leading-relaxed"
+                        className="py-2 type-voice text-[0.8125rem]"
                       >
                         {item}
                       </li>
@@ -287,12 +293,12 @@ export default async function PrivateAdvisoryPage() {
                   </ul>
                 </div>
                 <div>
-                  <span className="label-mono text-ink/45">{boundaries.regulatedLabel}</span>
+                  <span className="type-voice text-[0.8125rem] tabular-nums text-ink/45">{boundaries.regulatedLabel}</span>
                   <ul className="mt-5">
                     {boundaries.regulated.map((item) => (
                       <li
                         key={item}
-                        className="border-t border-ink/12 py-2.5 text-[0.8125rem] leading-relaxed text-tone-muted"
+                        className="py-2 type-voice text-[0.8125rem] text-tone-muted"
                       >
                         {item}
                       </li>
@@ -311,6 +317,6 @@ export default async function PrivateAdvisoryPage() {
         body={copy.cta.body}
         ctaLabel={copy.cta.label}
       />
-    </>
+    </div>
   );
 }

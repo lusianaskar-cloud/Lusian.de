@@ -51,20 +51,20 @@ export default async function InsightPage({ params }: Params) {
         <Container narrow className="pb-16 pt-36 lg:pb-24 lg:pt-44">
           <Reveal>
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-              <span className="label-mono text-brass">
+              <span className="type-voice text-[0.8125rem] text-brass">
                 {section.categories[insight.category]}
               </span>
-              <span className="label-mono text-ink/40">{copy.readingTime}</span>
-              <span className="label-mono text-ink/40">{copy.date}</span>
+              <span className="type-voice text-[0.8125rem] tabular-nums text-ink/40">{copy.readingTime}</span>
+              <span className="type-voice text-[0.8125rem] tabular-nums text-ink/40">{copy.date}</span>
             </div>
           </Reveal>
 
-          <h1 className="mt-10 font-display text-[clamp(2.2rem,5.6vw,4.5rem)] leading-[1.04] tracking-[-0.028em]">
+          <h1 className="mt-10 type-structure text-[calc(clamp(2.2rem,5.6vw,4.5rem)*var(--ar-struct))]">
             <LineReveal immediate delay={0.15} lines={[<span key="t">{copy.title}</span>]} />
           </h1>
 
           <Reveal eager delay={0.25}>
-            <p className="mt-8 max-w-2xl text-lead text-tone-muted">{copy.standfirst}</p>
+            <p className="mt-8 max-w-2xl type-voice text-[clamp(1rem,1.25vw,1.15rem)] text-tone-muted">{copy.standfirst}</p>
           </Reveal>
         </Container>
       </Section>
@@ -73,8 +73,8 @@ export default async function InsightPage({ params }: Params) {
         <Container narrow className="py-16 lg:py-24">
           {/* Unmissable, and required: this is not published research. */}
           <div className="border border-brass/40 bg-brass/[0.07] p-6 lg:p-8">
-            <span className="label-mono text-brass">{section.articleNotice.label}</span>
-            <p className="mt-4 text-[0.9375rem] leading-relaxed text-tone-muted">
+            <span className="type-voice text-[0.8125rem] text-brass">{section.articleNotice.label}</span>
+            <p className="mt-4 type-voice text-[0.9375rem] text-tone-muted">
               {section.articleNotice.body}
             </p>
           </div>
@@ -83,7 +83,7 @@ export default async function InsightPage({ params }: Params) {
             {copy.sections.map((part, i) => (
               <Reveal key={part.heading} delay={i * 0.04} wide>
                 <section className="mb-14 lg:mb-20">
-                  <h2 className="font-display text-heading leading-tight">{part.heading}</h2>
+                  <h2 className="type-structure text-[calc(clamp(1.4rem,2.4vw,1.9rem)*var(--ar-struct))]">{part.heading}</h2>
                   <div className="mt-6 space-y-5">
                     {part.paragraphs.map((paragraph, j) => (
                       <p
@@ -116,11 +116,11 @@ export default async function InsightPage({ params }: Params) {
                   transitionLabel={section.categories[other.category]}
                   className="group flex flex-col justify-between gap-8 bg-paper p-8 transition-colors duration-700 hover:bg-dune/60"
                 >
-                  <span className="label-mono text-brass">
+                  <span className="type-voice text-[0.8125rem] text-brass">
                     {section.categories[other.category]}
                   </span>
                   <span className="flex items-end justify-between gap-6">
-                    <span className="font-display text-[1.35rem] leading-tight tracking-tight">
+                    <span className="type-structure text-[calc(1.35rem*var(--ar-struct))]">
                       {section.entries[other.slug].title}
                     </span>
                     <Arrow className="mb-1.5 shrink-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-2 group-hover:rtl:-translate-x-2" />

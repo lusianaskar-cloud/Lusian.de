@@ -187,7 +187,7 @@ export function BookingFlow() {
               />
               <span
                 className={cn(
-                  "label-mono transition-opacity duration-500",
+                  "label-ui transition-opacity duration-500",
                   i === step ? "opacity-100" : i < step ? "opacity-55" : "opacity-30",
                 )}
                 aria-current={i === step ? "step" : undefined}
@@ -226,7 +226,7 @@ export function BookingFlow() {
           {/* 01 — Practice */}
           {step === 0 ? (
             <div>
-              <h2 className="font-display text-heading leading-tight">
+              <h2 className="type-structure text-[calc(clamp(1.4rem,2.4vw,1.9rem)*var(--ar-struct))]">
                 {copy.practiceQuestion}
               </h2>
               <div className="mt-10 grid gap-px bg-current/12 sm:grid-cols-2">
@@ -241,11 +241,11 @@ export function BookingFlow() {
                     }}
                     className="group flex flex-col items-start bg-[color:var(--tone-bg)] p-8 text-start transition-colors duration-500 hover:bg-current/5 lg:p-10"
                   >
-                    <span className="label-mono text-tone-muted">{ordinal(i)}</span>
-                    <span className="mt-6 font-display text-[1.6rem] leading-tight tracking-tight">
+                    <span className="type-voice text-[0.8125rem] text-tone-muted">{ordinal(i)}</span>
+                    <span className="mt-6 type-structure text-[calc(1.6rem*var(--ar-struct))]">
                       {option.label}
                     </span>
-                    <span className="mt-4 text-[0.875rem] leading-relaxed text-tone-muted">
+                    <span className="mt-4 type-voice text-[0.875rem] text-tone-muted">
                       {option.body}
                     </span>
                     <Arrow className="mt-8 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-2 group-hover:rtl:-translate-x-2" />
@@ -258,7 +258,7 @@ export function BookingFlow() {
           {/* 02 — Conversation */}
           {step === 1 ? (
             <div>
-              <h2 className="font-display text-heading leading-tight">
+              <h2 className="type-structure text-[calc(clamp(1.4rem,2.4vw,1.9rem)*var(--ar-struct))]">
                 {copy.conversationQuestion}
               </h2>
               <div className="mt-10">
@@ -274,18 +274,18 @@ export function BookingFlow() {
                     }}
                     className="group grid w-full gap-3 border-t border-current/15 py-8 text-start last:border-b lg:grid-cols-12 lg:gap-8"
                   >
-                    <span className="label-mono text-tone-muted lg:col-span-1">
+                    <span className="type-voice text-[0.8125rem] text-tone-muted lg:col-span-1">
                       {ordinal(i)}
                     </span>
                     <span className="lg:col-span-4">
-                      <span className="block font-display text-[1.5rem] leading-tight tracking-tight">
+                      <span className="block type-structure text-[calc(1.5rem*var(--ar-struct))]">
                         {copy.consultations[option.id].name}
                       </span>
-                      <span className="mt-2 block label-mono text-accent">
+                      <span className="mt-2 block type-voice text-[0.8125rem] text-accent">
                         {copy.consultations[option.id].duration}
                       </span>
                     </span>
-                    <span className="text-[0.9375rem] leading-relaxed text-tone-muted lg:col-span-6 lg:col-start-6">
+                    <span className="type-voice text-[0.9375rem] text-tone-muted lg:col-span-6 lg:col-start-6">
                       {copy.consultations[option.id].body}
                     </span>
                     <Arrow className="hidden self-center transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-2 group-hover:rtl:-translate-x-2 lg:col-span-1 lg:block" />
@@ -295,7 +295,7 @@ export function BookingFlow() {
               <button
                 type="button"
                 onClick={() => goTo(0)}
-                className="mt-10 label-mono text-tone-muted underline-offset-4 hover:underline"
+                className="mt-10 type-voice text-[0.8125rem] text-tone-muted underline-offset-4 hover:underline"
               >
                 {ui.back}
               </button>
@@ -306,8 +306,8 @@ export function BookingFlow() {
           {step === 2 ? (
             <div>
               <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-                <h2 className="font-display text-heading leading-tight">{copy.chooseTime}</h2>
-                <label className="flex items-center gap-3 label-mono text-tone-muted">
+                <h2 className="type-structure text-[calc(clamp(1.4rem,2.4vw,1.9rem)*var(--ar-struct))]">{copy.chooseTime}</h2>
+                <label className="flex items-center gap-3 type-voice text-[0.8125rem] text-tone-muted">
                   <span className="sr-only sm:not-sr-only">{copy.timesShownIn}</span>
                   <select
                     value={timeZone}
@@ -325,8 +325,8 @@ export function BookingFlow() {
 
               {availability?.status === "not_configured" ? (
                 <div className="mt-10 border border-current/25 p-8 lg:p-10">
-                  <span className="label-mono text-accent">{copy.notConnected.label}</span>
-                  <p className="mt-5 max-w-lg text-[0.9375rem] leading-relaxed text-tone-muted">
+                  <span className="type-voice text-[0.8125rem] text-accent">{copy.notConnected.label}</span>
+                  <p className="mt-5 max-w-lg type-voice text-[0.9375rem] text-tone-muted">
                     {copy.notConnected.body}
                   </p>
                   <div className="mt-8 flex flex-wrap items-center gap-x-10 gap-y-4">
@@ -336,7 +336,7 @@ export function BookingFlow() {
                     <a
                       href={`mailto:${contactChannels.email}`}
                       dir="ltr"
-                      className="inline-block label-mono text-tone-muted underline-offset-4 hover:underline"
+                      className="inline-block type-voice text-[0.8125rem] text-tone-muted underline-offset-4 hover:underline"
                     >
                       {contactChannels.email}
                     </a>
@@ -344,14 +344,14 @@ export function BookingFlow() {
                 </div>
               ) : availability?.status === "error" ? (
                 <div className="mt-10 border border-current/25 p-8">
-                  <span className="label-mono text-accent">{copy.unavailableLabel}</span>
-                  <p className="mt-5 max-w-lg text-[0.9375rem] leading-relaxed text-tone-muted">
+                  <span className="type-voice text-[0.8125rem] text-accent">{copy.unavailableLabel}</span>
+                  <p className="mt-5 max-w-lg type-voice text-[0.9375rem] text-tone-muted">
                     {copy.unavailableBody}
                   </p>
                   <button
                     type="button"
                     onClick={() => void loadAvailability()}
-                    className="mt-6 label-mono underline underline-offset-4"
+                    className="label-ui mt-6 underline underline-offset-4"
                   >
                     {ui.tryAgain}
                   </button>
@@ -380,7 +380,7 @@ export function BookingFlow() {
                   <div className="lg:col-span-4 lg:col-start-9">
                     {day ? (
                       <>
-                        <h3 className="label-mono text-tone-muted">
+                        <h3 className="type-voice text-[0.8125rem] text-tone-muted">
                           {formatLongDate(`${day}T12:00:00Z`, "UTC", intl)}
                         </h3>
                         {daySlots.length === 0 ? (
@@ -410,7 +410,7 @@ export function BookingFlow() {
                         )}
                       </>
                     ) : (
-                      <p className="text-[0.9375rem] leading-relaxed text-tone-muted">
+                      <p className="type-voice text-[0.9375rem] text-tone-muted">
                         {loading
                           ? copy.checking
                           : availableDays.size === 0
@@ -419,7 +419,7 @@ export function BookingFlow() {
                       </p>
                     )}
 
-                    <p className="mt-8 label-mono text-tone-muted">
+                    <p className="mt-8 type-voice text-[0.8125rem] text-tone-muted">
                       {format(copy.allTimesIn, { zone })}
                     </p>
                   </div>
@@ -430,7 +430,7 @@ export function BookingFlow() {
                 <button
                   type="button"
                   onClick={() => goTo(1)}
-                  className="label-mono text-tone-muted underline-offset-4 hover:underline"
+                  className="type-voice text-[0.8125rem] text-tone-muted underline-offset-4 hover:underline"
                 >
                   {ui.back}
                 </button>
@@ -452,7 +452,7 @@ export function BookingFlow() {
               }}
               className="space-y-12"
             >
-              <h2 className="font-display text-heading leading-tight">{copy.detailsHeading}</h2>
+              <h2 className="type-structure text-[calc(clamp(1.4rem,2.4vw,1.9rem)*var(--ar-struct))]">{copy.detailsHeading}</h2>
               <div className="grid gap-x-10 gap-y-12 sm:grid-cols-2">
                 <TextField
                   id="b-name"
@@ -505,7 +505,7 @@ export function BookingFlow() {
                 <button
                   type="button"
                   onClick={() => goTo(2)}
-                  className="label-mono text-tone-muted underline-offset-4 hover:underline"
+                  className="type-voice text-[0.8125rem] text-tone-muted underline-offset-4 hover:underline"
                 >
                   {ui.back}
                 </button>
@@ -517,7 +517,7 @@ export function BookingFlow() {
           {/* 05 — Review */}
           {step === 4 && type && slot ? (
             <form onSubmit={submit} className="space-y-10">
-              <h2 className="font-display text-heading leading-tight">
+              <h2 className="type-structure text-[calc(clamp(1.4rem,2.4vw,1.9rem)*var(--ar-struct))]">
                 {copy.reviewHeading}
               </h2>
               <dl className="border-t border-current/15">
@@ -539,14 +539,14 @@ export function BookingFlow() {
                     key={label}
                     className="grid gap-1 border-b border-current/15 py-4 sm:grid-cols-3"
                   >
-                    <dt className="label-mono text-tone-muted">{label}</dt>
+                    <dt className="type-voice text-[0.8125rem] text-tone-muted">{label}</dt>
                     <dd className="sm:col-span-2">{value}</dd>
                   </div>
                 ))}
               </dl>
 
               {result && result.status !== "booked" ? (
-                <p role="alert" className="max-w-lg text-[0.875rem] leading-relaxed text-tone-muted">
+                <p role="alert" className="max-w-lg type-voice text-[0.875rem] text-tone-muted">
                   {result.status === "not_configured"
                     ? copy.errors.notConfigured
                     : result.status === "unavailable"
@@ -568,7 +568,7 @@ export function BookingFlow() {
                 <button
                   type="button"
                   onClick={() => goTo(3)}
-                  className="label-mono text-tone-muted underline-offset-4 hover:underline"
+                  className="type-voice text-[0.8125rem] text-tone-muted underline-offset-4 hover:underline"
                 >
                   {ui.back}
                 </button>
@@ -582,8 +582,8 @@ export function BookingFlow() {
           {/* 06 — Confirmation */}
           {step === 5 && result?.status === "booked" && type ? (
             <div>
-              <span className="label-mono text-accent">{copy.confirmedLabel}</span>
-              <h2 className="mt-6 max-w-[16ch] font-display text-title leading-tight">
+              <span className="type-voice text-[0.8125rem] text-accent">{copy.confirmedLabel}</span>
+              <h2 className="mt-6 max-w-[16ch] type-structure text-[calc(clamp(1.9rem,4vw,3.1rem)*var(--ar-struct))]">
                 {copy.confirmedHeading}
               </h2>
               <dl className="mt-12 border-t border-current/15">
@@ -603,19 +603,19 @@ export function BookingFlow() {
                     key={label}
                     className="grid gap-1 border-b border-current/15 py-4 sm:grid-cols-3"
                   >
-                    <dt className="label-mono text-tone-muted">{label}</dt>
+                    <dt className="type-voice text-[0.8125rem] text-tone-muted">{label}</dt>
                     <dd className="sm:col-span-2">{value}</dd>
                   </div>
                 ))}
               </dl>
-              <p className="mt-8 max-w-md text-[0.9375rem] leading-relaxed text-tone-muted">
+              <p className="mt-8 max-w-md type-voice text-[0.9375rem] text-tone-muted">
                 {result.confirmationEmailSent ? copy.emailSent : copy.keepReference}
               </p>
               {result.manageUrl ? (
                 <p className="mt-4">
                   <a
                     href={result.manageUrl}
-                    className="label-mono text-accent underline underline-offset-4"
+                    className="type-voice text-[0.8125rem] text-accent underline underline-offset-4"
                   >
                     {copy.manage}
                   </a>

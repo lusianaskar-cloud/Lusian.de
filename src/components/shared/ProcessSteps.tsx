@@ -51,13 +51,13 @@ export function ProcessSteps({
               aria-hidden
               className="absolute -top-8 start-0 block size-1.5 -translate-y-1/2 rounded-full bg-[color:var(--tone-accent)]"
             />
-            <span className="label-mono text-tone-muted">{ordinal(i)}</span>
-            <h3 className="mt-4 font-display text-[1.5rem] leading-tight tracking-tight">
+            <span className="type-voice text-[0.8125rem] tabular-nums text-tone-muted">
+              {ordinal(i)}
+            </span>
+            <h3 className="type-structure mt-4 text-[calc(clamp(1.35rem,1.9vw,1.75rem)*var(--ar-struct))]">
               {step.title}
             </h3>
-            <p className="mt-3 text-[0.875rem] leading-relaxed text-tone-muted">
-              {step.body}
-            </p>
+            <p className="type-voice mt-4 text-[0.875rem] text-tone-muted">{step.body}</p>
           </RevealItem>
         ))}
       </RevealGroup>

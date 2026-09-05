@@ -153,10 +153,16 @@ worse than picking one.
 
 ## 5. Still open
 
-- Interior pages (`/aviation`, `/private-advisory`, `/destinations`, `/about`,
-  `/speak/*`) carry the previous German and Arabic copy. The terminology
-  decisions above have been applied across the whole bundle, but the sentence-
-  level rewrite has so far been done for the homepage only.
+- The terminology decisions above are applied across the whole of both bundles
+  — German since the homepage pass, Arabic as part of the sitewide rollout
+  (`ارتباط` → `مهمة` in 35 places, the division name, the redundant dual, and
+  `مكتب واحد`). What is still outstanding is the **sentence-level** rewrite of
+  the interior pages: the homepage was written natively line by line, and
+  `/aviation`, `/private-advisory`, `/destinations`, `/about` and `/speak/*`
+  have had their vocabulary corrected but not their rhythm. The clearest symptom
+  is that the private practice's signature line reads
+  `انتقال يتم بهدوء، ولا يتكرر.` on the homepage and
+  `انتقال يتم بهدوء، ولمرة واحدة.` on its own page.
 - An independent native review of both languages has not happened. It should,
   before launch, and by a person.
 - The booking calendar's month names, weekday abbreviations, direction arrows

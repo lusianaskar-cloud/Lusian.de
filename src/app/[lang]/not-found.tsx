@@ -16,10 +16,10 @@ export default async function NotFound() {
 
       <Container className="relative flex min-h-[82lvh] flex-col justify-center py-32">
         <Eyebrow>{copy.eyebrow}</Eyebrow>
-        <h1 className="mt-10 max-w-[14ch] font-display text-[clamp(2.4rem,6.4vw,5.5rem)] leading-[1.03] tracking-[-0.028em]">
+        <h1 className="mt-10 max-w-[14ch] type-structure text-[calc(clamp(2.4rem,6.4vw,5.5rem)*var(--ar-struct))]">
           {copy.headline}
         </h1>
-        <p className="mt-8 max-w-md text-lead text-tone-muted">{copy.body}</p>
+        <p className="mt-8 max-w-md type-voice text-[clamp(1rem,1.25vw,1.15rem)] text-tone-muted">{copy.body}</p>
 
         <div className="mt-12 flex flex-wrap items-center gap-x-10 gap-y-6">
           <ActionLink href="/" transitionLabel={site.name}>

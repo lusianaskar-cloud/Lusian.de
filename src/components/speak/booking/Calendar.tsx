@@ -38,7 +38,7 @@ export function Calendar({
   return (
     <div>
       <div className="flex items-center justify-between gap-4 border-b border-current/15 pb-5">
-        <h3 className="font-display text-[1.5rem] tracking-tight" aria-live="polite">
+        <h3 className="type-structure text-[calc(1.5rem*var(--ar-struct))]" aria-live="polite">
           {monthLabel(year, month, locale)}
         </h3>
         <div className="flex items-center gap-1">
@@ -64,7 +64,7 @@ export function Calendar({
 
       <div aria-hidden className="mt-6 grid grid-cols-7 gap-1">
         {weekdays.map((label, i) => (
-          <span key={i} className="label-mono grid h-8 place-items-center text-tone-muted">
+          <span key={i} className="type-voice grid h-8 place-items-center text-[0.75rem] text-tone-muted">
             {label}
           </span>
         ))}

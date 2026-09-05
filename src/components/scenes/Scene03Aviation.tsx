@@ -102,7 +102,7 @@ export function Scene03Aviation() {
             rise={10}
             className="container-editorial pointer-events-none pt-[6.5rem] lg:pt-[8.5rem]"
           >
-            <span className="type-voice text-[0.875rem] tracking-[0.03em] text-ice/70">
+            <span className="type-voice text-[0.875rem] text-ice/70">
               {scene.eyebrow}
             </span>
           </Beat>
