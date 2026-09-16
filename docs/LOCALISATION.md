@@ -153,18 +153,63 @@ worse than picking one.
 
 ## 5. Still open
 
-- The terminology decisions above are applied across the whole of both bundles
-  — German since the homepage pass, Arabic as part of the sitewide rollout
-  (`ارتباط` → `مهمة` in 35 places, the division name, the redundant dual, and
-  `مكتب واحد`). What is still outstanding is the **sentence-level** rewrite of
-  the interior pages: the homepage was written natively line by line, and
-  `/aviation`, `/private-advisory`, `/destinations`, `/about` and `/speak/*`
-  have had their vocabulary corrected but not their rhythm. The clearest symptom
-  is that the private practice's signature line reads
-  `انتقال يتم بهدوء، ولا يتكرر.` on the homepage and
-  `انتقال يتم بهدوء، ولمرة واحدة.` on its own page.
+- The sentence-level rewrite now covers the interior pages as well as the
+  homepage, in both languages. See §6 for what that pass changed.
+- An independent native review by a person has still not happened. It should,
+  before launch. Everything here is one writer's judgement.
 - An independent native review of both languages has not happened. It should,
   before launch, and by a person.
 - The booking calendar's month names, weekday abbreviations, direction arrows
   and timezone wording were localised in the earlier i18n pass and have not been
   re-audited against the rewritten copy.
+
+---
+
+## 6. The interior-page rewrite
+
+The terminology pass fixed vocabulary. This pass fixed **rhythm** — the places
+where a German or Arabic sentence still had an English skeleton under it.
+
+### What a calque looked like here
+
+| Was | Now | The tell |
+| --- | --- | --- |
+| `Luftfahrt belohnt Präzision mehr als Ambition.` | **Präzision bringt hier weiter als jeder Ehrgeiz.** | An abstract subject that "rewards" is English rhetoric; *Ambition* is a false friend for *Ehrgeiz*. |
+| `an der Naht zwischen dem, was geplant war, und…` | **dort, wo der Plan auf den Dienstagmorgen um 05:40 trifft** | "At the seam between" is an English image carried word for word. |
+| `Ein Umzug ist nicht eine Entscheidung.` | **Ein Umzug ist keine Entscheidung.** | German negates with *kein*, not *nicht ein*. |
+| `Eine Familie zu verlegen` | **Mit einer Familie umzuziehen** | *Verlegen* moves departments and objects, not families. |
+| `meist gegen ein Datum` | **meist mit einem Stichtag im Nacken** | "Against a deadline" is not a German preposition. |
+| `Ein Markt zur Zeit` | **Ein Markt nach dem anderen** | *Zur Zeit* means "currently" — an outright mistranslation. |
+| `eine feste Leitung für die Führung` | **ein offener Draht zur Geschäftsführung** | *Feste Leitung* is a telephone landline. |
+| `الطيران يكافئ الدقة أكثر مما يكافئ الطموح` | **في الطيران، الدقة تسبق الطموح** | Same English "rewards" construction, transliterated. |
+| `عند الوصلة بين ما خُطِّط له` | **حيث يلتقي المخطَّط بما يحدث فعلًا** | الوصلة is a physical coupling; the English seam metaphor does not carry. |
+| `في فترات من خمس عشرة دقيقة` | **في أرباع الساعة** | Arabic has a word for this. |
+| `النتائج التي لا يعرفها من يعمل على الساحة` | **ملاحظة لا يعرفها أهل الساحة** | نتائج is *results*, not *findings*. |
+| `له سطح غير مألوف وبنية مألوفة` | **يبدو غريبًا من الخارج، ومألوف البنية من الداخل** | Surface/structure as a literal pair. |
+| `في مواجهة موعد` | **تحت ضغط موعد** | "Against a deadline" again. |
+
+Body copy also stopped repeating its own headline in the first sentence, which
+is an English editorial habit and reads as padding in both languages.
+
+### Damage from the earlier bulk replace, repaired
+
+Swapping `ارتباط` → `مهمة` sitewide was a vocabulary fix that broke grammar,
+because the two words differ in gender. Every site was found and corrected:
+
+- **Agreement:** `يجمع المهمة` → `تجمع المهمة`; `يسير` → `تسير`; `يبدأ` → `تبدأ`;
+  `يتطلب` → `تتطلب`; `مهمة مركّز` → `مهمة مركّزة`.
+- **A destroyed technical term:** `ملفات الارتباط` is the Arabic for *browser
+  cookies*. The replace turned the privacy policy's cookie clause into
+  "important files". Restored.
+- **A destroyed legal term:** an *engagement letter* is `خطاب تكليف`, not
+  `خطاب مهمة`; `مهمة مكتوب` was not grammatical at all.
+- **A malformed word:** `مهمةًا` carried two accusative endings. Gone.
+
+The lesson is recorded here because it will recur: a find-and-replace across a
+locale bundle is a grammar change in an inflected language, not a substitution.
+
+### Punctuation
+
+Six instances of `؛ و` were normalised to `، و`. The Arabic semicolon is real
+punctuation, but semicolon-plus-*waw* is the English semicolon habit wearing
+Arabic clothes — the *waw* already joins the clauses.
