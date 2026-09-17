@@ -5,7 +5,7 @@ import type { SiteContent } from "@/lib/i18n/types";
  *
  * Register: Sie-Form throughout, editorial rather than corporate, and short.
  * German runs roughly a fifth longer than English, so headlines are rewritten
- * to the same rhythm rather than translated word for word — a display line
+ * to the same rhythm rather than translated word for word – a display line
  * that wraps to three is a broken composition, not a longer sentence.
  *
  * The placeholder policy is not translated away: anything outstanding in
@@ -15,9 +15,9 @@ import type { SiteContent } from "@/lib/i18n/types";
 export const de = {
   seo: {
     home: {
-      title: "Lusian — Luftfahrtberatung · Private Begleitung in der Golfregion",
+      title: "Lusian – Luftfahrtberatung · Private Begleitung in der Golfregion",
       description:
-        "Lusian berät Luftfahrtunternehmen sowie Privatpersonen, die sich in der Golfregion niederlassen — Betrieb, Strategie und private Etablierung, koordiniert über einen einzigen Ansprechpartner.",
+        "Lusian berät Luftfahrtunternehmen und Privatpersonen, die sich in der Golfregion niederlassen: Betrieb, Strategie und der private Neuanfang, koordiniert über einen einzigen Ansprechpartner.",
     },
     aviation: {
       title: "Luftfahrtberatung",
@@ -27,12 +27,12 @@ export const de = {
     gulf: {
       title: "Private Begleitung in der Golfregion",
       description:
-        "Privater Umzug und Etablierung in der Golfregion — Orientierung, Koordination der Aufenthaltsverfahren, Firmengründung, Immobilie, Schule, Bankverbindung und Ankunft, gehalten in einem Mandat.",
+        "Privater Umzug und Etablierung in der Golfregion – Orientierung, Koordination der Aufenthaltsverfahren, Firmengründung, Immobilie, Schule, Bankverbindung und Ankunft, gehalten in einem Mandat.",
     },
     markets: {
       title: "Standorte",
       description:
-        "Die sechs Golfmärkte, in denen wir beraten — Vereinigte Arabische Emirate, Saudi-Arabien, Katar, Bahrain, Oman und Kuwait — beschrieben nach wirtschaftlichem und alltäglichem Charakter.",
+        "Die sechs Golfmärkte, in denen wir beraten – Vereinigte Arabische Emirate, Saudi-Arabien, Katar, Bahrain, Oman und Kuwait – beschrieben nach wirtschaftlichem und alltäglichem Charakter.",
     },
     about: {
       title: "Über uns",
@@ -42,7 +42,7 @@ export const de = {
     speak: {
       title: "Sprechen Sie mit Lusian",
       description:
-        "Stellen Sie eine Frage oder vereinbaren Sie ein Gespräch — Luftfahrtberatung oder private Etablierung in der Golfregion. Vertraulich und unverbindlich.",
+        "Stellen Sie eine Frage oder vereinbaren Sie ein Gespräch – Luftfahrtberatung oder private Etablierung in der Golfregion. Vertraulich und unverbindlich.",
     },
     ask: {
       title: "Eine Frage stellen",
@@ -57,7 +57,7 @@ export const de = {
     questions: {
       title: "Häufige Fragen",
       description:
-        "Fragen, die oft genug gestellt werden, um sie öffentlich zu beantworten — wie wir arbeiten, die Wahl eines Golfmarktes, Familie und Schule, Firmengründung und Luftfahrtmandate.",
+        "Fragen, die oft genug gestellt werden, um sie öffentlich zu beantworten – wie wir arbeiten, die Wahl eines Golfmarktes, Familie und Schule, Firmengründung und Luftfahrtmandate.",
     },
     insights: {
       title: "Perspektiven",
@@ -71,16 +71,16 @@ export const de = {
     descriptorShort: "Luftfahrt · Private Begleitung",
     positioning: "Zwei Disziplinen. Ein Maßstab in der Umsetzung.",
     description:
-      "Lusian berät Luftfahrtunternehmen sowie Privatpersonen, die sich in der Golfregion niederlassen — Betrieb, Strategie und private Etablierung, koordiniert über einen einzigen Ansprechpartner.",
+      "Lusian berät Luftfahrtunternehmen und Privatpersonen, die sich in der Golfregion niederlassen: Betrieb, Strategie und der private Neuanfang, koordiniert über einen einzigen Ansprechpartner.",
     keywords: [
       "Luftfahrtberatung",
-      "Airline Beratung",
-      "Flughafenbetrieb Beratung",
-      "Bodenabfertigung Optimierung",
-      "Umzug Golfregion Beratung",
+      "Airline-Beratung",
+      "Beratung im Flughafenbetrieb",
+      "Optimierung der Bodenabfertigung",
+      "Umzugsberatung Golfregion",
       "Privater Umzug VAE",
       "Umzug Saudi-Arabien",
-      "Private Begleitung Golfregion",
+      "Private Begleitung Golf",
     ],
   },
 
@@ -150,9 +150,9 @@ export const de = {
     closeMenu: "Menü schließen",
     primaryNav: "Hauptnavigation",
     siteMenu: "Seitenmenü",
-    homeAria: "{name} — Startseite",
+    homeAria: "{name} – Startseite",
     headerCta: "Sprechen Sie mit uns",
-    menuCta: "Vertrauliches Gespräch anfragen",
+    menuCta: "Vertrauliches Gespräch vereinbaren",
     scroll: "Scrollen",
     language: "Sprache",
     languageShort: "DE",
@@ -168,7 +168,7 @@ export const de = {
     tryAgain: "Erneut versuchen",
     demo: "Demo",
     toBeSupplied: "Folgt",
-    plateReserved: "Tafel {id} — Fotografie folgt",
+    plateReserved: "Tafel {id} – Fotografie folgt",
     portrait: "Porträt",
     previousMonth: "Vorheriger Monat",
     nextMonth: "Nächster Monat",
@@ -195,24 +195,24 @@ export const de = {
       headlineSmall: "Ein Maßstab in der Umsetzung.",
       settle: "Ein Haus",
       aviation: {
-        index: "01 — Luftfahrtberatung",
+        index: "01 – Luftfahrtberatung",
         line: "Der Betrieb ist die Strategie.",
         points: [
-          "Wir beraten Fluggesellschaften, Flughäfen, Bodenabfertiger und die öffentlichen Stellen, die sie in die Pflicht nehmen.",
+          "Wir beraten Fluggesellschaften, Flughäfen und Bodenabfertiger – und die öffentlichen Stellen, denen sie Rechenschaft schulden.",
           "Beauftragt dort, wo ein Plan dem laufenden Betrieb standhalten muss.",
         ],
       },
       privateAdvisory: {
-        index: "02 — Private Begleitung in der Golfregion",
+        index: "02 – Private Begleitung in der Golfregion",
         line: "Ein Umzug, still vollzogen. Und nur einmal.",
         points: [
           "Ein privater Neuanfang in der Golfregion, durchgehend koordiniert.",
-          "Ein Dossier. Ein Ansprechpartner. Alles in seiner Reihenfolge.",
+          "Ein Dossier. Ein Ansprechpartner. Alles der Reihe nach.",
         ],
       },
     },
     aviationScene: {
-      eyebrow: "Bereich 01 — wo wir beauftragt werden",
+      eyebrow: "Bereich 01 – wo wir beauftragt werden",
       opening: "Der Betrieb ist die Strategie.",
       link: "Die Luftfahrtberatung",
     },
@@ -242,11 +242,11 @@ export const de = {
       items: [
         {
           title: "Ein Verantwortlicher, durchgehend",
-          body: "Wen Sie zuerst sprechen, der bleibt bis zum Abschluss zuständig. Die Arbeit wird nicht nach unten weitergereicht.",
+          body: "Die Person, mit der Sie zuerst sprechen, bleibt bis zum Abschluss zuständig. Die Arbeit wird nicht nach unten weitergereicht.",
         },
         {
           title: "Das Urteil eines Praktikers",
-          body: "Beratung, die sich daran orientiert, wie Dinge tatsächlich laufen — Standplätze, Dienstpläne, Genehmigungen, Vermieter, Vorlaufzeiten — und nicht daran, wie sie in einer Präsentation aussehen.",
+          body: "Beratung, die sich daran orientiert, wie Dinge tatsächlich laufen – Standplätze, Dienstpläne, Genehmigungen, Vermieter, Vorlaufzeiten – und nicht daran, wie sie in einer Präsentation aussehen.",
         },
         {
           title: "Diskretion als Methode",
@@ -260,7 +260,7 @@ export const de = {
     },
     closing: {
       headline: "Beginnen wir ein Gespräch.",
-      body: "Sagen Sie uns, was Sie erreichen wollen — und bis wann. Sind wir nicht die Richtigen, sagen wir es Ihnen.",
+      body: "Sagen Sie uns, was Sie erreichen wollen – und bis wann. Sind wir nicht die Richtigen, sagen wir es Ihnen.",
       cta: "Sprechen Sie mit Lusian",
     },
   },
@@ -272,7 +272,7 @@ export const de = {
       { text: "ist die Strategie.", accent: "Strategie" },
     ],
     standfirst:
-      "Die Marge einer Fluggesellschaft entscheidet sich in Viertelstunden am Standplatz. Der Ruf eines Flughafens entscheidet sich in einer Warteschlange. Wir beraten auf der Ebene, auf der Strategie zu Durchsatz wird — und lassen uns dort auch messen.",
+      "Die Marge einer Fluggesellschaft entscheidet sich in Viertelstunden am Standplatz. Der Ruf eines Flughafens entscheidet sich in einer Warteschlange. Wir beraten auf der Ebene, auf der Strategie zu Durchsatz wird – und lassen uns dort auch messen.",
     meta: "Airlines · Flughäfen · Bodenabfertigung · Investoren · Infrastruktur · Öffentliche Hand",
     positioning: {
       eyebrow: "Position",
@@ -280,7 +280,7 @@ export const de = {
       statement:
         "Netze, Terminals, Abfertigungsverträge und Investitionsprogramme scheitern alle an derselben Stelle: dort, wo der Plan auf den Dienstagmorgen um 05:40 trifft.",
       support:
-        "Genau dort arbeiten wir. Man holt uns, wenn ein Plan dem laufenden Betrieb standhalten muss — ein neues Terminal geht in Betrieb, ein Abfertigungsvertrag wird neu verhandelt, ein Streckennetz wird umgebaut, eine Anlage soll geprüft werden, bevor Geld hineinfließt.",
+        "Genau dort arbeiten wir. Man holt uns, wenn ein Plan dem laufenden Betrieb standhalten muss – ein neues Terminal geht in Betrieb, ein Abfertigungsvertrag wird neu verhandelt, ein Streckennetz wird umgebaut, eine Anlage soll geprüft werden, bevor Geld hineinfließt.",
     },
     onSite: {
       eyebrow: "Vor Ort",
@@ -289,7 +289,7 @@ export const de = {
         "niemand wiedererkennt,",
         "ist keine Erkenntnis.",
       ],
-      body: "Wir fangen dort an, wo der Betrieb läuft, und zu der Stunde, in der es eng wird. Was danach auf Papier steht, muss sich an dem messen lassen, was wir dort gesehen haben.",
+      body: "Wir fangen dort an, wo der Betrieb läuft – und dann, wenn es eng wird. Was danach auf Papier steht, muss sich an dem messen lassen, was wir dort gesehen haben.",
     },
     capabilities: {
       eyebrow: "Leistungen",
@@ -350,7 +350,7 @@ export const de = {
     },
     sectors: {
       eyebrow: "Mit wem wir arbeiten",
-      headlineLines: ["Betreiber, Eigentümer", "und die Stellen, die sie in die Pflicht nehmen."],
+      headlineLines: ["Betreiber, Eigentümer", "und die Stellen, denen sie Rechenschaft schulden."],
       items: [
         {
           name: "Fluggesellschaften",
@@ -362,7 +362,7 @@ export const de = {
         },
         {
           name: "Bodenabfertigung & Luftfahrtdienste",
-          body: "Abfertiger, Betankung, Catering, MRO und Zulieferer.",
+          body: "Abfertiger, Betankungs- und Cateringdienste, MRO-Betriebe und Zulieferer.",
         },
         {
           name: "Investoren & Finanzierer",
@@ -370,7 +370,7 @@ export const de = {
         },
         {
           name: "Infrastrukturentwickler",
-          body: "Airport-City, Terminals, Fracht und die Flächen ringsum.",
+          body: "Airport-City-Projekte, Terminals, Fracht und die Flächen ringsum.",
         },
         {
           name: "Luftfahrttechnologie",
@@ -392,11 +392,11 @@ export const de = {
       items: [
         {
           title: "Wir beginnen auf der Luftseite",
-          body: "Vor dem Datenraum das Vorfeld. Befunde, die die Menschen vor Ort nicht wiedererkennen, sind keine Befunde.",
+          body: "Vor dem Datenraum das Vorfeld. Was die Leute vor Ort nicht wiedererkennen, ist keine Erkenntnis.",
         },
         {
-          title: "Wir schreiben für den Anwender",
-          body: "Wir schreiben für den Dienstleiter beim Schichtwechsel, nicht für den Ordner im Vorstand. Beide bekommen, was sie brauchen.",
+          title: "Wir schreiben für die Praxis",
+          body: "Wir schreiben für den Dienstleiter beim Schichtwechsel, nicht für den Ordner im Vorstand. Am Ende bekommen beide Seiten, was sie brauchen.",
         },
         {
           title: "Wir bleiben, bis es trägt",
@@ -411,7 +411,7 @@ export const de = {
         {
           name: "Bewertung",
           duration: "Richtwert: 2–6 Wochen",
-          body: "Eine klar gestellte Frage, beantwortet. Ein Betrieb, eine Anlage, ein Geschäftsmodell oder ein Anbieter — geprüft und mit klarer Position berichtet.",
+          body: "Eine klar gestellte Frage, beantwortet. Ein Betrieb, eine Anlage, ein Geschäftsmodell oder ein Anbieter – geprüft, mit einer klaren Position am Ende.",
         },
         {
           name: "Programm",
@@ -421,7 +421,7 @@ export const de = {
         {
           name: "Dauermandat",
           duration: "Richtwert: laufend",
-          body: "Ein offener Draht zur Geschäftsführung — für die Entscheidungen, die ohne Vorwarnung kommen, und für die, die zu früh kommen.",
+          body: "Ein offener Draht zur Geschäftsführung – für die Entscheidungen, die ohne Vorwarnung kommen, und für die, die zu früh kommen.",
         },
       ],
     },
@@ -442,31 +442,31 @@ export const de = {
       { text: "Und nur einmal.", accent: "einmal" },
     ],
     standfirst:
-      "Ein privater Neuanfang in der Golfregion — geplant, in der richtigen Reihenfolge und durchgehend koordiniert, von einer Person, die das ganze Dossier kennt.",
+      "Ein privater Neuanfang in der Golfregion – geplant, in der richtigen Reihenfolge und durchgehend koordiniert, von einer Person, die das ganze Dossier kennt.",
     meta: "Vereinigte Arabische Emirate · Saudi-Arabien · Katar · Bahrain · Oman · Kuwait",
     positioning: {
       headlineLines: ["Ein Umzug ist", "keine Entscheidung."],
       statement:
-        "Mit einer Familie umzuziehen, mit einem Unternehmen oder mit beidem, ist keine Entscheidung. Es sind mehrere hundert — der Reihe nach zu treffen, in einem fremden System, und meist mit einem Stichtag im Nacken.",
+        "Ein Umzug mit Familie, mit einem Unternehmen oder mit beidem ist keine Entscheidung. Es sind mehrere hundert – der Reihe nach zu treffen, in einem fremden System und meist mit einem Stichtag im Nacken.",
       support:
-        "Die meisten davon sind klein. Manche lassen sich kaum zurücknehmen. Wir halten die Reihenfolge: was zuerst kommt und was warten kann, wen man wirklich braucht, und welche Frage Ihnen bisher niemand gestellt hat.",
+        "Die meisten davon sind klein. Manche lassen sich kaum zurücknehmen. Wir halten die Reihenfolge: was zuerst kommt und was warten kann, wen Sie wirklich brauchen und welche Frage Ihnen bisher niemand gestellt hat.",
       emphasis: "Sie sollten Ihre Lage nur einmal erklären müssen.",
     },
     scope: {
       eyebrow: "Leistungsumfang",
       headline: "Zehn Dinge, ein Dossier.",
-      note: "Sortiert danach, wann sie anstehen — die Reihenfolge ist das Schwierige daran. Die meisten Klienten nehmen einen Teil davon, manche alles.",
+      note: "Sortiert danach, wann sie anstehen – die Reihenfolge ist das Schwierige daran. Die meisten Klienten nehmen einen Teil davon, manche alles.",
       phases: [
         {
           id: "before",
           title: "Vor dem Umzug",
-          note: "Entscheiden, wohin — und in welcher Reihenfolge.",
+          note: "Entscheiden, wohin – und in welcher Reihenfolge.",
           services: ["orientation", "planning"],
         },
         {
           id: "establishment",
           title: "Die Etablierung",
-          note: "Der Teil mit den meisten Abhängigkeiten — und den meisten Gelegenheiten, Zeit zu verlieren.",
+          note: "Der Teil mit den meisten Abhängigkeiten – und den meisten Gelegenheiten, Zeit zu verlieren.",
           services: ["residency", "business", "property", "banking"],
         },
         {
@@ -485,11 +485,11 @@ export const de = {
       services: {
         orientation: {
           title: "Orientierung",
-          body: "Auswahl von Land und Stadt, abgewogen daran, wie Sie tatsächlich leben und arbeiten wollen. Zeit vor Ort, bevor Sie sich binden.",
+          body: "Auswahl von Land und Stadt, ausgerichtet daran, wie Sie tatsächlich leben und arbeiten wollen. Zeit vor Ort, bevor Sie sich binden.",
         },
         planning: {
           title: "Umzugsplanung",
-          body: "Eine schriftliche Abfolge mit Terminen, Abhängigkeiten und Zuständigkeiten. Der Plan, gegen den die weitere Zusammenarbeit läuft.",
+          body: "Eine schriftliche Abfolge mit Terminen, Abhängigkeiten und Zuständigkeiten. Der Plan, an dem sich die weitere Zusammenarbeit misst.",
         },
         residency: {
           title: "Aufenthaltsverfahren",
@@ -497,19 +497,19 @@ export const de = {
         },
         business: {
           title: "Firmengründung",
-          body: "Struktur, Rechtsraum und Lizenzoptionen werden mit qualifizierten Gesellschafts- und Rechtsberatern erarbeitet und dann bis zur Betriebsfähigkeit koordiniert.",
+          body: "Struktur, Rechtsordnung und Lizenzoptionen werden mit qualifizierten Gesellschafts- und Rechtsberatern erarbeitet und dann bis zur Betriebsfähigkeit koordiniert.",
         },
         property: {
           title: "Immobilie",
-          body: "Koordination der Suche für Miete oder Kauf — Briefing, engere Auswahl, Besichtigungen sowie die örtlichen Berater und Makler, die für einen sauberen Abschluss nötig sind.",
+          body: "Koordination der Suche, zur Miete oder zum Kauf – Briefing, engere Auswahl, Besichtigungen sowie die örtlichen Berater und Makler, die für einen sauberen Abschluss nötig sind.",
         },
         education: {
           title: "Familie & Schule",
-          body: "Schullandschaft nach Stadt und Lehrplan, Bewerbungszeitpunkte und Vorstellungen. Früh eingeplant, denn die Plätze sind der eigentliche Engpass.",
+          body: "Schullandschaft nach Stadt und Lehrplan, Bewerbungsfristen und Vorstellungsgespräche. Früh eingeplant, denn die Plätze sind der eigentliche Engpass.",
         },
         banking: {
           title: "Bankverbindungen",
-          body: "Vorstellung bei geeigneten privaten und geschäftlichen Bankverbindungen und Koordination der Eröffnungsanforderungen. Über ein Konto entscheidet das Institut.",
+          body: "Vorstellung bei geeigneten Banken, privat wie geschäftlich, und Koordination dessen, was zur Eröffnung verlangt wird. Über ein Konto entscheidet das Institut.",
         },
         healthcare: {
           title: "Gesundheitsversorgung",
@@ -521,7 +521,7 @@ export const de = {
         },
         continuity: {
           title: "Kontinuität",
-          body: "Ein fester Ansprechpartner danach — Verlängerungen, Erweiterungen, eine zweite Stadt, eine geänderte Planung.",
+          body: "Ein fester Ansprechpartner danach – Verlängerungen, Erweiterungen, eine zweite Stadt, eine geänderte Planung.",
         },
       },
     },
@@ -540,7 +540,7 @@ export const de = {
         },
         {
           title: "Koordination",
-          body: "Wir beauftragen und steuern die passenden örtlichen Spezialisten, Anbieter und Verfahren — und halten alles an einem Ort zusammen.",
+          body: "Wir beauftragen und steuern die passenden örtlichen Spezialisten, Anbieter und Verfahren – und halten alles an einem Ort zusammen.",
         },
         {
           title: "Ankunft",
@@ -555,22 +555,22 @@ export const de = {
     levels: {
       eyebrow: "Tiefe der Zusammenarbeit",
       headline: "Wie weit Sie uns hineinlassen.",
-      note: "Keine Pakete. Drei Tiefen der Beteiligung — und es ist normal, zwischen ihnen zu wechseln, während ein Umzug Gestalt annimmt.",
+      note: "Keine Pakete. Drei Tiefen der Beteiligung – und es ist normal, zwischen ihnen zu wechseln, während ein Umzug Gestalt annimmt.",
       items: [
         {
           name: "Beratung",
           scope: "Eine klar gestellte Frage",
-          body: "Ein eng gefasstes Mandat mit klarer Grenze. Ein Markt, der zu bewerten ist, eine Struktur, die durchdacht werden muss, eine Entscheidung, die vor dem Treffen geprüft gehört. Am Ende steht eine Position, mit der Sie arbeiten können.",
+          body: "Ein eng gefasstes Mandat mit klarer Grenze. Ein Markt, der zu bewerten ist, eine Struktur, die durchdacht werden muss, eine Entscheidung, die vor dem Termin geprüft werden sollte. Am Ende steht eine Position, mit der Sie arbeiten können.",
         },
         {
           name: "Umzugssteuerung",
           scope: "Die Etablierung selbst",
-          body: "Wir führen die Abfolge: den schriftlichen Plan, die Fachleute auf jeder Stufe, die Abhängigkeiten dazwischen und die ersten neunzig Tage nach der Ankunft. Ein Ansprechpartner für all das.",
+          body: "Wir führen die Abfolge: den schriftlichen Plan, die Fachleute auf jeder Etappe, die Abhängigkeiten dazwischen und die ersten neunzig Tage nach der Ankunft. Ein Ansprechpartner für all das.",
         },
         {
           name: "Dauermandat",
           scope: "Laufende Koordination",
-          body: "Für Klienten, deren Anliegen mit der Ankunft nicht enden — ein zweiter Standort, ein Unternehmen dazu, ein Schulwechsel, fällige Verlängerungen. Ein offener Draht statt eines Projekts.",
+          body: "Für Klienten, deren Anliegen mit der Ankunft nicht enden – ein zweiter Standort, ein Unternehmen dazu, ein Schulwechsel, fällige Verlängerungen. Ein offener Draht statt eines Projekts.",
         },
       ],
     },
@@ -594,7 +594,7 @@ export const de = {
     },
     boundaries: { heading: "Was wir koordinieren – und was nicht" },
     destinationsNote:
-      "Charakter von Land und Stadt, Markt für Markt — ohne Aussagen zu Regeln, die sich ändern können.",
+      "Charakter von Land und Stadt, Markt für Markt – ohne Aussagen zu Regeln, die sich ändern können.",
     destinationsLink: "Die sechs Märkte",
     cta: {
       eyebrow: "Private Anfragen",
@@ -608,8 +608,8 @@ export const de = {
     eyebrow: "Standorte",
     titleLines: ["Sechs Märkte,", "sechs verschiedene Leben."],
     standfirst:
-      "Der Golf ist nicht ein Ort, sondern sechs — und die Wahl zwischen ihnen ist die erste Entscheidung jedes Umzugs. Was folgt, ist Charakter: wie sich jedes Land anfühlt für jemanden, der dort lebt und arbeitet.",
-    meta: "Nur Charakter und Positionierung — keine Aussagen zu Regeln, die sich ändern können",
+      "Der Golf ist nicht ein Ort, sondern sechs – und die Wahl zwischen ihnen ist die erste Entscheidung jedes Umzugs. Was folgt, ist Charakter: wie sich jedes Land anfühlt für jemanden, der dort lebt und arbeitet.",
+    meta: "Nur Charakter und Positionierung – keine Aussagen zu Regeln, die sich ändern können",
     explorer: {
       eyebrow: "Die Region, kartiert",
       headline: "Wählen Sie einen Markt.",
@@ -617,13 +617,13 @@ export const de = {
     },
     omissions: {
       heading: "Was diese Seite bewusst auslässt",
-      body: "Nichts davon beschreibt Visakategorien, Aufenthaltsvoraussetzungen, Eigentumsregeln, steuerliche Behandlung oder Mindestschwellen. Das ändert sich, das hängt vom Einzelfall ab, und es gehört in die Hände zugelassener Fachleute in der jeweiligen Rechtsordnung. Was für Ihre Lage gilt, klären wir im Mandat — und holen die Berater dazu, die dafür qualifiziert sind.",
+      body: "Nichts davon beschreibt Visakategorien, Aufenthaltsvoraussetzungen, Eigentumsregeln, steuerliche Behandlung oder Mindestschwellen. Das ändert sich, das hängt vom Einzelfall ab, und es gehört in die Hände zugelassener Fachleute in der jeweiligen Rechtsordnung. Was für Ihre Lage gilt, klären wir im Mandat – und holen die Berater dazu, die dafür qualifiziert sind.",
       covered: "Abgedeckte Märkte: {list}.",
     },
     cta: {
       eyebrow: "Marktorientierung",
       lines: ["Welcher Markt", "ist Ihrer?"],
-      body: "Die meisten Klienten kommen mit zwei oder drei im Kopf. Ein erstes Gespräch reicht meist, um einzugrenzen — und um zu sagen, was eine ernsthafte Prüfung umfassen würde.",
+      body: "Die meisten Klienten kommen mit zwei oder drei im Kopf. Ein erstes Gespräch reicht meist, um einzugrenzen – und um zu sagen, was eine ernsthafte Prüfung umfassen würde.",
       label: "Ihren Umzug planen",
     },
     plot: { principalLocations: "Wichtigste Orte", markets: "Golfmärkte" },
@@ -633,8 +633,8 @@ export const de = {
         short: "VAE",
         hub: "Dubai · Abu Dhabi",
         cities: ["Dubai", "Abu Dhabi", "Schardscha", "Ras al-Chaima"],
-        line: "Der übliche Einstieg in die Region — und noch immer der offenste.",
-        body: "Zwei sehr verschiedene Stadtkulturen, eine Stunde voneinander entfernt: die eine gebaut für Tempo und internationalen Austausch, die andere für Institutionen, Kultur und einen ruhigeren, heimischeren Ton. Der praktische Vorteil ist die Dichte an internationalen Schulen, Medizin und Dienstleistern — die meisten Anforderungen lassen sich erfüllen, ohne das Land zu verlassen.",
+        line: "Der übliche Einstieg in die Region – und noch immer der offenste.",
+        body: "Zwei sehr verschiedene Stadtkulturen, eine Stunde voneinander entfernt: die eine gebaut für Tempo und internationalen Austausch, die andere für Institutionen, Kultur und einen ruhigeren, heimischeren Ton. Der praktische Vorteil ist die Dichte an internationalen Schulen, Medizin und Dienstleistern – die meisten Anforderungen lassen sich erfüllen, ohne das Land zu verlassen.",
         character: [
           "Dichteste Versorgung mit internationalen Schulen und Medizin am Golf",
           "Ausgeprägter Markt für Dienstleistungen und Banken",
@@ -690,7 +690,7 @@ export const de = {
         hub: "Maskat",
         cities: ["Maskat", "Sohar", "Salala"],
         line: "Die zurückhaltendste Adresse der Region.",
-        body: "Die Landschaft zieht hier zuerst — Berge, Küste und eine gebaute Umgebung, mit der ungewöhnlich sorgsam umgegangen wurde. Das Tempo ist gemessen, die internationale Gemeinschaft lange ansässig, und das Land spricht Menschen an, die die Region ohne ihre Lautstärke wollen.",
+        body: "Die Landschaft zieht hier zuerst – Berge, Küste und eine gebaute Umgebung, mit der ungewöhnlich sorgsam umgegangen wurde. Das Tempo ist gemessen, die internationale Gemeinschaft lange ansässig, und das Land spricht Menschen an, die die Region ohne ihre Lautstärke wollen.",
         character: [
           "Küste, Gebirge und Wüste in kurzer Fahrt von der Hauptstadt",
           "Lange ansässige internationale Gemeinschaft und ein gemessenes Tempo",
@@ -725,17 +725,17 @@ export const de = {
       eyebrow: "Warum es Lusian gibt",
       headline: "Fast nichts scheitert an der Entscheidung.",
       body: [
-        "Fragen Sie, warum ein Terminal schlecht eröffnet hat oder warum das erste Jahr einer Familie in einem neuen Land schwerer war als nötig, und die Antwort ist fast nie, dass das Ziel falsch war. Das Ziel war meist von Anfang an klar.",
+        "Fragen Sie, warum ein Terminal schlecht eröffnet wurde oder warum das erste Jahr einer Familie in einem neuen Land schwerer war als nötig, und die Antwort ist fast nie, dass das Ziel falsch war. Das Ziel war meist von Anfang an klar.",
         "Was schiefging, liegt zwischen der Entscheidung und dem Ergebnis: der zu spät beauftragte Spezialist, die Abhängigkeit, für die niemand zuständig war, das Formular, das erst das andere Formular brauchte, der Schulplatz, der weg war, als endlich jemand fragte.",
-        "Das ist keine Wissenslücke. Es ist eine Lücke in Reihenfolge und Zuständigkeit — und sie ist das Einzige, womit sich dieses Büro befasst.",
+        "Das ist keine Wissenslücke. Es ist eine Lücke in Reihenfolge und Zuständigkeit – und sie ist das Einzige, womit sich dieses Büro befasst.",
       ],
     },
     founder: {
       role: "Gründer",
-      opening: "Ich komme vom Vorfeld, nicht aus einer Beratung.",
+      opening: "Ich komme vom Vorfeld, nicht aus einer Unternehmensberatung.",
       statement: [
-        "Die Luftfahrt lehrt eines, bevor sie irgendetwas anderes lehrt. Komplexe Abläufe gelingen nicht, weil jemand das Ziel kannte. Sie gelingen, weil die Reihenfolge gehalten hat — wer was tut, in welcher Folge, und welche Abhängigkeit erledigt sein musste, bevor die nächste beginnen konnte.",
-        "Eine Familie oder ein Unternehmen über Grenzen zu verlegen, hat eine ungewohnte Oberfläche und eine sehr vertraute Struktur. Viele Spezialisten. Viele Fristen. Ein Ergebnis. Es scheitert selten am Unwissen über das Ziel; es scheitert daran, dass die Reihenfolge still auseinanderfällt, Wochen bevor es jemand bemerkt.",
+        "Die Luftfahrt lehrt eines, bevor sie irgendetwas anderes lehrt. Komplexe Abläufe gelingen nicht, weil jemand das Ziel kannte. Sie gelingen, weil die Reihenfolge gehalten hat – wer was tut, in welcher Folge und welche Abhängigkeit erledigt sein musste, bevor die nächste beginnen konnte.",
+        "Eine Familie oder ein Unternehmen über Grenzen zu bringen, sieht von außen ungewohnt aus und ist im Inneren sehr vertraut gebaut. Viele Spezialisten. Viele Fristen. Ein Ergebnis. Es scheitert selten am Unwissen über das Ziel; es scheitert daran, dass die Reihenfolge still auseinanderfällt – Wochen, bevor es jemand bemerkt.",
         "Das ist der ganze Grund, warum diese beiden Bereiche unter einem Namen stehen.",
       ],
       trajectory: [
@@ -752,8 +752,8 @@ export const de = {
           body: "Praktische Erfahrung in der Flugzeugwartung, einschließlich eines technischen Einsatzes in Athen.",
         },
         {
-          title: "Aviation Management — laufend",
-          body: "Derzeit Studium des Aviation Management an der TH Wildau in Deutschland.",
+          title: "Aviation Management – laufend",
+          body: "Derzeit Studium im Fach Aviation Management an der TH Wildau in Deutschland.",
         },
         {
           title: "Fliegen",
@@ -761,7 +761,7 @@ export const de = {
         },
         {
           title: "Sprachen, beruflich",
-          body: "Tätig als freiberuflicher Dolmetscher und Übersetzer — ein Jahrzehnt Übung darin, Bedeutung präzise zwischen Menschen zu vermitteln, die keine gemeinsame Sprache haben.",
+          body: "Tätig als freiberuflicher Dolmetscher und Übersetzer – ein Jahrzehnt Übung darin, Bedeutung präzise zwischen Menschen zu vermitteln, die keine gemeinsame Sprache haben.",
         },
       ],
       languagesLabel: "Arbeitssprachen",
@@ -772,12 +772,12 @@ export const de = {
         {
           title: "Name und Porträt",
           description:
-            "Der vollständige Name des Gründers und ein sorgfältig gemachtes redaktionelles Porträt. Beides wurde weder abgeleitet noch erzeugt.",
+            "Der vollständige Name des Gründers und ein sorgfältig gearbeitetes redaktionelles Porträt. Beides wird zugeliefert – nicht hergeleitet und nicht erfunden.",
         },
         {
           title: "Genaue Abschlussbezeichnungen",
           description:
-            "Die genaue verliehene Bezeichnung des georgischen Abschlusses und der erwartete Abschluss des Studiums Aviation Management.",
+            "Die genaue Bezeichnung des in Georgien verliehenen Abschlusses und das voraussichtliche Abschlussjahr des Studiums Aviation Management.",
         },
         {
           title: "Berufliche Mitgliedschaften",
@@ -795,20 +795,20 @@ export const de = {
         "Ein Beratungs- und Koordinationsbüro, unmittelbar von Entscheidern beauftragt.",
         "Verantwortlich für die Reihenfolge einer Arbeit, nicht nur für ihre Empfehlung.",
         "Sicher im Arbeiten zwischen Disziplinen, Rechtsordnungen und Zeitzonen.",
-        "Wählerisch — bewusst wenige Mandate zur gleichen Zeit.",
+        "Wählerisch – bewusst wenige Mandate zur gleichen Zeit.",
       ],
       areNot: [
         "Eine Anwaltskanzlei, Steuerkanzlei, Aufenthaltsagentur, zugelassene Finanzberatung oder Vermittlung.",
         "Ein Empfehlungsnetz, das von den vorgestellten Schulen, Banken, Maklern oder Anbietern bezahlt wird.",
-        "Ein Mengengeschäft — und nicht darauf angelegt, eines zu werden.",
+        "Ein Mengengeschäft – und nicht darauf angelegt, eines zu werden.",
         "Ein Büro, das seine Klienten veröffentlicht.",
       ],
     },
     recognition: {
       eyebrow: "Mit wem wir arbeiten",
       headline: "Sie merken schnell, ob das zu Ihnen passt.",
-      aviationLabel: "01 — Luftfahrt",
-      privateLabel: "02 — Privat",
+      aviationLabel: "01 – Luftfahrt",
+      privateLabel: "02 – Privat",
       aviation: [
         "Eine Airline, die am Boden Marge verliert",
         "Ein Flughafen, der etwas Neues eröffnet",
@@ -833,7 +833,7 @@ export const de = {
       items: [
         {
           title: "Wir sagen Nein",
-          body: "Sind wir für eine Arbeit nicht die Richtigen, sagen wir es früh — und nennen, wo wir können, wer es ist.",
+          body: "Sind wir für eine Arbeit nicht die Richtigen, sagen wir es früh – und nennen, wo wir können, wer es ist.",
         },
         {
           title: "Wir schreiben es auf",
@@ -860,7 +860,7 @@ export const de = {
         },
         {
           title: "Festlegung",
-          body: "Umfang, Reihenfolge, Zuständigkeiten und ein gutes Ergebnis — schriftlich vereinbart, bevor irgendeine Arbeit beginnt.",
+          body: "Umfang, Reihenfolge, Zuständigkeiten und ein gutes Ergebnis – schriftlich vereinbart, bevor irgendeine Arbeit beginnt.",
         },
         {
           title: "Umsetzung",
@@ -875,7 +875,7 @@ export const de = {
     reserved: {
       eyebrow: "Angaben zum Büro",
       headline: "Noch nicht belegt.",
-      note: "Diese Angaben stehen aus. Wir haben nichts erfunden, um die Lücken zu füllen — weder zur Geschichte des Büros noch zu den Menschen oder ihren Qualifikationen.",
+      note: "Diese Angaben stehen aus. Wir haben nichts erfunden, um die Lücken zu füllen – weder zur Geschichte des Büros noch zu den Menschen oder ihren Qualifikationen.",
       items: [
         {
           title: "Handelsregisterangaben",
@@ -890,7 +890,7 @@ export const de = {
         {
           title: "Fachliches Netzwerk",
           description:
-            "Wie externe Spezialisten ausgewählt und überprüft werden — allgemein beschrieben, ohne Namen von Kanzleien.",
+            "Wie externe Spezialisten ausgewählt und überprüft werden – allgemein beschrieben, ohne Namen von Kanzleien.",
         },
       ],
     },
@@ -910,14 +910,14 @@ export const de = {
       {
         index: "01",
         title: "Eine Frage stellen.",
-        body: "Eine bestimmte Lage verdient eine bestimmte Antwort. Schreiben Sie in Ihren eigenen Worten — Sie müssen kein Formular entschlüsseln.",
+        body: "Eine bestimmte Lage verdient eine bestimmte Antwort. Schreiben Sie in Ihren eigenen Worten – Sie müssen kein Formular entschlüsseln.",
         href: "/speak/ask",
         cta: "Schreiben Sie uns",
       },
       {
         index: "02",
         title: "Ein Gespräch vereinbaren.",
-        body: "Dreißig oder sechzig Minuten, in Ihrer eigenen Zeitzone. Luftfahrt oder privat — in beiden Fällen unverbindlich.",
+        body: "Dreißig oder sechzig Minuten, in Ihrer eigenen Zeitzone. Luftfahrt oder privat – in beiden Fällen unverbindlich.",
         href: "/speak/book",
         cta: "Zeit wählen",
       },
@@ -929,14 +929,14 @@ export const de = {
     boundaries: {
       eyebrow: "Wo die Grenze verläuft",
       headlineLines: ["Was wir koordinieren –", "und was nicht."],
-      note: "Die zweite Spalte ist keine Hürde, die wir umgehen — so wird diese Arbeit sauber gemacht. Wir klären, was nötig ist, beauftragen in der jeweiligen Rechtsordnung zugelassene Fachleute und bleiben für die Reihenfolge verantwortlich, in der sie arbeiten.",
+      note: "Die zweite Spalte ist keine Hürde, die wir umgehen, sondern die Art, wie diese Arbeit sauber gemacht wird. Wir klären, was nötig ist, beauftragen in der jeweiligen Rechtsordnung zugelassene Fachleute und bleiben für die Reihenfolge verantwortlich, in der sie arbeiten.",
       coordinatedLabel: "Lusian koordiniert",
       regulatedLabel: "Zugelassene Fachleute erbringen",
       coordinated: [
         "Umzugsstrategie und Marktorientierung",
         "Die schriftliche Abfolge und die Abhängigkeiten darin",
         "Vorstellung bei passenden Spezialisten und Anbietern",
-        "Ablauf der Firmengründung und dessen Koordination",
+        "Ablauf und Koordination der Firmengründung",
         "Koordination der Immobiliensuche",
         "Orientierung zu Schule und Gesundheitsversorgung",
         "Zeitpläne, Fristen und Ankunftslogistik",
@@ -944,10 +944,10 @@ export const de = {
       ],
       regulated: [
         "Rechtsberatung und jede Eingabe, die eine zugelassene Vertretung erfordert",
-        "Steuerberatung und steuerliche Ansässigkeit",
+        "Steuerberatung und Fragen der steuerlichen Ansässigkeit",
         "Prüfung, Voraussetzungen und Anträge im Aufenthaltsrecht",
         "Regulierte Anlage- und Finanzberatung",
-        "Förmliche Beratung zu Immobilientransaktion und Beurkundung",
+        "Förmliche Beratung zu Immobilientransaktionen und Beurkundung",
         "Prüfung, Buchführung und gesetzliche Rechnungslegung",
       ],
     },
@@ -1008,7 +1008,7 @@ export const de = {
       contactMethodLegend: "Wie sollen wir antworten",
       contactMethods: ["E-Mail", "Telefon", "Beides recht"],
       addContext: "Kontext hinzufügen",
-      addContextNote: "Freiwillig. Es macht die erste Antwort brauchbarer.",
+      addContextNote: "Freiwillig. Macht die erste Antwort brauchbarer.",
       supportLegend: "Wo Sie Unterstützung erwarten",
       supportAreas: [
         "Wahl des Marktes",
@@ -1058,7 +1058,7 @@ export const de = {
         "Ich bin damit einverstanden, dass Lusian diese Angaben speichert, um zu antworten. Sie werden ohne meine Weisung an niemanden weitergegeben und für nichts anderes als dieses Gespräch verwendet.",
       sent: {
         label: "Eingegangen",
-        headline: "Danke — Ihre Nachricht hat uns erreicht.",
+        headline: "Danke – Ihre Nachricht hat uns erreicht.",
         body: "Sie erhalten eine Antwort von einem Menschen, unter",
       },
       unconfigured:
@@ -1118,7 +1118,7 @@ export const de = {
       },
       notConnected: {
         label: "Buchung noch nicht angebunden",
-        body: "Die Terminvergabe ist auf dieser Seite noch nicht aktiv, es gibt also nichts anzuzeigen. Lieber als freie Zeiten vorzutäuschen, hätten wir eine Nachricht von Ihnen — in der Antwort schlagen wir Termine vor.",
+        body: "Die Terminvergabe ist auf dieser Seite noch nicht aktiv, es gibt also nichts anzuzeigen. Lieber als freie Zeiten vorzutäuschen, hätten wir eine Nachricht von Ihnen – in der Antwort schlagen wir Termine vor.",
         writeInstead: "Schreiben Sie uns stattdessen",
       },
       unavailableLabel: "Verfügbarkeit nicht abrufbar",
@@ -1144,7 +1144,7 @@ export const de = {
         "aviation-project": {
           name: "Projektgespräch",
           duration: "60 Minuten",
-          body: "Für eine klar umrissene Arbeit — ein Betrieb, eine Anlage, ein Programm oder ein Anbieter. Bringen Sie die Frage mit; wir sagen Ihnen, was eine ernsthafte Prüfung umfassen würde.",
+          body: "Für eine klar umrissene Arbeit – ein Betrieb, eine Anlage, ein Programm oder ein Anbieter. Bringen Sie die Frage mit; wir sagen Ihnen, was eine ernsthafte Prüfung umfassen würde.",
         },
         "private-initial": {
           name: "Erstgespräch",
@@ -1195,15 +1195,15 @@ export const de = {
           questions: [
             {
               q: "Wie engen Menschen sechs Märkte üblicherweise auf einen ein?",
-              a: "Danach, wie sie leben wollen, und nicht anhand von Vergleichstabellen. Dichte an Schulen und Medizin, wie oft Sie tatsächlich fliegen müssen, ob Ihre Arbeit Sie im Raum braucht und wie viel Intensität Sie im Alltag wollen — das entscheidet schneller als jedes Ranking.",
+              a: "Danach, wie sie leben wollen, und nicht anhand von Vergleichstabellen. Dichte an Schulen und Medizin, wie oft Sie tatsächlich fliegen müssen, ob Ihre Arbeit Sie im Raum braucht und wie viel Intensität Sie im Alltag wollen – das entscheidet schneller als jedes Ranking.",
             },
             {
               q: "Sollten wir vor der Entscheidung hinreisen?",
-              a: "Fast immer, und mit einem Auftrag statt als Touristen. Eine Woche mit konkreten Fragen — Wege zu der Stunde, zu der Sie sie wirklich zurücklegen würden, Schulen im Betrieb, Viertel an einem Werktag — ist mehr wert als Monate Recherche.",
+              a: "Fast immer, und mit einem Auftrag statt als Touristen. Eine Woche mit konkreten Fragen – Wege zu der Stunde, zu der Sie sie wirklich zurücklegen würden, Schulen im Betrieb, Viertel an einem Werktag – ist mehr wert als Monate Recherche.",
             },
             {
               q: "Können Sie uns sagen, für welches Visum oder welchen Aufenthaltsweg wir in Frage kommen?",
-              a: "Nein — und wer das ohne Kenntnis Ihrer Umstände selbstsicher beantwortet, ist mit Vorsicht zu behandeln. Wir zeigen die möglicherweise passenden Wege auf und ziehen zugelassene Berater für Prüfung und Antrag hinzu. Die Entscheidung liegt bei den Behörden.",
+              a: "Nein – und wer das ohne Kenntnis Ihrer Umstände selbstsicher beantwortet, ist mit Vorsicht zu behandeln. Wir zeigen die möglicherweise passenden Wege auf und ziehen zugelassene Berater für Prüfung und Antrag hinzu. Die Entscheidung liegt bei den Behörden.",
             },
           ],
         },
@@ -1213,7 +1213,7 @@ export const de = {
           questions: [
             {
               q: "Wann sollten wir mit den Schulen beginnen?",
-              a: "Früher, als es sich nötig anfühlt. Der eigentliche Engpass eines Umzugs sind die Plätze, nicht die Formalitäten — bei gefragten Jahrgängen und Lehrplänen kann die Verfügbarkeit sowohl die Stadt als auch den Zeitpunkt entscheiden.",
+              a: "Früher, als es sich nötig anfühlt. Der eigentliche Engpass eines Umzugs sind die Plätze, nicht die Formalitäten – bei gefragten Jahrgängen und Lehrplänen kann die Verfügbarkeit sowohl die Stadt als auch den Zeitpunkt entscheiden.",
             },
             {
               q: "Vermitteln Sie Schulplätze für Kinder?",
@@ -1231,7 +1231,7 @@ export const de = {
             },
             {
               q: "Stellen Sie uns Banken vor?",
-              a: "Wir stellen passende Verbindungen her und koordinieren, was die Eröffnung erfordert. Ob ein Konto eröffnet wird, entscheidet das Institut, nicht wir — und wir werden von den vorgestellten Banken nicht bezahlt.",
+              a: "Wir stellen passende Verbindungen her und koordinieren, was die Eröffnung erfordert. Ob ein Konto eröffnet wird, entscheidet das Institut, nicht wir – und wir werden von den vorgestellten Banken nicht bezahlt.",
             },
           ],
         },
@@ -1261,7 +1261,7 @@ export const de = {
     eyebrow: "Perspektiven",
     titleLines: ["Aus der Arbeit", "geschrieben."],
     standfirst:
-      "Kurze Texte zum Luftfahrtbetrieb, zu den Golfmärkten und zur praktischen Seite davon, ein Leben oder ein Unternehmen über Grenzen zu bewegen. Veröffentlicht nur, wenn es etwas zu sagen gibt.",
+      "Kurze Texte zum Luftfahrtbetrieb, zu den Golfmärkten und zur praktischen Seite dessen, ein Leben oder ein Unternehmen über Grenzen zu bringen. Veröffentlicht nur, wenn es etwas zu sagen gibt.",
     notice: {
       label: "Bereich in Vorbereitung",
       body: "Jeder Beitrag unten ist ein Platzhalter zur Prüfung von Layout und Typografie. Keiner ist veröffentlichte Recherche, keiner ist belegt, und keiner ist als Position des Büros zu lesen.",
@@ -1279,7 +1279,7 @@ export const de = {
     empty: "In dieser Kategorie ist noch nichts veröffentlicht.",
     articleNotice: {
       label: "Beispielbeitrag",
-      body: "Dieser Beitrag existiert, um das Artikellayout zu zeigen. Der Text unten ist Platzhaltertext — er ist keine Recherche, er ist nicht belegt, und er gibt nicht die Auffassung des Büros zum Thema wieder. Er wird vollständig ersetzt, bevor der Bereich Perspektiven veröffentlicht wird.",
+      body: "Dieser Beitrag existiert, um das Artikellayout zu zeigen. Der Text unten ist Platzhaltertext – er ist keine Recherche, er ist nicht belegt, und er gibt nicht die Auffassung des Büros zum Thema wieder. Er wird vollständig ersetzt, bevor der Bereich Perspektiven veröffentlicht wird.",
     },
     allInsights: "Alle Perspektiven",
     demoTitle: "{title} (Beispiel)",
@@ -1321,9 +1321,9 @@ export const de = {
         ],
       },
       "reading-a-gulf-city": {
-        title: "Eine Golfstadt lesen, bevor Sie sich binden",
+        title: "Eine Golfstadt einschätzen, bevor Sie sich binden",
         standfirst:
-          "Sechs Fragen, die es lohnt vor Ort zu beantworten – und die Reihenfolge, in der sie zu stellen sind.",
+          "Sechs Fragen, die man besser vor Ort beantwortet – und die Reihenfolge, in der man sie stellt.",
         readingTime: "8 Min.",
         date: "Beispieleintrag",
         sections: [
@@ -1367,9 +1367,9 @@ export const de = {
         ],
       },
       "operational-readiness-before-the-ribbon": {
-        title: "Betriebsbereitschaft, lange vor dem Band",
+        title: "Betriebsbereitschaft, lange vor der Eröffnungsfeier",
         standfirst:
-          "Was ein Terminal, das gut eröffnet, von einem unterscheidet, das lediglich pünktlich eröffnet.",
+          "Was ein Terminal, das gut eröffnet wird, von einem unterscheidet, das lediglich pünktlich eröffnet wird.",
         readingTime: "7 Min.",
         date: "Beispieleintrag",
         sections: [
@@ -1392,7 +1392,7 @@ export const de = {
       "capital-programmes-and-the-people-question": {
         title: "Investitionsprogramme und die Personalfrage",
         standfirst:
-          "Regionale Infrastrukturambition scheitert selten am Geld. Sie scheitert an fähigen Händen.",
+          "Regionale Infrastrukturvorhaben scheitern selten am Geld. Sie scheitern am Mangel an fähigen Händen.",
         readingTime: "6 Min.",
         date: "Beispieleintrag",
         sections: [
@@ -1413,9 +1413,9 @@ export const de = {
         ],
       },
       "moving-a-business-and-a-family-at-once": {
-        title: "Ein Unternehmen und eine Familie zugleich verlegen",
+        title: "Ein Unternehmen und eine Familie zugleich verlagern",
         standfirst:
-          "Die beiden Zeitpläne ziehen gegeneinander. Eine Auffassung dazu, welcher das Tempo vorgeben sollte.",
+          "Die beiden Zeitpläne arbeiten gegeneinander. Eine Auffassung dazu, welcher das Tempo vorgeben sollte.",
         readingTime: "5 Min.",
         date: "Beispieleintrag",
         sections: [
@@ -1459,7 +1459,7 @@ export const de = {
             required: [
               "Firmenname und Rechtsform",
               "Geschäftsanschrift (kein Postfach)",
-              "Vertreten durch — Name der vertretungsberechtigten Person oder Personen",
+              "Vertreten durch – Name der vertretungsberechtigten Person oder Personen",
               "Registergericht und Registernummer, sofern eingetragen",
               "Umsatzsteuer-Identifikationsnummer, sofern erteilt",
             ],
@@ -1588,7 +1588,7 @@ export const de = {
         title: "Haftungsausschluss",
         eyebrow: "Umfang der Leistungen",
         standfirst:
-          "Die Grenze zwischen dem, was dieses Büro tut, und dem, was qualifizierte Fachleute tun — hier ausgesprochen, damit sie nicht der Auslegung überlassen bleibt.",
+          "Die Grenze zwischen dem, was dieses Büro tut, und dem, was qualifizierte Fachleute tun – hier ausgesprochen, damit sie nicht der Auslegung überlassen bleibt.",
         sections: [
           {
             heading: "Nur Beratung und Koordination",
@@ -1635,7 +1635,7 @@ export const de = {
     aviationApron: {
       alt: "Vorfeldmarkierungen und Terminalstruktur im ersten Licht",
       brief:
-        "Betriebsumgebung im ersten Licht — Geometrie des Vorfelds, Standplatzmarkierungen, Struktur. Keine Flugzeuglackierung, keine Gesichter, keine Marken.",
+        "Betriebsumgebung im ersten Licht – Geometrie des Vorfelds, Standplatzmarkierungen, Struktur. Keine Flugzeuglackierung, keine Gesichter, keine Marken.",
       caption: "Wo die Arbeit geschieht",
     },
     gulfInterior: {

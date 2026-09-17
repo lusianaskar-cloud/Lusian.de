@@ -213,3 +213,71 @@ locale bundle is a grammar change in an inflected language, not a substitution.
 Six instances of `؛ و` were normalised to `، و`. The Arabic semicolon is real
 punctuation, but semicolon-plus-*waw* is the English semicolon habit wearing
 Arabic clothes — the *waw* already joins the clauses.
+
+---
+
+## 7. The philological pass
+
+A line-by-line reading of all 907 Arabic strings and the full German bundle,
+looking for grammar rather than register. What it found was not more calques —
+it was outright errors, several of which said the opposite of what was meant.
+
+### Errors of sense
+
+| Language | Was | Why it was wrong |
+| --- | --- | --- |
+| DE | `Sie scheitert an fähigen Händen.` | Says regional infrastructure fails **because of** capable hands. Now `am Mangel an fähigen Händen`. |
+| AR | `بل تقيّده الأيدي الكفؤة.` | The identical inversion in the Arabic edition. Now `بل يقيّده نقص الأيدي الكفؤة`. |
+| DE | `Beide bekommen, was sie brauchen.` | After "we write for the shift manager, not for the board's binder" — the two referents were a manager and a binder. Now `beide Seiten`. |
+| AR | `وكلاهما يحصل على ما يحتاجه.` | The same dangling dual. Now `ويحصل الطرفان على ما يحتاجانه`. |
+
+### Errors of grammar
+
+**German.** `ein Terminal, das gut eröffnet` — *eröffnen* is transitive; a
+terminal is opened, it does not open (two places). `Eine Familie verlegen` —
+*verlegen* moves departments and cables, not families. `abgewogen daran` —
+*abwägen* governs *gegen*, never *an*. `der Plan, gegen den die Arbeit läuft` —
+*gegen etwas laufen* means to oppose it; work is measured *an* a plan.
+`eine Entscheidung, die geprüft gehört` — the *gehört* + participle
+construction is South German colloquial, not standard. `die es lohnt zu
+beantworten` — missing both the reflexive and the comma before the extended
+infinitive. A serial comma before *und* in three enumerations, which German
+does not take.
+
+**Arabic.** `شبكة خطوط تُعاد بناؤها` — the نائب فاعل is بناء, masculine, so the
+verb must be `يُعاد`. `ما زال للحضور المبكر فيه قيمة` — قيمة is the ism of
+ما زال and feminine: `ما زالت`. `واثنان منها` for a feminine plural: `واثنتان`,
+with the verb to match. `بيئة عمرانية عُنيت بنفسها` — a passive cannot also be
+reflexive. `ولم يُصغها محامٍ` — a passive verb cannot take a stated agent.
+`إن كانت الإجابة الصحيحة مهنيًا مرخّصًا لا نحن` — an accusative and a nominative
+in apposition. `المراكز متعددة المدارج` — a definite noun takes a definite
+adjective.
+
+### Errors of lexis
+
+`Rechtsraum` is a legal *area* (europäischer Rechtsraum), not a jurisdiction.
+`eine Beratung` is a consultation, not a consulting firm. `Anwender` is a
+software user. `Vorstellung bei Bankverbindungen` — one is introduced to a
+bank, not to a banking relationship (the same error stood in Arabic:
+`التعريف بعلاقات مصرفية`). `مشهد المدارس` is the school *scene*, not its map.
+`الملكيات الحكومية` reads as government *monarchies*. `الموقع` is a place or a
+website, not a market position. `مطاري` is not an Arabic nisba.
+
+### Typography
+
+Every parenthetical dash in the German bundle was an em-dash (—). Duden sets
+the Gedankenstrich as the **Halbgeviertstrich** (–); the em-dash is English and
+American practice. 68 were converted. Ranges (`2–6 Wochen`) already used the
+correct Bis-Strich and were left alone. German compounds in the SEO keywords
+were standing unjoined (`Airline Beratung`), which is not German at any
+register.
+
+### One distinction worth keeping
+
+`محادثة` and `حديث` are not interchangeable and were not collapsed: `محادثة` is
+a **scheduled** conversation and stays throughout the booking flow; `حديث` is
+the act of talking, which is what an invitation invites you to. Likewise
+`على الأرض` was left standing on the aviation page, where it means literally
+*on the ground* as opposed to in the air — the one place the phrase is not a
+calque.
+
