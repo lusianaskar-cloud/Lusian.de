@@ -281,3 +281,84 @@ the act of talking, which is what an invitation invites you to. Likewise
 *on the ground* as opposed to in the air — the one place the phrase is not a
 calque.
 
+
+## 8. The calendar
+
+The booking calendar is the one place on the site where the words are not
+ours. Month names, weekday headings and long dates come from `Intl`, so they
+are as correct as CLDR is, and they never drift out of step with a translated
+month table. But `Intl` answers the question you ask it, and three of the
+questions were wrong.
+
+### The week does not start on Monday
+
+`monthGrid` padded to a Monday-first week and `weekdayLabels` counted from a
+Monday, in every language. That is right in Berlin and London and wrong in the
+Gulf, where the week begins on **Saturday** — which is what CLDR says for `ar`,
+and what the site's own readers use. Both now take a `firstDay` from
+`firstDayOfWeek(locale)`, which reads `Intl.Locale`'s `weekInfo` and falls back
+to Monday on engines that do not carry it. The Arabic calendar now reads
+`س ح ن ث ر خ ج`, Saturday first.
+
+### "M D M D F S S"
+
+The weekday headings asked `Intl` for the **narrow** form, which is one
+character — the right width for the column. In German that is
+`M D M D F S S`: Montag and Mittwoch collapse, so do Dienstag and Donnerstag,
+and Samstag and Sonntag. Four of the seven headings carried no information,
+and no German calendar has ever been set that way.
+
+`weekdayLabels` now prefers narrow, and falls back to the **short** form when
+the narrow set repeats itself *and* the short form still fits a one-to-two
+character column. German gets `Mo Di Mi Do Fr Sa So`. English keeps
+`M T W T F S S` — its narrow form is ambiguous too, but its short form is
+`Mon Tue Wed`, too wide for the column, and single letters are the English
+convention in any case. Arabic narrow is seven distinct letters and is kept.
+The rule is stated once, in the locale, rather than as a table of exceptions.
+
+### Latin inside an Arabic sentence
+
+IANA zone names are Latin in every language. Set inside
+`جميع الأوقات بتوقيت …`, `Asia/Dubai` is a left-to-right island in a
+right-to-left paragraph, and the bidirectional algorithm drags the neighbouring
+middle dots and the UTC offset into it. `isolate()` wraps such a run in U+2068
+and U+2069 before it is interpolated; the characters are invisible in a
+left-to-right page, so one string serves all three languages. The timezone
+`<select>`, which lists nothing but Latin identifiers, is marked `dir="ltr"`.
+
+### What was already right
+
+The arrows. `Arrow` mirrors itself under `rtl:-scale-x-100`, and the previous
+month button adds `rotate-180`; the two compose to a right-pointing arrow in
+Arabic, which is backwards in a right-to-left page — correct. The day buttons
+carry a full localised date as their `aria-label` and the heading row is
+`aria-hidden`, so an Arabic screen reader hears `الخميس، 17 سبتمبر 2026`
+rather than a bare letter. `dayKey` stays `en-CA` in every language, because it
+is an identifier and not a label.
+
+### Copy
+
+Read again at this level, the booking copy still held errors of the kind §7
+catalogues. German: `Zeiten angezeigt in` was a participle with nothing to
+hang on; `während Sie ausgefüllt haben` left a transitive verb without its
+object; `Lieber als X zu tun, hätten wir Y` is not a German construction; and
+the apposition after `für eine klar umrissene Arbeit` stood in the nominative
+where the accusative was governed. The flow reserved a *Zeit* in three places
+and confirmed a *Termin* in a fourth — German reserves the appointment, so all
+four now say Termin.
+
+Arabic: `احجز استشارة` is an imperative, correct on a button and wrong on a
+page title and an eyebrow, which take the verbal noun (`حجز استشارة`);
+`أي مجال يخصّ هذا الحجز` had the subject and object the wrong way round;
+`أي نوع من المحادثة` needed the plural after the partitive; the tamyīz after
+`ثلاثون` and `ستون` was missing its accusative (`دقيقةً`); `تحتاج الجواب`
+wanted `إلى`, as it has everywhere else in the bundle; and `تعذّر عرض الإتاحة`
+used a coinage where `المواعيد` was meant. `tryAgain` was the only button in
+the Arabic bundle written as an imperative — and in the masculine singular,
+which addresses half the readership — while `رجوع`, `متابعة`, `مراجعة` and
+`تأكيد` are all verbal nouns. It is now `إعادة المحاولة`.
+
+One word was examined and deliberately left: `الجهة` for the organisation
+field. It reads bureaucratic in isolation, but it is the one Arabic word that
+covers a company, an authority and a government body at once, which is exactly
+the mix the aviation practice writes to.

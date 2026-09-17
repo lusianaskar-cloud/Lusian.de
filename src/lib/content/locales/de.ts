@@ -52,7 +52,7 @@ export const de = {
     book: {
       title: "Gespräch vereinbaren",
       description:
-        "Wählen Sie Bereich, Gesprächsform und Zeit in Ihrer eigenen Zeitzone. Dreißig oder sechzig Minuten, vertraulich und unverbindlich.",
+        "Wählen Sie den Bereich, die Gesprächsform und die Zeit – in Ihrer eigenen Zeitzone. Dreißig oder sechzig Minuten, vertraulich und unverbindlich.",
     },
     questions: {
       title: "Häufige Fragen",
@@ -1084,21 +1084,21 @@ export const de = {
         {
           id: "private",
           label: "Private Begleitung",
-          body: "Umzug und Etablierung in der Golfregion, für Einzelpersonen, Familien und ihre Unternehmen.",
+          body: "Umzug und Etablierung in der Golfregion für Einzelpersonen, Familien und ihre Unternehmen.",
         },
       ],
       conversationQuestion: "Welche Art von Gespräch?",
       chooseTime: "Zeit wählen",
-      timesShownIn: "Zeiten angezeigt in",
+      timesShownIn: "Zeiten in",
       allTimesIn: "Alle Zeiten in {zone}",
       chooseDay: "Wählen Sie einen Tag, um die freien Zeiten zu sehen.",
-      checking: "Kalender wird geprüft …",
+      checking: "Der Kalender wird geprüft …",
       noneThisMonth: "In diesem Monat nichts frei. Versuchen Sie den nächsten.",
       nothingThisDay: "An diesem Tag ist nichts frei.",
       detailsHeading: "Ihre Angaben",
-      reviewHeading: "Bevor wir die Zeit reservieren",
+      reviewHeading: "Bevor wir den Termin eintragen",
       confirmedLabel: "Bestätigt",
-      confirmedHeading: "Die Zeit ist reserviert.",
+      confirmedHeading: "Der Termin steht.",
       fields: {
         name: "Name",
         email: "E-Mail",
@@ -1118,21 +1118,21 @@ export const de = {
       },
       notConnected: {
         label: "Buchung noch nicht angebunden",
-        body: "Die Terminvergabe ist auf dieser Seite noch nicht aktiv, es gibt also nichts anzuzeigen. Lieber als freie Zeiten vorzutäuschen, hätten wir eine Nachricht von Ihnen – in der Antwort schlagen wir Termine vor.",
-        writeInstead: "Schreiben Sie uns stattdessen",
+        body: "Die Terminvergabe ist auf dieser Seite noch nicht aktiv, es gibt also nichts anzuzeigen. Statt freie Zeiten vorzutäuschen, hätten wir lieber eine Nachricht von Ihnen – in der Antwort schlagen wir Termine vor.",
+        writeInstead: "Schreiben Sie uns lieber",
       },
-      unavailableLabel: "Verfügbarkeit nicht abrufbar",
+      unavailableLabel: "Zeiten nicht abrufbar",
       unavailableBody: "Wir konnten den Kalender gerade nicht erreichen.",
       errors: {
         notConfigured:
           "Die Terminvergabe ist noch nicht angebunden, es wurde daher nichts gebucht.",
-        taken: "Diese Zeit wurde vergeben, während Sie ausgefüllt haben. Bitte wählen Sie eine andere.",
+        taken: "Diese Zeit wurde vergeben, während Sie Ihre Angaben gemacht haben. Bitte wählen Sie eine andere.",
         failed: "Die Buchung konnte gerade nicht abgeschlossen werden.",
       },
       emailSent:
-        "Eine Bestätigung ist aus unserem Terminsystem unterwegs, mit den Angaben und einem Link zum Ändern der Zeit.",
+        "Eine Bestätigung aus unserem Terminsystem ist unterwegs, mit den Angaben und einem Link zum Ändern des Termins.",
       keepReference:
-        "Bewahren Sie die Referenz oben auf. Wenn Sie die Zeit verschieben müssen, schreiben Sie uns, und wir erledigen es.",
+        "Bewahren Sie die Referenz oben auf. Wenn Sie den Termin verschieben müssen, schreiben Sie uns, und wir kümmern uns darum.",
       manage: "Verschieben oder absagen",
       askInstead: "Lieber fragen",
       consultations: {
@@ -1144,7 +1144,7 @@ export const de = {
         "aviation-project": {
           name: "Projektgespräch",
           duration: "60 Minuten",
-          body: "Für eine klar umrissene Arbeit – ein Betrieb, eine Anlage, ein Programm oder ein Anbieter. Bringen Sie die Frage mit; wir sagen Ihnen, was eine ernsthafte Prüfung umfassen würde.",
+          body: "Für ein klar umrissenes Vorhaben – einen Betrieb, eine Anlage, ein Programm oder einen Anbieter. Bringen Sie die Frage mit; wir sagen Ihnen, was eine ernsthafte Prüfung umfassen würde.",
         },
         "private-initial": {
           name: "Erstgespräch",

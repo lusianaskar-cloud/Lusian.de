@@ -1,6 +1,6 @@
 "use client";
 
-import { monthGrid, monthLabel, formatLongDate, weekdayLabels } from "./time";
+import { monthGrid, monthLabel, formatLongDate, weekdayLabels, firstDayOfWeek } from "./time";
 import { Arrow } from "@/components/primitives/Arrow";
 import { useContent, useIntlLocale } from "@/lib/i18n/context";
 import { cn } from "@/lib/utils";
@@ -32,8 +32,9 @@ export function Calendar({
 }) {
   const { ui } = useContent();
   const locale = useIntlLocale();
-  const cells = monthGrid(year, month);
-  const weekdays = weekdayLabels(locale);
+  const firstDay = firstDayOfWeek(locale);
+  const cells = monthGrid(year, month, firstDay);
+  const weekdays = weekdayLabels(locale, firstDay);
 
   return (
     <div>

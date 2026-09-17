@@ -28,6 +28,7 @@ import {
   detectTimeZone,
   formatLongDate,
   formatTime,
+  isolate,
   zoneAbbreviation,
 } from "./time";
 
@@ -169,7 +170,10 @@ export function BookingFlow() {
     }
   }
 
-  const zone = `${timeZone.replace(/_/g, " ")} · ${zoneAbbreviation(timeZone, intl)}`;
+  // The IANA name is Latin in every language, so it is isolated before it is
+  // set inside an Arabic sentence — otherwise the middle dot and the offset
+  // reorder around it.
+  const zone = `${isolate(timeZone.replace(/_/g, " "))} · ${zoneAbbreviation(timeZone, intl)}`;
 
   return (
     <div>
@@ -311,6 +315,7 @@ export function BookingFlow() {
                   <span className="sr-only sm:not-sr-only">{copy.timesShownIn}</span>
                   <select
                     value={timeZone}
+                    dir="ltr"
                     onChange={(e) => changeTimeZone(e.target.value)}
                     className="border-b border-current/25 bg-transparent pb-1 label-mono focus:border-current/60 focus:outline-none"
                   >
@@ -595,7 +600,7 @@ export function BookingFlow() {
                   [copy.summary.date, formatLongDate(result.start, result.timeZone, intl)],
                   [
                     copy.summary.time,
-                    `${formatTime(result.start, result.timeZone, intl)} · ${result.timeZone.replace(/_/g, " ")}`,
+                    `${formatTime(result.start, result.timeZone, intl)} · ${isolate(result.timeZone.replace(/_/g, " "))}`,
                   ],
                   [copy.summary.reference, result.reference],
                 ].map(([label, value]) => (
