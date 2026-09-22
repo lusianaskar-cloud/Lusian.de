@@ -9,6 +9,7 @@ import "../globals.css";
 import { site } from "@/lib/content/site";
 import { isLocale, locales, localeMeta } from "@/lib/i18n/config";
 import { contentFor } from "@/lib/i18n/dictionary";
+import { structuredDataJson } from "@/lib/seo/structuredData";
 import { alternatesFor } from "@/lib/i18n/metadata";
 import { LocaleProvider } from "@/lib/i18n/context";
 import { SiteHeader } from "@/components/chrome/SiteHeader";
@@ -150,6 +151,15 @@ export default async function RootLayout({
         .join(" ")}
     >
       <body className="antialiased">
+        {/*
+          * What the firm is, for machines. Held to the same standard as the
+          * copy — see src/lib/seo/structuredData.ts for what it is and is not
+          * allowed to assert.
+          */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: structuredDataJson(lang) }}
+        />
         <a
           href="#main"
           className="sr-only rounded-full border border-ink px-6 py-3 label-ui focus:not-sr-only focus:fixed focus:start-6 focus:top-6 focus:z-[300] focus:bg-ivory focus:text-ink"
