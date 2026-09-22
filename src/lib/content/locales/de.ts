@@ -761,7 +761,7 @@ export const de = {
         },
         {
           title: "Sprachen, beruflich",
-          body: "Tätig als freiberuflicher Dolmetscher und Übersetzer – ein Jahrzehnt Übung darin, Bedeutung präzise zwischen Menschen zu vermitteln, die keine gemeinsame Sprache haben.",
+          body: "Tätig als freiberuflicher Dolmetscher und Übersetzer – geübt darin, Bedeutung präzise zwischen Menschen zu vermitteln, die keine gemeinsame Sprache haben.",
         },
       ],
       languagesLabel: "Arbeitssprachen",

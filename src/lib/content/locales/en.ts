@@ -754,7 +754,7 @@ export const en = {
         },
         {
           title: "Languages, professionally",
-          body: "Works as a freelance interpreter and translator — a decade's habit of carrying meaning accurately between people who do not share a language.",
+          body: "Works as a freelance interpreter and translator — practised at carrying meaning accurately between people who do not share a language.",
         },
       ],
       languagesLabel: "Working languages",

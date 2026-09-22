@@ -73,7 +73,7 @@ export default async function PrivateAdvisoryPage() {
       />
 
       <Section tone="light" className="relative overflow-hidden bg-ivory" aria-labelledby="gulf-position">
-        <LitGround preset="plaster" still={0.34} dim={0.35} />
+        <LitGround preset="plaster" still={0.34} dim={0.5} />
         <Container className="relative py-24 lg:py-36">
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
             <h2

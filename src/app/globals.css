@@ -433,7 +433,13 @@
 @utility tone-dark {
   --tone-bg: var(--color-ink);
   --tone-fg: var(--color-ivory);
-  --tone-fg-muted: color-mix(in oklab, var(--color-ivory) 58%, transparent);
+  /*
+   * 58% measured between 2.9:1 and 3.5:1 for body copy set over a lit field —
+   * the light behind it is not the flat tone this percentage assumed. 78%
+   * clears 4.5:1 on the presets that carry reading text and still reads as
+   * secondary against full ivory.
+   */
+  --tone-fg-muted: color-mix(in oklab, var(--color-ivory) 78%, transparent);
   --tone-rule: color-mix(in oklab, var(--color-ivory) 18%, transparent);
   --tone-accent: var(--color-champagne);
   color: var(--tone-fg);
@@ -448,14 +454,14 @@
      the lightest ground the site uses — and this is body copy, which has to
      clear it in every language.
   */
-  --tone-fg-muted: color-mix(in oklab, var(--color-ink) 65%, transparent);
+  --tone-fg-muted: color-mix(in oklab, var(--color-ink) 78%, transparent);
   --tone-rule: color-mix(in oklab, var(--color-ink) 14%, transparent);
   --tone-accent: var(--color-brass);
   color: var(--tone-fg);
 }
 
 @utility text-tone-muted {
-  color: var(--tone-fg-muted, color-mix(in oklab, currentColor 58%, transparent));
+  color: var(--tone-fg-muted, color-mix(in oklab, currentColor 78%, transparent));
 }
 
 @utility border-tone {

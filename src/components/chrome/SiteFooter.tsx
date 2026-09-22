@@ -49,7 +49,7 @@ export function SiteFooter() {
           <div className="grid gap-10 sm:grid-cols-2 lg:col-span-7 lg:col-start-6 xl:grid-cols-4">
             {footer.columns.map((column) => (
               <nav key={column.title} aria-label={column.title}>
-                <Eyebrow className="text-ivory/35">
+                <Eyebrow className="text-ivory/65">
                   {column.title}
                 </Eyebrow>
                 <ul className="mt-6 space-y-3.5">
@@ -77,10 +77,10 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-20 border-t border-ivory/10 pt-8">
-          <p className="max-w-4xl type-voice text-[0.8125rem] text-ivory/40">
+          <p className="max-w-4xl type-voice text-[0.8125rem] text-ivory/65">
             {legal.notice}
           </p>
-          <div className="mt-8 flex flex-col gap-5 type-voice text-[0.8125rem] text-ivory/35 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-8 flex flex-col gap-5 type-voice text-[0.8125rem] text-ivory/65 sm:flex-row sm:items-center sm:justify-between">
             <p>
               © {new Date().getFullYear()} <span lang="en">{site.wordmark}</span>
             </p>

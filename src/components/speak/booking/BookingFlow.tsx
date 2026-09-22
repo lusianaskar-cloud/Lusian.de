@@ -192,7 +192,10 @@ export function BookingFlow() {
               <span
                 className={cn(
                   "label-ui transition-opacity duration-500",
-                  i === step ? "opacity-100" : i < step ? "opacity-55" : "opacity-30",
+                  // Subordinate, not invisible: at 0.3 a step name was ink
+                  // at about 2:1 on ivory. The order still reads current,
+                  // done, still to come.
+                  i === step ? "opacity-100" : i < step ? "opacity-75" : "opacity-60",
                 )}
                 aria-current={i === step ? "step" : undefined}
               >

@@ -33,7 +33,7 @@ export function PageHero({
   condition,
   voice,
   still = 0.42,
-  dim,
+  dim = 0.45,
   className,
   visual,
   children,
@@ -50,6 +50,14 @@ export function PageHero({
   /** Where the source sits; the hero does not scrub, so it is stated. */
   still?: number;
   /** Held back where the title would otherwise be read against the source. */
+  /**
+   * 0–1, and defaulted rather than optional.
+   *
+   * A hero carries the standfirst and the sector line, so it is a reading
+   * surface whatever else it is. Left undimmed, ivory body copy on the
+   * brighter presets measured under 4:1 — the pages that passed no `dim` at
+   * all were the ones that failed.
+   */
   dim?: number;
   className?: string;
   visual?: ReactNode;

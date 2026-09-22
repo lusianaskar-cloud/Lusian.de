@@ -224,16 +224,31 @@ export function Scene01Horizon() {
   const close = useRange(scrollYProgress, [0.78, 0.9], [0, 1]);
   const closeLift = useRange(scrollYProgress, [0.78, 0.9], ["2.5rem", "0rem"]);
 
-  // Tell the header what is beneath it.
+  /*
+   * Tell the header what is beneath it.
+   *
+   * This runs under `prefers-reduced-motion` as well. It reports a colour,
+   * not a movement, and suppressing it there left the header rendering dark
+   * ink on the dark stage — illegible, and only for the readers who asked
+   * for the accommodation.
+   */
   useEffect(() => {
-    if (reduced) return;
     return scrollYProgress.on("change", (v) => {
       setDark((current) => (current === v > 0.42 ? current : v > 0.42));
     });
-  }, [reduced, scrollYProgress]);
+  }, [scrollYProgress]);
 
   useEffect(() => {
+    /*
+     * A declaration outranks the header's own measurement, so it has to be
+     * worth more than the measurement. Under reduced motion this scene
+     * collapses to no height at all and the section below it is what sits
+     * beneath the header — but the collapsed scene went on declaring "light"
+     * and overrode a correctly measured "dark". A section with no height is
+     * not beneath anything, and says nothing.
+     */
     if (!inView) return;
+    if ((ref.current?.getBoundingClientRect().height ?? 0) < 1) return;
     setStageTone(dark ? "dark" : "light");
     return () => setStageTone(null);
   }, [inView, dark]);

@@ -66,7 +66,7 @@ export default async function AviationPage() {
         className="relative overflow-hidden bg-ivory"
         aria-labelledby="position-heading"
       >
-        <LitGround preset="plaster" still={0.3} dim={0.35} />
+        <LitGround preset="plaster" still={0.3} dim={0.5} />
         <Container className="relative py-28 lg:py-44">
           <Reveal>
             <p className="type-voice text-[0.9375rem] text-tone-muted">
@@ -106,7 +106,7 @@ export default async function AviationPage() {
         className="relative overflow-hidden bg-petrol"
         aria-labelledby="onsite-heading"
       >
-        <LitGround preset="hangar" still={0.46} dim={0.5} />
+        <LitGround preset="hangar" still={0.46} dim={0.62} />
         <span aria-hidden className="grain-layer" />
 
         <Container className="relative py-28 lg:py-44">
@@ -213,7 +213,7 @@ export default async function AviationPage() {
         className="relative overflow-hidden bg-ivory"
         aria-labelledby="approach-heading"
       >
-        <LitGround preset="plaster" still={0.62} dim={0.35} />
+        <LitGround preset="plaster" still={0.62} dim={0.5} />
         <Container className="relative py-28 lg:py-44">
           <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
             <div className="lg:col-span-4">

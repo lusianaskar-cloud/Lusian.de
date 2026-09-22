@@ -97,7 +97,7 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
                       onClick={onClose}
                       className="flex items-baseline gap-5 py-5"
                     >
-                      <span className="type-voice text-[0.8125rem] text-ivory/35">{ordinal(i)}</span>
+                      <span className="type-voice text-[0.8125rem] text-ivory/65">{ordinal(i)}</span>
                       <span className="type-structure text-[calc(clamp(2.1rem,10vw,3.25rem)*var(--ar-struct))]">
                         {item.label}
                       </span>
@@ -125,7 +125,7 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
             <span aria-hidden className="block size-1.5 rounded-full bg-champagne" />
           </TransitionLink>
 
-          <div className="space-y-2 type-voice text-[0.8125rem] text-ivory/45">
+          <div className="space-y-2 type-voice text-[0.8125rem] text-ivory/65">
             <p dir="ltr" className="rtl:text-end">
               <a
                 href={`mailto:${contactChannels.email}`}

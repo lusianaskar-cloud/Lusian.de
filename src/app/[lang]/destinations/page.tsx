@@ -34,7 +34,7 @@ export default async function DestinationsPage() {
         voice="warm"
         tone="dark"
         still={0.4}
-        dim={0.3}
+        dim={0.5}
         className="bg-umber"
         titleLines={plainLines(copy.titleLines)}
         standfirst={copy.standfirst}
@@ -42,7 +42,7 @@ export default async function DestinationsPage() {
       />
 
       <Section tone="dark" grain className="relative overflow-hidden bg-ink" aria-labelledby="explorer-heading">
-        <LitGround preset="stone" still={0.55} dim={0.55} />
+        <LitGround preset="stone" still={0.55} dim={0.62} />
         <Container className="py-20 lg:py-32">
           <div className="flex flex-col gap-6 pb-12 lg:flex-row lg:items-end lg:justify-between lg:pb-16">
             <div>

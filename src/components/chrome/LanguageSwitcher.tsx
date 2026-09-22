@@ -65,7 +65,7 @@ export function LanguageSwitcher({
               onClick={() => rememberLocale(locale)}
               className={cn(
                 "label-ui text-[0.8125rem] transition-opacity duration-500",
-                current ? "opacity-100" : "opacity-45 hover:opacity-100",
+                current ? "opacity-100" : "opacity-65 hover:opacity-100",
               )}
             >
               {localeMeta[locale].label}

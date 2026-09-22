@@ -38,6 +38,16 @@ export function ConsultCta({
   return (
     <Section tone="dark" className="relative overflow-hidden bg-obsidian" aria-labelledby="cta-heading">
       <Surface preset="terminator" still={0.62} />
+      {/*
+        * The same scrim `LitGround` applies to a reading section, because
+        * this one is read too. Undimmed, the terminator's warm pool put the
+        * display line at about 1.7:1 and the body at 1.8:1 — on the call to
+        * action, on every page of the site.
+        */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 block bg-[color:var(--tone-bg)] opacity-55"
+      />
 
       <Container className="relative py-28 lg:py-44">
         <Reveal>
@@ -70,7 +80,7 @@ export function ConsultCta({
               <a
                 href={`mailto:${contactChannels.email}`}
                 dir="ltr"
-                className="type-voice text-[0.8125rem] tracking-[0.04em] text-ivory/40 underline-offset-8 transition-colors duration-500 hover:text-champagne hover:underline"
+                className="type-voice text-[0.8125rem] tracking-[0.04em] text-ivory/65 underline-offset-8 transition-colors duration-500 hover:text-champagne hover:underline"
               >
                 {contactChannels.email}
               </a>

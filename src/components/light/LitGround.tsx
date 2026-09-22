@@ -26,7 +26,15 @@ export function LitGround({
 }: {
   preset: PresetName;
   still?: number;
-  /** 0–1. Reading sections take about 0.5; a scene takes none. */
+  /**
+   * 0–1. A reading section takes **at least 0.5**; a scene takes none.
+   *
+   * This is a legibility floor, not a taste setting. Ivory body copy set on
+   * an undimmed field measures around 2:1 — visible, and not readable. The
+   * pages that sat at 0.25 and 0.35 were the ones that failed. Where a preset
+   * is bright (`stone`), 0.5 is still not enough and the value is derived
+   * from the measurement rather than chosen: see docs/ACCESSIBILITY.md.
+   */
   dim?: number;
   className?: string;
 }) {

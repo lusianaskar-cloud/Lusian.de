@@ -139,7 +139,7 @@ export function EditorialImage({
         <span
           className={cn(
             "label-mono absolute bottom-[1.4rem] start-14",
-            tone === "dark" ? "text-ivory/45" : "text-ink/45",
+            tone === "dark" ? "text-ivory/65" : "text-ink/70",
           )}
         >
           {copy.caption}

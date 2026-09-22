@@ -30,7 +30,7 @@ export default async function SpeakPage() {
   return (
     <>
       <Section tone="dark" className="relative overflow-hidden bg-obsidian">
-        <LitGround preset="terminator" still={0.5} dim={0.25} />
+        <LitGround preset="terminator" still={0.5} dim={0.65} />
         <Container className="relative pb-20 pt-36 lg:pb-28 lg:pt-44">
           <Reveal eager>
             <Eyebrow>{copy.eyebrow}</Eyebrow>
@@ -66,7 +66,7 @@ export default async function SpeakPage() {
               >
                 <span
                   className={cn(
-                    "type-voice text-[0.8125rem] tabular-nums text-ink/40",
+                    "type-voice text-[0.8125rem] tabular-nums text-ink/70",
                     i === 0 ? "lg:col-span-1" : "lg:order-2 lg:col-span-1 lg:col-start-12",
                   )}
                 >
@@ -159,7 +159,7 @@ export default async function SpeakPage() {
                 </ul>
               </Reveal>
               <Reveal delay={0.08}>
-                <h3 className="type-voice text-[0.8125rem] tabular-nums text-ink/45">{boundaries.regulatedLabel}</h3>
+                <h3 className="type-voice text-[0.8125rem] tabular-nums text-ink/70">{boundaries.regulatedLabel}</h3>
                 <ul className="mt-6">
                   {boundaries.regulated.map((item) => (
                     <li
@@ -185,7 +185,7 @@ export default async function SpeakPage() {
                   {contactChannels.email}
                 </a>
                 {/* TODO(client): real line, or delete. */}
-                <p dir="ltr" className="mt-2 type-voice text-[0.8125rem] tabular-nums text-ink/40 rtl:text-end">
+                <p dir="ltr" className="mt-2 type-voice text-[0.8125rem] tabular-nums text-ink/70 rtl:text-end">
                   {contactChannels.phone}
                 </p>
               </div>
