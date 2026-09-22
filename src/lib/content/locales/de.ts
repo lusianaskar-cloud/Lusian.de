@@ -237,7 +237,7 @@ export const de = {
     },
     argument: {
       eyebrow: "Warum Klienten uns beauftragen",
-      headlineLines: ["Vier Dinge, bei denen wir", "keine Abstriche machen."],
+      headlineLines: ["Vier Dinge,", "bei denen wir keine Abstriche machen."],
       note: "Wir veröffentlichen keine Klientennamen, keine Fallstudien und keine Zahlen, für die wir nicht einstehen können. Was folgt, ist alles, was für uns spricht.",
       items: [
         {
@@ -285,8 +285,7 @@ export const de = {
     onSite: {
       eyebrow: "Vor Ort",
       headlineLines: [
-        "Was auf dem Vorfeld",
-        "niemand wiedererkennt,",
+        "Was auf dem Vorfeld niemand wiedererkennt,",
         "ist keine Erkenntnis.",
       ],
       body: "Wir fangen dort an, wo der Betrieb läuft. Und dann, wenn es eng wird. Was danach auf Papier steht, muss sich an dem messen lassen, was wir dort gesehen haben.",
@@ -350,7 +349,7 @@ export const de = {
     },
     sectors: {
       eyebrow: "Mit wem wir arbeiten",
-      headlineLines: ["Betreiber, Eigentümer", "und die Stellen, denen sie Rechenschaft schulden."],
+      headlineLines: ["Betreiber, Eigentümer", "und die Behörden,", "denen sie Rechenschaft schulden."],
       items: [
         {
           name: "Fluggesellschaften",
@@ -444,7 +443,7 @@ export const de = {
       "Wir planen den privaten Neuanfang in der Golfregion, bringen ihn in die richtige Reihenfolge und koordinieren ihn durchgehend. Bei einer Person, die das ganze Dossier kennt.",
     meta: "Vereinigte Arabische Emirate · Saudi-Arabien · Katar · Bahrain · Oman · Kuwait",
     positioning: {
-      headlineLines: ["Ein Umzug ist", "keine einzelne Entscheidung."],
+      headlineLines: ["Ein Umzug", "ist keine einzelne Entscheidung."],
       statement:
         "Ein Umzug mit Familie, mit einem Unternehmen oder mit beidem ist keine einzelne Entscheidung. Es sind mehrere hundert. Sie wollen der Reihe nach getroffen werden, in einem fremden System und meist mit einem Stichtag im Nacken.",
       support:
@@ -597,7 +596,7 @@ export const de = {
     destinationsLink: "Die sechs Märkte",
     cta: {
       eyebrow: "Private Anfragen",
-      lines: ["Ein vertrauliches", "Gespräch."],
+      lines: ["Sprechen Sie", "vertraulich."],
       body: "Das erste Gespräch ist kurz, vertraulich und unverbindlich. Unterlagen brauchen Sie dafür noch nicht.",
       label: "Gespräch vereinbaren",
     },
@@ -894,7 +893,7 @@ export const de = {
       ],
     },
     cta: {
-      lines: ["Ein kurzes", "Gespräch."],
+      lines: ["Ein Gespräch,", "kurz gehalten."],
       body: "Ist Ihre Lage ungewöhnlich, spricht das meist dafür, dass ein Anruf besser passt als ein Formular.",
       label: "Sprechen Sie mit Lusian",
     },
@@ -927,7 +926,7 @@ export const de = {
     },
     boundaries: {
       eyebrow: "Wo die Grenze verläuft",
-      headlineLines: ["Was wir koordinieren –", "und was nicht."],
+      headlineLines: ["Was wir koordinieren,", "und was nicht."],
       note: "Die zweite Spalte ist keine Hürde, die wir umgehen, sondern die Art, wie diese Arbeit sauber gemacht wird. Wir klären, was nötig ist, beauftragen in der jeweiligen Rechtsordnung zugelassene Fachleute und bleiben für die Reihenfolge verantwortlich, in der sie arbeiten.",
       coordinatedLabel: "Lusian koordiniert",
       regulatedLabel: "Zugelassene Fachleute erbringen",
@@ -1284,7 +1283,7 @@ export const de = {
     demoTitle: "{title} (Beispiel)",
     cta: {
       eyebrow: "Anfragen",
-      lines: ["Lieber direkt", "fragen?"],
+      lines: ["Lieber", "direkt fragen?"],
       body: "Die nützlichsten Antworten hängen an einer bestimmten Lage und gehören eher in ein Gespräch als in eine Veröffentlichung.",
       label: "Ein Gespräch beginnen",
     },
