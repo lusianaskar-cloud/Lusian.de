@@ -362,3 +362,77 @@ One word was examined and deliberately left: `الجهة` for the organisation
 field. It reads bureaucratic in isolation, but it is the one Arabic word that
 covers a company, an authority and a government body at once, which is exactly
 the mix the aviation practice writes to.
+
+## 9. The fourth pass: orthography and micro-typography
+
+§7 read for sense, grammar, lexis and typography. §8 read the calendar. This
+pass read for the things a reader does not consciously notice and a native
+speaker cannot unsee: whether the same word is spelled the same way twice.
+
+### The method
+
+Mechanical, because this is the one layer where a script beats a careful
+reader. Every string literal in the three bundles was extracted and checked
+for: placeholder parity, quotation-mark inventory, ASCII characters standing
+in for typographic ones, German abbreviation spacing, and — the productive
+one — **words that appear in more than one spelling once tatweel, harakat,
+alif forms, alif maqsura and taa marbuta are normalised away**.
+
+That last check found 36 variant groups in Arabic, 28 of them differing only
+by diacritics. Each was then read in context. **None was fixed by find and
+replace**, because most of them were not errors at all.
+
+### The house style it revealed
+
+The bundle vocalises the passive and leaves the active bare — `يُنشر` against
+`ينشر`, `نُكلَّف` against `نكلّف`. That is not an inconsistency, it is the
+correct convention: unvocalised Arabic cannot otherwise distinguish the two,
+and `مكتب ينشر عملاءه` ("an office that publishes its clients") is a different
+sentence from one about being published. Twenty of the twenty-eight groups
+were this distinction working properly, and they were left alone.
+
+### What was actually wrong
+
+| Where | Was | Is | Why |
+| --- | --- | --- | --- |
+| `ar:245` | `والملاك` | `والمُلّاك` | The line lists what an operation actually runs on — stands, rosters, permits, **landlords**, lead times. Unpointed, `الملاك` reads as *al-malak*: the angel. |
+| `ar:471` | `تحدد` | `تحدّد` | Form II ḥaddada; without the shadda it is a different verb. |
+| `ar:516`, `ar:1191` | `التنقل` | `التنقّل` | *tanaqqul*, mobility — form V, and the shadda carries it. |
+| `ar:1173` | `يتفق` | `يتّفق` | Form VIII *ittafaqa*: the shadda is on the tāʾ. |
+| `ar:703`, `ar:706` | `موجّهة` | `موجَّهة` | A shadda alone leaves *muwajjiha* (directing) and *muwajjaha* (directed) identical. The fatḥa decides it, and the line means directed. |
+| `ar:966` | `مهنيّ` | `مهني` | The other four occurrences in the bundle write it bare. |
+| `en` ×19 | `'` | `’` | ASCII apostrophes in `An operator's judgement` and the rest. English, not Arabic, but the same standard. |
+
+### What was checked and found clean
+
+- **Placeholder parity.** Every `{name}`, `{current}`, `{total}`, `{zone}`
+  appears the same number of times in all three bundles. None translated.
+- **German orthography.** No Deppenapostroph. No spaced hyphen standing in for
+  a dash — the §7 en-dash conversion held. No double spaces. `muss` and `dass`
+  are correct post-1996 and are not `ß` errors.
+- **German abbreviations.** There are none: no `z. B.`, no `d. h.`, no `u. a.`
+  The register writes them out, which is why the spacing rule never arises.
+- **German terminology.** `Beratung` and `Begleitung` split 19/15, which is the
+  two divisions, not drift. `Praxis` once ("für die Praxis"), `Auftrag` twice
+  ("mit einem Auftrag ankommen") and `Beauftragung` once (the legal
+  disclaimer) are distinct senses, not competing renderings of one term.
+- **Reflow.** No horizontal overflow at 320px or 390px in either language, on
+  any route. German's long compounds — `Umsatzsteuer-Identifikationsnummer`,
+  `Verbraucherschlichtungsstelle` — all sit at small sizes in legal copy and
+  fit. There is no `hyphens: auto` anywhere; nothing currently needs it, and
+  adding it would change the rag across the German site, so it is recorded
+  here rather than imposed.
+- **Prose.** The display lines hold up. `Zwischen einer Entscheidung und ihrer
+  Umsetzung liegt unsere Arbeit` fronts the phrase and keeps the verb second,
+  which is German rhetoric rather than English word order; `Ein Haus` for "One
+  firm" is the idiom. `بين القرار وتنفيذه مسافة، وفيها نعمل` is a fronted
+  adverbial nominal sentence, and the waw opening `ومعيار واحد في التنفيذ`
+  binds it to the line above as Arabic cohesion wants.
+
+### The rule this pass exists to enforce
+
+Normalise, group, then **read every group in context before touching one
+character**. The 28 diacritic variants looked like 28 errors and were seven.
+A bulk replace over that list would have turned twenty correct passives into
+actives and broken the sense of the pages they sit on — which is exactly the
+damage §7 records from the last time a find-and-replace was trusted here.

@@ -33,7 +33,7 @@ export const en = {
     about: {
       title: "About",
       description:
-        "Why Lusian exists, who is behind it, and where the practice's responsibility ends and a licensed professional's begins.",
+        "Why Lusian exists, who is behind it, and where the practice’s responsibility ends and a licensed professional’s begins.",
     },
     speak: {
       title: "Speak with Lusian",
@@ -240,7 +240,7 @@ export const en = {
           body: "The person you first speak to stays with the engagement to its close. Work is not handed down a bench.",
         },
         {
-          title: "An operator's judgement",
+          title: "An operator’s judgement",
           body: "Advice shaped by how things actually run — stands, rosters, licences, landlords, lead times — rather than how they present in a deck.",
         },
         {
@@ -268,7 +268,7 @@ export const en = {
       { text: "is the strategy.", accent: "strategy" },
     ],
     standfirst:
-      "An airline's margin is settled in fifteen-minute increments on a stand. An airport's reputation is settled in a queue. We advise on the layer where strategy becomes throughput — and we are comfortable being measured there.",
+      "An airline’s margin is settled in fifteen-minute increments on a stand. An airport’s reputation is settled in a queue. We advise on the layer where strategy becomes throughput — and we are comfortable being measured there.",
     meta: "Airlines · Airports · Ground handling · Investors · Infrastructure · Public sector",
     positioning: {
       eyebrow: "Position",
@@ -606,7 +606,7 @@ export const en = {
     explorer: {
       eyebrow: "The region, plotted",
       headline: "Select a market.",
-      note: "Positions are plotted from each market's principal hub. One market at a time, so the differences are actually visible.",
+      note: "Positions are plotted from each market’s principal hub. One market at a time, so the differences are actually visible.",
     },
     omissions: {
       heading: "What this page deliberately omits",
@@ -626,7 +626,7 @@ export const en = {
         short: "UAE",
         hub: "Dubai · Abu Dhabi",
         cities: ["Dubai", "Abu Dhabi", "Sharjah", "Ras Al Khaimah"],
-        line: "The region's default entry point, and still its most liquid.",
+        line: "The region’s default entry point, and still its most liquid.",
         body: "Two very different city cultures within an hour of one another: one built for velocity and international exchange, the other for institutions, culture and a slower domestic register. Depth of international schooling, healthcare and professional services is the practical advantage — most requirements can be met without leaving the country.",
         character: [
           "Deepest international school and healthcare provision in the Gulf",
@@ -668,7 +668,7 @@ export const en = {
         short: "Bahrain",
         hub: "Manama",
         cities: ["Manama", "Riffa", "Amwaj"],
-        line: "The Gulf's oldest financial community, at a smaller scale.",
+        line: "The Gulf’s oldest financial community, at a smaller scale.",
         body: "A long-established banking and insurance sector, a lower cost base, and a familiarity to daily life that longer-standing residents tend to cite first. The causeway relationship with the Eastern Province makes it a practical base for those whose work sits in Saudi Arabia but whose family life does not need to.",
         character: [
           "Mature banking, insurance and financial-services community",
@@ -718,7 +718,7 @@ export const en = {
       eyebrow: "Why Lusian exists",
       headline: "Almost nothing fails at the decision.",
       body: [
-        "Ask why a terminal opened badly, or why a family's first year in a new country was harder than it needed to be, and the answer is almost never that the goal was wrong. The goal was usually clear from the start.",
+        "Ask why a terminal opened badly, or why a family’s first year in a new country was harder than it needed to be, and the answer is almost never that the goal was wrong. The goal was usually clear from the start.",
         "What went wrong sits in the distance between the decision and the result: the specialist engaged too late, the dependency nobody owned, the form that needed the other form first, the school place gone by the time anyone asked.",
         "That distance is not a gap in knowledge. It is a gap in sequence and accountability — and it is the only thing this firm does.",
       ],
@@ -765,7 +765,7 @@ export const en = {
         {
           title: "Name and portrait",
           description:
-            "The principal's full name and a considered editorial portrait. Neither has been inferred or generated.",
+            "The principal’s full name and a considered editorial portrait. Neither has been inferred or generated.",
         },
         {
           title: "Formal qualification titles",
@@ -845,7 +845,7 @@ export const en = {
     engagement: {
       eyebrow: "How an engagement runs",
       headline: "Four stages. No handover.",
-      note: "The same sequence governs an airport programme and a family's move. Only the specialists change.",
+      note: "The same sequence governs an airport programme and a family’s move. Only the specialists change.",
       steps: [
         {
           title: "Enquiry",
@@ -868,7 +868,7 @@ export const en = {
     reserved: {
       eyebrow: "Firm information",
       headline: "Reserved for the record.",
-      note: "Held open deliberately. Nothing about the firm's history, people or credentials has been written in their place.",
+      note: "Held open deliberately. Nothing about the firm’s history, people or credentials has been written in their place.",
       items: [
         {
           title: "Registered company details",
@@ -1045,7 +1045,7 @@ export const en = {
         body: "You will get a reply from a person, at",
       },
       unconfigured:
-        "This form is not yet connected to the firm's intake, so your message has not been sent.",
+        "This form is not yet connected to the firm’s intake, so your message has not been sent.",
       failed: "The message could not be sent just now.",
       writeTo: "Please write to",
     },
@@ -1199,7 +1199,7 @@ export const en = {
             },
             {
               q: "Do you place children in schools?",
-              a: "No. We map the landscape by city and curriculum, get the timing right, and make introductions. Admission is the school's decision.",
+              a: "No. We map the landscape by city and curriculum, get the timing right, and make introductions. Admission is the school’s decision.",
             },
           ],
         },
@@ -1213,7 +1213,7 @@ export const en = {
             },
             {
               q: "Will you introduce us to banks?",
-              a: "We make introductions to appropriate relationships and coordinate what onboarding requires. Whether an account is opened is the institution's decision, not ours — and we are not paid by the banks we introduce.",
+              a: "We make introductions to appropriate relationships and coordinate what onboarding requires. Whether an account is opened is the institution’s decision, not ours — and we are not paid by the banks we introduce.",
             },
           ],
         },
@@ -1246,7 +1246,7 @@ export const en = {
       "Short pieces on aviation operations, Gulf markets and the practical business of moving a life or a company across borders. Published only when there is something to say.",
     notice: {
       label: "Section in preparation",
-      body: "Every entry below is a demonstration placeholder used to review layout and typography. None is published research, none is sourced, and none should be read as the firm's position.",
+      body: "Every entry below is a demonstration placeholder used to review layout and typography. None is published research, none is sourced, and none should be read as the firm’s position.",
     },
     filter: "Filter",
     all: "All",
@@ -1261,7 +1261,7 @@ export const en = {
     empty: "Nothing published in this category yet.",
     articleNotice: {
       label: "Demonstration article",
-      body: "This entry exists to demonstrate the article layout. The text below is placeholder copy — it is not research, it is not sourced, and it does not represent the firm's view on the subject. It will be replaced in full before the Insights section is published.",
+      body: "This entry exists to demonstrate the article layout. The text below is placeholder copy — it is not research, it is not sourced, and it does not represent the firm’s view on the subject. It will be replaced in full before the Insights section is published.",
     },
     allInsights: "All insights",
     demoTitle: "{title} (demonstration)",
@@ -1275,7 +1275,7 @@ export const en = {
       "the-fifteen-minute-margin": {
         title: "The fifteen-minute margin",
         standfirst:
-          "Why turnaround discipline decides more of an airline's commercial position than its network plan.",
+          "Why turnaround discipline decides more of an airline’s commercial position than its network plan.",
         readingTime: "6 min",
         date: "Sample entry",
         sections: [
@@ -1589,7 +1589,7 @@ export const en = {
           {
             heading: "Independence of introductions",
             body: "Introductions to schools, banks, agents, providers and professionals are made on the merits. Where any commercial arrangement exists with an introduced party, it is disclosed before the introduction is made.",
-            required: ["Confirmation of the firm's position on referral commissions"],
+            required: ["Confirmation of the firm’s position on referral commissions"],
           },
         ],
       },
