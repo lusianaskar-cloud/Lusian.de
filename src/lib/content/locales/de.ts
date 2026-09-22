@@ -57,7 +57,7 @@ export const de = {
     questions: {
       title: "Häufige Fragen",
       description:
-        "Fragen, die oft genug gestellt werden, um sie öffentlich zu beantworten – wie wir arbeiten, die Wahl eines Golfmarktes, Familie und Schule, Firmengründung und Luftfahrtmandate.",
+        "Fragen, die so oft kommen, dass wir sie hier öffentlich beantworten: wie wir arbeiten, die Wahl des Golfmarktes, Familie und Schule, Firmengründung, Luftfahrtmandate.",
     },
     insights: {
       title: "Perspektiven",
@@ -246,7 +246,7 @@ export const de = {
         },
         {
           title: "Das Urteil eines Praktikers",
-          body: "Beratung, die sich daran orientiert, wie Dinge tatsächlich laufen – Standplätze, Dienstpläne, Genehmigungen, Vermieter, Vorlaufzeiten – und nicht daran, wie sie in einer Präsentation aussehen.",
+          body: "Wir beraten aus dem laufenden Betrieb heraus: Standplätze, Dienstpläne, Genehmigungen, Vermieter, Vorlaufzeiten. Nicht aus der Präsentation.",
         },
         {
           title: "Diskretion als Methode",
@@ -254,7 +254,7 @@ export const de = {
         },
         {
           title: "Regulierte Fragen, in den richtigen Händen",
-          body: "Rechts-, Steuer-, Aufenthalts- und Finanzberatung erbringen qualifizierte Fachleute mit Zulassung in der jeweiligen Rechtsordnung. Wir koordinieren sie. Wir geben nicht vor, sie zu sein.",
+          body: "Rechts-, Steuer-, Aufenthalts- und Finanzberatung erbringen qualifizierte Fachleute mit Zulassung in der jeweiligen Rechtsordnung. Wir koordinieren sie. Wir ersetzen sie nicht.",
         },
       ],
     },
@@ -445,7 +445,7 @@ export const de = {
       "Ein privater Neuanfang in der Golfregion – geplant, in der richtigen Reihenfolge und durchgehend koordiniert, von einer Person, die das ganze Dossier kennt.",
     meta: "Vereinigte Arabische Emirate · Saudi-Arabien · Katar · Bahrain · Oman · Kuwait",
     positioning: {
-      headlineLines: ["Ein Umzug ist", "keine Entscheidung."],
+      headlineLines: ["Ein Umzug ist", "keine einzelne Entscheidung."],
       statement:
         "Ein Umzug mit Familie, mit einem Unternehmen oder mit beidem ist keine Entscheidung. Es sind mehrere hundert – der Reihe nach zu treffen, in einem fremden System und meist mit einem Stichtag im Nacken.",
       support:
